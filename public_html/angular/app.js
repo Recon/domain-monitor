@@ -46,6 +46,9 @@
                     .when('/users', {
                         templateUrl: '/templates/users/user-list.html'
                     })
+                    .when('/profile', {
+                        templateUrl: '/templates/profile/profile.html'
+                    })
                     .when('/login', {
                         templateUrl: '/templates/login.html'
                     })

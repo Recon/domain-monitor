@@ -1,0 +1,56 @@
+<div class="container" ng-controller="profileUserInfo">
+    <div class="row">
+        <div class="col-lg-10 text-left">
+
+            <h3>Update profile</h3>
+
+            <hr>
+
+            <div class="alert alert-success" ng-show="messages.edited">
+                <p><i class="fa fa-info-circle"></i> Your profile has been updated successfully. Redirecting back...</p>
+            </div>
+            <ng-include src="'templates/common/error-messages.html'"></ng-include>
+
+            <form class="form-horizontal" ng-submit="save()">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="me@example.com"
+                               ng-model="user.email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input name="user-password"
+                               type="password"
+                               class="form-control"
+                               placeholder="password"
+                               ng-model="user.password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Password (repeat)</label>
+                    <div class="col-sm-10">
+                        <input name="user-password2"
+                               type="password"
+                               class="form-control"
+                               placeholder="password"
+                               ng-model="user.password2">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

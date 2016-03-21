@@ -97,7 +97,7 @@ class UserController extends AbstractController
 
     public function updateUser()
     {
-        if (!$this->permissionChecker->isAdmin()) {
+        if (!$this->permissionChecker->isAdmin() && !($this->getLoggedInUser()->getId() == $this->request->get('id'))) {
             throw new UnauthorizedException();
         }
 
@@ -127,8 +127,10 @@ class UserController extends AbstractController
                 $messages[] = 'The passwords do not match';
             }
         }
-        $this->setUserDomains($user, $this->request->get('domains', []));
-        $user->save();
+
+        if ($this->permissionChecker->isAdmin() && !empty($this->request->get('domains'))) {
+            $this->setUserDomains($user, $this->request->get('domains', []));
+        }
 
         $messages = array_merge($messages, $this->getErrorMessages($user));
         if (count($messages)) {
@@ -139,6 +141,7 @@ class UserController extends AbstractController
                 ], 400);
         }
 
+        $user->save();
         $connection->commit();
 
         return new JsonResponse([

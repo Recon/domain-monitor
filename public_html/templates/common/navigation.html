@@ -18,6 +18,9 @@
                 <li ng-if="user.info.is_authenticated && user.info.roles.indexOf('ROLE_ADMIN') > -1">
                     <a href="#/users">Users</a>
                 </li>
+                <li ng-if="user.info.is_authenticated">
+                    <a href="#/profile">Profile</a>
+                </li>
                 <li ng-if="!user.info.is_authenticated">
                     <a href="#/login">Login</a>
                 </li>

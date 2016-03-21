@@ -21,7 +21,12 @@ class DomainsController extends AbstractController
             throw new UnauthorizedException();
         }
 
-        $domains = $this->getLoggedInUser()->getDomains();
+        if ($this->permissionChecker->isAdmin()) {
+            $domains = $this->getLoggedInUser()->getAccount()->getDomains();
+        } else {
+            $domains = $this->getLoggedInUser()->getDomains();
+        }
+
 
         return new JsonResponse($domains->toArray(null, null, TableMap::TYPE_FIELDNAME));
     }
