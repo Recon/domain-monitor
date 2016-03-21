@@ -1,0 +1,46 @@
+<div class="container" ng-controller="login">
+    <div class="row">
+
+        <div class="col-lg-6 col-lg-offset-3 text-left">
+
+            <div class="alert alert-success" ng-if="authenticated">
+                <p><i class="fa fa-info-circle"></i> You have authenticated successfully. Stand by...</p>
+            </div>
+
+            <div class="alert alert-danger" ng-if="errorMessage">
+                <p><i class="fa fa-info-circle"></i> <span>{{errorMessage}}</span></p>
+            </div>
+
+            <form class="form-horizontal" ng-submit="send()">
+                <div class="form-group">
+                    <label for="input-email" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email"
+                               class="form-control"
+                               id="input-email"
+                               placeholder="me@example.com"
+                               name="email"
+                               ng-model="username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-password" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="input-password"
+                            placeholder="Password"
+                            name="password"
+                            ng-model="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-key"></i> Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

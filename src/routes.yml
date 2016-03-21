@@ -1,0 +1,42 @@
+home:
+    path:     /
+    defaults: { _controller: 'Controllers\HomeController::showHomePage' }
+login:
+    path:     /login
+    defaults: { _controller: 'Controllers\AuthenticationController::login' }
+authenticated_user_info:
+    path:     /user/info_authenticated.json
+    defaults: { _controller: 'Controllers\UserController::getAuthenticatedUserInfo' }
+domains_list:
+    path:     /domains/list.json
+    defaults: { _controller: 'Controllers\DomainsController::getDomainList' }
+domains_item:
+    path:     /domains/item.json
+    defaults: { _controller: 'Controllers\DomainsController::getDomainInfo' }
+domains_add:
+    path:     /domains/add
+    defaults: { _controller: 'Controllers\DomainsController::addDomain' }
+domains_update:
+    path:     /domains/update
+    defaults: { _controller: 'Controllers\DomainsController::updateDomain' }
+domains_set_enabled:
+    path:     /domains/set-enabled
+    defaults: { _controller: 'Controllers\DomainsController::setEnabled' }
+domains_delete:
+    path:     /domains/delete
+    defaults: { _controller: 'Controllers\DomainsController::deleteDomain' }
+account_users:
+    path:     /account/users
+    defaults: { _controller: 'Controllers\AccountController::getUsers' }
+user_info:
+    path:     /user/info.json
+    defaults: { _controller: 'Controllers\UserController::getUserInfo' }
+user_update:
+    path:     /user/update
+    defaults: { _controller: 'Controllers\UserController::updateUser' }
+user_add:
+    path:     /user/add
+    defaults: { _controller: 'Controllers\UserController::addUser' }
+user_delete:
+    path:     /user/delete
+    defaults: { _controller: 'Controllers\UserController::deleteUser' }

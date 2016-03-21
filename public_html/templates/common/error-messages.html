@@ -1,0 +1,9 @@
+<div class="alert alert-danger" ng-show="messages.errors.length > 0">
+    <p>
+        <i class="fa fa-exclamation-triangle"> <strong>There are some problems with your request</strong></i>
+    </p>
+
+    <ul>
+        <li ng-repeat="message in messages.errors track by $index">{{message}}</li>
+    </ul>
+</div>

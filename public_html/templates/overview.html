@@ -1,0 +1,68 @@
+<div class="container" ng-controller="overview">
+    <div class="row">
+        <div class="col-lg-12 text-left">
+            <table class="table table-hover"
+                   ng-show="domains.length > 0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Tests</th>
+                        <th>Last status</th>
+                        <th>Last checked</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="record in domains"
+                        ng-class="{'success': !!record.is_enabled}">
+                        <th scope="row">{{$index + 1}}</th>
+                        <td>{{record.uri}}</td>
+                        <td>http, https</td>
+                        <td><strong class="text-success">4/4</strong></td>
+                        <td>5 minutes ago</td>
+                        <td class="text-right">
+                            <a class="btn btn-sm btn-info"
+                               ng-if="user.info.roles.indexOf('ROLE_ADMIN') > -1"
+                               ng-href="#/domain-settings/{{record.id}}">
+                                <i class="fa fa-edit"></i>
+                                Edit
+                            </a>
+                            <a class="btn btn-sm btn-warning"
+                               ng-click="setEnabled(record, false)"
+                               ng-if="record.is_enabled && user.info.roles.indexOf('ROLE_ADMIN') > -1">
+                                <i class="fa fa-pause-circle"></i>
+                                Pause
+                            </a>
+                            <a class="btn btn-sm btn-success"
+                               ng-click="setEnabled(record, true)"
+                               ng-if="!record.is_enabled && user.info.roles.indexOf('ROLE_ADMIN') > -1">
+                                <i class="fa fa-play-circle"></i>
+                                Enable
+                            </a>
+                            <a class="btn btn-sm btn-danger"
+                               ng-if="user.info.roles.indexOf('ROLE_ADMIN') > -1"
+                               ng-click="delete($index)">
+                                <i class="fa fa-remove"></i>
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-info" ng-show="domains.length == 0">
+                <p><i class="fa fa-info-circle"></i> You haven't added any domain yet.</p>
+            </div>
+
+            <div class="text-right">
+                <a href="#/domain-settings/new"
+                   class="btn btn-info"
+                   ng-if="user.info.roles.indexOf('ROLE_ADMIN') > -1"
+                   >
+                    <i class="fa fa-plus-circle"></i> Add a domain
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
