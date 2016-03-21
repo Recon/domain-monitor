@@ -17,7 +17,7 @@
         <column name="email" type="varchar" size="255" required="true"/>
         <column name="password" type="varchar" required="true"/>
         <column name="recovery_token" type="varchar" size="32" required="false"/>
-        <column name="recovery_date" type="timestamp" size="" required="false"/>
+        <column name="recovery_date" type="timestamp" required="false" />
         <behavior name="timestampable" />
         <unique>
             <unique-column name="email"/>
@@ -42,7 +42,7 @@
     <table name="users_domain" isCrossRef="true">
         <column name="user_id" type="integer" primaryKey="true"/>
         <column name="domain_id" type="integer" primaryKey="true"/>
-        <foreign-key foreignTable="user">
+        <foreign-key foreignTable="user" onDelete="cascade" onUpdate="cascade">
             <reference local="user_id" foreign="id"/>
         </foreign-key>
         <foreign-key foreignTable="domain" onDelete="cascade" onUpdate="cascade">

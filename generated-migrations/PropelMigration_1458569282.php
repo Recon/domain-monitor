@@ -2,10 +2,10 @@
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1457967453.
- * Generated on 2016-03-14 15:57:33 
+ * up to version 1458569282.
+ * Generated on 2016-03-21 15:08:02 
  */
-class PropelMigration_1457967453
+class PropelMigration_1458569282
 {
     public $comment = '';
 
@@ -43,15 +43,6 @@ class PropelMigration_1457967453
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE TABLE `account`
-(
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL,
-    `created_at` DATETIME,
-    `updated_at` DATETIME,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
-
 CREATE TABLE `user`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -62,7 +53,7 @@ CREATE TABLE `user`
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `recovery_token` VARCHAR(32),
-    `recovery_date` DATETIME(0),
+    `recovery_date` DATETIME,
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`id`),
@@ -102,7 +93,9 @@ CREATE TABLE `users_domain`
     INDEX `users_domain_fi_056961` (`domain_id`),
     CONSTRAINT `users_domain_fk_29554a`
         FOREIGN KEY (`user_id`)
-        REFERENCES `user` (`id`),
+        REFERENCES `user` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT `users_domain_fk_056961`
         FOREIGN KEY (`domain_id`)
         REFERENCES `domain` (`id`)
@@ -145,8 +138,6 @@ SET FOREIGN_KEY_CHECKS = 1;
 # This is a fix for InnoDB in MySQL >= 4.1.x
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
-
-DROP TABLE IF EXISTS `account`;
 
 DROP TABLE IF EXISTS `user`;
 
