@@ -52,7 +52,8 @@
             </table>
 
             <div class="alert alert-info" ng-show="domains.length == 0">
-                <p><i class="fa fa-info-circle"></i> You haven't added any domain yet.</p>
+                <p ng-if="user.info.roles.indexOf('ROLE_ADMIN') > -1"><i class="fa fa-info-circle"></i> You haven't added any domain yet.</p>
+                <p ng-if="user.info.roles.indexOf('ROLE_ADMIN') == -1"><i class="fa fa-info-circle"></i> The domain list is empty</p>
             </div>
 
             <div class="text-right">
