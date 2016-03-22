@@ -15,7 +15,9 @@ use \Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use \Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use \Symfony\Component\Templating\EngineInterface;
 use \Symfony\Component\Validator\Validation;
+use \Util\Mailer;
 use \Util\TemplatingFactory;
+use \Util\UserPermissionChecker;
 use \Util\ValidatorFactory;
 
 //require 'authentication.php';
@@ -36,6 +38,13 @@ $definition = new Definition();
 $definition->setSynthetic(true);
 $container->setDefinition('session', $definition);
 $container->set('session', $session);
+
+/**
+ * Mailer
+ */
+$definition = new Definition(Mailer::class, [new Reference('template_engine')]);
+$definition->setFactory([Mailer::class, 'factory']);
+$container->setDefinition('mailer', $definition);
 
 
 /**
@@ -65,10 +74,10 @@ $definition = new Definition(AuthorizationChecker::class, [
 $definition->setFactory([AuthorizationCheckerFactory::class, 'create']);
 $container->setDefinition('auth.checker', $definition);
 
-$definition = new Definition(\Util\UserPermissionChecker::class);
+$definition = new Definition(UserPermissionChecker::class);
 $definition->setSynthetic(true);
 $container->setDefinition('auth.permission_checker', $definition);
-$container->set('auth.permission_checker', new \Util\UserPermissionChecker($container->get('auth.checker'), $container->get('session')));
+$container->set('auth.permission_checker', new UserPermissionChecker($container->get('auth.checker'), $container->get('session')));
 
 
 

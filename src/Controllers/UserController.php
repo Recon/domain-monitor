@@ -103,8 +103,6 @@ class UserController extends AbstractController
 
         /* @var $encoderFactory EncoderFactory */
         $encoderFactory = $this->container->get('auth.encoder');
-        /* @var $validator ValidatorInterface */
-        $validator = $this->container->get('validator');
         $messages = [];
         $connection = Propel::getConnection();
 

@@ -4,6 +4,12 @@ home:
 login:
     path:     /login
     defaults: { _controller: 'Controllers\AuthenticationController::login' }
+request_reset:
+    path:     /request_reset
+    defaults: { _controller: 'Controllers\AuthenticationController::requestReset' }
+perform_reset:
+    path:     /perform_reset
+    defaults: { _controller: 'Controllers\AuthenticationController::performReset' }
 authenticated_user_info:
     path:     /user/info_authenticated.json
     defaults: { _controller: 'Controllers\UserController::getAuthenticatedUserInfo' }

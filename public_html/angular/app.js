@@ -52,6 +52,9 @@
                     .when('/login', {
                         templateUrl: '/templates/login.html'
                     })
+                    .when('/reset-password/:token', {
+                        templateUrl: '/templates/reset-password.html'
+                    })
                     .when('/', {
                         templateUrl: '/templates/index.html',
                         controller: 'index'

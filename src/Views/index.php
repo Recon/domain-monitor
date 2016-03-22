@@ -57,6 +57,7 @@
     <script src="angular/controllers/user-settings.js"></script>
     <script src="angular/controllers/login.js"></script>
     <script src="angular/controllers/profile/profile-user-info.js"></script>
+    <script src="angular/controllers/password-reset.js"></script>
     <script src="angular/services/user.js"></script>
     <script src="angular/filters/moment.js"></script>
     <script src="angular/filters/range.js"></script>
