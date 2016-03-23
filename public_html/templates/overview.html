@@ -24,7 +24,10 @@
                                   >{{$parent.type_names[test.id]}}</span>
                         </td>
                         <td><strong class="text-success">{{record.successful_test_count}}/{{record.tests.length}}</strong></td>
-                        <td>5 minutes ago</td>
+                        <td>
+                            <span ng-if="last_checked">{{last_checked|moment_diff}}</span>
+                            <span ng-if="!last_checked">Never checked</span>
+                        </td>
                         <td class="text-right">
                             <a class="btn btn-sm btn-info"
                                ng-if="user.info.roles.indexOf('ROLE_ADMIN') > -1"

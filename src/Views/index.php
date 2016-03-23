@@ -44,6 +44,7 @@
     <script src="bower/jquery/dist/jquery.js"></script>
     <script src="bower/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower/angular/angular.js"></script>
+    <script src="bower/moment/moment.js"></script>
     <script src="bower/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower/angular-route/angular-route.js"></script>
 
