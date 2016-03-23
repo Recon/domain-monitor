@@ -10,7 +10,6 @@ use \Models\Test;
 use \Propel\Runtime\Map\TableMap;
 use \Propel\Runtime\Propel;
 use \Symfony\Component\HttpFoundation\JsonResponse;
-use \Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DomainsController extends AbstractController
 {
@@ -22,11 +21,17 @@ class DomainsController extends AbstractController
         }
 
         if ($this->permissionChecker->isAdmin()) {
-            $domains = $this->getLoggedInUser()->getAccount()->getDomains();
+            $domains = DomainQuery::create()
+                ->joinWith("Domain.Test", \Propel\Runtime\ActiveQuery\Criteria::LEFT_JOIN)
+                ->filterByAccountId($this->getLoggedInUser()->getAccount()->getId())
+                ->find();
         } else {
-            $domains = $this->getLoggedInUser()->getDomains();
+            $domains = DomainQuery::create()
+                ->filterByUser($this->getLoggedInUser())
+                ->filterByAccountId($this->getLoggedInUser()->getAccount()->getId())
+                ->joinWithTest()
+                ->find();
         }
-
 
         return new JsonResponse($domains->toArray(null, null, TableMap::TYPE_FIELDNAME));
     }

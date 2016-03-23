@@ -26,12 +26,13 @@ class GenerateInternalMetadata extends Command
 
         $content .= "monitorMetadata.domainStatuses = " . json_encode($this->getDomainRecordStatuses()) . ';' . PHP_EOL;
         $content .= "monitorMetadata.testTypes = " . json_encode($this->getTestTypes()) . ';' . PHP_EOL;
+        $content .= "monitorMetadata.testTypesNames = " . json_encode($this->getTestTypesNames(), JSON_FORCE_OBJECT) . ';' . PHP_EOL;
 
         $file = new \SplFileObject($path = __DIR__ . '/../../public_html/js/monitor-metadata.js', 'w');
         $file->fwrite($content);
 
         $output->writeln(sprintf("<info>A new file has been generated at %s</info>", realpath($path)));
-        }
+    }
 
     protected function getDomainRecordStatuses()
     {
@@ -59,6 +60,21 @@ class GenerateInternalMetadata extends Command
                 unset($types[$k]);
             }
         }
+
+        return $types;
+    }
+
+    protected function getTestTypesNames()
+    {
+        $types = $this->getTestTypes();
+        array_walk($types, function(&$value) {
+            $value = (int) ($value);
+        });
+
+        $types = array_flip($types);
+        array_walk($types, function(&$value) {
+            $value = str_replace('TYPE_', '', $value);
+        });
 
         return $types;
     }

@@ -1,11 +1,19 @@
-(function (angular, $) {
+(function (angular, $, monitorMetadata) {
     'use strict';
     window.app.controller('overview', ['$scope', '$http', 'userService', function ($scope, $http, userService) {
+            var self = this;
             $scope.user = userService;
             $scope.domains = [];
+            $scope.type_names = monitorMetadata.testTypesNames;
 
             $http.get('domains/list.json').then(function (response) {
-                $scope.domains = response.data;
+                var domains = response.data;
+
+                for (var i in domains){
+                    domains[i].successful_test_count = self.countSuccessfulTests(domains[i]);
+                }
+
+                $scope.domains = domains;
             });
 
             $scope.delete = function (index) {
@@ -30,5 +38,15 @@
                     }
                 });
             };
+
+            self.countSuccessfulTests = function (record) {
+                var count = 0;
+                for (var i in record.tests) {
+                    if (record.tests[i].status == true)
+                        count++;
+                }
+
+                return count;
+            }
         }]);
-})(window.angular, window.jQuery);
+})(window.angular, window.jQuery, monitorMetadata);
