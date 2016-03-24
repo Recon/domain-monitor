@@ -113,21 +113,21 @@ abstract class Domain implements ActiveRecordInterface
     /**
      * The value for the last_checked field.
      *
-     * @var        \DateTime
+     * @var        DateTime
      */
     protected $last_checked;
 
     /**
      * The value for the created_at field.
      *
-     * @var        \DateTime
+     * @var        DateTime
      */
     protected $created_at;
 
     /**
      * The value for the updated_at field.
      *
-     * @var        \DateTime
+     * @var        DateTime
      */
     protected $updated_at;
 
@@ -499,7 +499,7 @@ abstract class Domain implements ActiveRecordInterface
         if ($format === null) {
             return $this->last_checked;
         } else {
-            return $this->last_checked instanceof \DateTime ? $this->last_checked->format($format) : null;
+            return $this->last_checked instanceof \DateTimeInterface ? $this->last_checked->format($format) : null;
         }
     }
 
@@ -519,7 +519,7 @@ abstract class Domain implements ActiveRecordInterface
         if ($format === null) {
             return $this->created_at;
         } else {
-            return $this->created_at instanceof \DateTime ? $this->created_at->format($format) : null;
+            return $this->created_at instanceof \DateTimeInterface ? $this->created_at->format($format) : null;
         }
     }
 
@@ -539,7 +539,7 @@ abstract class Domain implements ActiveRecordInterface
         if ($format === null) {
             return $this->updated_at;
         } else {
-            return $this->updated_at instanceof \DateTime ? $this->updated_at->format($format) : null;
+            return $this->updated_at instanceof \DateTimeInterface ? $this->updated_at->format($format) : null;
         }
     }
 
@@ -658,7 +658,7 @@ abstract class Domain implements ActiveRecordInterface
     /**
      * Sets the value of [last_checked] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Models\Domain The current object (for fluent API support)
      */
@@ -678,7 +678,7 @@ abstract class Domain implements ActiveRecordInterface
     /**
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Models\Domain The current object (for fluent API support)
      */
@@ -698,7 +698,7 @@ abstract class Domain implements ActiveRecordInterface
     /**
      * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Models\Domain The current object (for fluent API support)
      */
@@ -927,8 +927,8 @@ abstract class Domain implements ActiveRecordInterface
         }
 
         return $con->transaction(function () use ($con) {
-            $isInsert = $this->isNew();
             $ret = $this->preSave($con);
+            $isInsert = $this->isNew();
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // timestampable behavior

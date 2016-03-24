@@ -86,14 +86,14 @@ abstract class Account implements ActiveRecordInterface
     /**
      * The value for the created_at field.
      *
-     * @var        \DateTime
+     * @var        DateTime
      */
     protected $created_at;
 
     /**
      * The value for the updated_at field.
      *
-     * @var        \DateTime
+     * @var        DateTime
      */
     protected $updated_at;
 
@@ -390,7 +390,7 @@ abstract class Account implements ActiveRecordInterface
         if ($format === null) {
             return $this->created_at;
         } else {
-            return $this->created_at instanceof \DateTime ? $this->created_at->format($format) : null;
+            return $this->created_at instanceof \DateTimeInterface ? $this->created_at->format($format) : null;
         }
     }
 
@@ -410,7 +410,7 @@ abstract class Account implements ActiveRecordInterface
         if ($format === null) {
             return $this->updated_at;
         } else {
-            return $this->updated_at instanceof \DateTime ? $this->updated_at->format($format) : null;
+            return $this->updated_at instanceof \DateTimeInterface ? $this->updated_at->format($format) : null;
         }
     }
 
@@ -457,7 +457,7 @@ abstract class Account implements ActiveRecordInterface
     /**
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Models\Account The current object (for fluent API support)
      */
@@ -477,7 +477,7 @@ abstract class Account implements ActiveRecordInterface
     /**
      * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Models\Account The current object (for fluent API support)
      */
@@ -678,8 +678,8 @@ abstract class Account implements ActiveRecordInterface
         }
 
         return $con->transaction(function () use ($con) {
-            $isInsert = $this->isNew();
             $ret = $this->preSave($con);
+            $isInsert = $this->isNew();
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
                 // timestampable behavior

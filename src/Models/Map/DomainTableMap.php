@@ -163,7 +163,7 @@ class DomainTableMap extends TableMap
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
         $this->addForeignKey('account_id', 'AccountId', 'INTEGER', 'account', 'id', true, null, null);
-        $this->addColumn('uri', 'Uri', 'VARCHAR', true, 511, null);
+        $this->addColumn('uri', 'Uri', 'VARCHAR', true, 255, null);
         $this->addColumn('status', 'Status', 'TINYINT', true, null, 0);
         $this->addColumn('is_enabled', 'IsEnabled', 'BOOLEAN', true, 1, false);
         $this->addColumn('last_checked', 'LastChecked', 'TIMESTAMP', false, null, null);
@@ -197,7 +197,7 @@ class DomainTableMap extends TableMap
     1 => ':id',
   ),
 ), 'CASCADE', 'CASCADE', 'Tests', false);
-        $this->addRelation('User', '\\Models\\User', RelationMap::MANY_TO_MANY, array(), null, null, 'Users');
+        $this->addRelation('User', '\\Models\\User', RelationMap::MANY_TO_MANY, array(), 'CASCADE', 'CASCADE', 'Users');
     } // buildRelations()
 
     /**

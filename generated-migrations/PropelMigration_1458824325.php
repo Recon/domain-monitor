@@ -2,10 +2,10 @@
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1458569282.
- * Generated on 2016-03-21 15:08:02 
+ * up to version 1458824325.
+ * Generated on 2016-03-24 13:58:45 
  */
-class PropelMigration_1458569282
+class PropelMigration_1458824325
 {
     public $comment = '';
 
@@ -43,6 +43,15 @@ class PropelMigration_1458569282
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
+CREATE TABLE `account`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `created_at` DATETIME,
+    `updated_at` DATETIME,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
 CREATE TABLE `user`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -70,14 +79,14 @@ CREATE TABLE `domain`
 (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `account_id` INTEGER NOT NULL,
-    `uri` VARCHAR(511) NOT NULL,
+    `uri` VARCHAR(255) NOT NULL,
     `status` TINYINT DEFAULT 0 NOT NULL,
     `is_enabled` TINYINT(1) DEFAULT 0 NOT NULL,
     `last_checked` DATETIME,
     `created_at` DATETIME,
     `updated_at` DATETIME,
     PRIMARY KEY (`id`),
-    INDEX `domain_fi_474870` (`account_id`),
+    UNIQUE INDEX `domain_u_2ffc13` (`account_id`, `uri`),
     CONSTRAINT `domain_fk_474870`
         FOREIGN KEY (`account_id`)
         REFERENCES `account` (`id`)
@@ -138,6 +147,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 # This is a fix for InnoDB in MySQL >= 4.1.x
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `account`;
 
 DROP TABLE IF EXISTS `user`;
 

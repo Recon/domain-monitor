@@ -147,7 +147,7 @@ class UsersDomainTableMap extends TableMap
     0 => ':user_id',
     1 => ':id',
   ),
-), null, null, null, false);
+), 'CASCADE', 'CASCADE', null, false);
         $this->addRelation('Domain', '\\Models\\Domain', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (

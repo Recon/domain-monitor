@@ -207,7 +207,7 @@ class UserTableMap extends TableMap
     0 => ':user_id',
     1 => ':id',
   ),
-), null, null, 'UsersDomains', false);
+), 'CASCADE', 'CASCADE', 'UsersDomains', false);
         $this->addRelation('Domain', '\\Models\\Domain', RelationMap::MANY_TO_MANY, array(), 'CASCADE', 'CASCADE', 'Domains');
     } // buildRelations()
 
@@ -223,6 +223,15 @@ class UserTableMap extends TableMap
             'timestampable' => array('create_column' => 'created_at', 'update_column' => 'updated_at', 'disable_created_at' => 'false', 'disable_updated_at' => 'false', ),
         );
     } // getBehaviors()
+    /**
+     * Method to invalidate the instance pool of all tables related to user     * by a foreign key with ON DELETE CASCADE
+     */
+    public static function clearRelatedInstancePool()
+    {
+        // Invalidate objects in related instance pools,
+        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+        UsersDomainTableMap::clearInstancePool();
+    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.

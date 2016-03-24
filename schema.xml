@@ -30,11 +30,16 @@
     <table name="domain" phpName="Domain">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="account_id" type="integer" required="true"/>
-        <column name="uri" type="varchar" size="511" required="true"/>
+        <!-- URI limit to 255 due to the InnoDB/UTF8 unique key limitation at 767 bytes, error #1071 -->
+        <column name="uri" type="varchar" size="255" required="true"/>
         <column name="status" type="tinyint" required="true" defaultValue="0"/>
         <column name="is_enabled" type="boolean" required="true" defaultValue="0"/>
         <column name="last_checked" type="timestamp"/>
         <behavior name="timestampable" />
+        <unique>
+            <unique-column name="account_id"/>
+            <unique-column name="uri"/>
+        </unique>
         <foreign-key foreignTable="account" onDelete="cascade" onUpdate="cascade">
             <reference local="account_id" foreign="id" />
         </foreign-key>

@@ -100,10 +100,6 @@ class DomainsController extends AbstractController
         $domain = new Domain();
         $domain->setUri($this->request->get('uri'));
         $domain->setAccount($this->getLoggedInUser()->getAccount());
-        $domain->save();
-
-        $user->addDomain($domain);
-        $user->save();
 
         $messages = array_merge($messages, $this->getErrorMessages($domain));
 
@@ -126,6 +122,9 @@ class DomainsController extends AbstractController
                 ], 400);
         }
 
+        $domain->save();
+        $user->addDomain($domain);
+        $user->save();
         $connection->commit();
 
         return new JsonResponse([

@@ -94,7 +94,7 @@ abstract class Test implements ActiveRecordInterface
     /**
      * The value for the last_checked field.
      *
-     * @var        \DateTime
+     * @var        DateTime
      */
     protected $last_checked;
 
@@ -402,7 +402,7 @@ abstract class Test implements ActiveRecordInterface
         if ($format === null) {
             return $this->last_checked;
         } else {
-            return $this->last_checked instanceof \DateTime ? $this->last_checked->format($format) : null;
+            return $this->last_checked instanceof \DateTimeInterface ? $this->last_checked->format($format) : null;
         }
     }
 
@@ -501,7 +501,7 @@ abstract class Test implements ActiveRecordInterface
     /**
      * Sets the value of [last_checked] column to a normalized version of the date/time value specified.
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTime value.
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
      *               Empty strings are treated as NULL.
      * @return $this|\Models\Test The current object (for fluent API support)
      */
@@ -702,8 +702,8 @@ abstract class Test implements ActiveRecordInterface
         }
 
         return $con->transaction(function () use ($con) {
-            $isInsert = $this->isNew();
             $ret = $this->preSave($con);
+            $isInsert = $this->isNew();
             if ($isInsert) {
                 $ret = $ret && $this->preInsert($con);
             } else {
