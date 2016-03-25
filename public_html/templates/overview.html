@@ -15,7 +15,12 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="record in domains"
-                        ng-class="{'success': !!record.is_enabled}">
+                        ng-class="{
+                        'success': record.status == statuses.STATUS_OK,
+                        'warning': record.status == statuses.STATUS_FAIL_PARTIAL,
+                        'danger': record.status == statuses.STATUS_FAIL_ALL,
+                        'active text-muted': record.status == statuses.STATUS_UNKNOWN
+                        }">
                         <th scope="row">{{$index + 1}}</th>
                         <td>{{record.uri}}</td>
                         <td>
@@ -23,10 +28,14 @@
                                   ng-repeat="test in record.tests"
                                   >{{$parent.type_names[test.id]}}</span>
                         </td>
-                        <td><strong class="text-success">{{record.successful_test_count}}/{{record.tests.length}}</strong></td>
                         <td>
-                            <span ng-if="last_checked">{{last_checked|moment_diff}}</span>
-                            <span ng-if="!last_checked">Never checked</span>
+                            <strong class="text-success">{{record.successful_test_count}}/{{record.tests.length}}</strong>
+                        </td>
+                        <td>
+                            <span ng-if="record.last_checked">{{record.last_checked|moment_diff}}</span>
+                            <span ng-if="!record.last_checked">
+                                <em class="text-muted">Never checked</em>
+                            </span>
                         </td>
                         <td class="text-right">
                             <a class="btn btn-sm btn-info"

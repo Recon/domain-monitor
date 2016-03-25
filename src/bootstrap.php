@@ -6,6 +6,7 @@ use \Authentication\TokenStorageFactory;
 use \Symfony\Component\DependencyInjection\ContainerBuilder;
 use \Symfony\Component\DependencyInjection\Definition;
 use \Symfony\Component\DependencyInjection\Reference;
+use \Symfony\Component\EventDispatcher\EventDispatcher;
 use \Symfony\Component\HttpFoundation\Session\Session;
 use \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
 use \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
@@ -48,6 +49,16 @@ $container->setDefinition('mailer', $definition);
 
 
 /**
+ * Event system
+ */
+$definition = new Definition(EventDispatcher::class);
+$definition->setSynthetic(true);
+$container->setDefinition('dispatcher', $definition);
+$container->set('event_dispatcher', new EventDispatcher());
+$container->get('event_dispatcher')->addSubscriber(new Subscribers\DomainTestExecutionSubscriber());
+
+
+/**
  * Build authentication mechanism
  */
 $definition = new Definition(TokenStorage::class);
@@ -79,8 +90,6 @@ $definition->setSynthetic(true);
 $container->setDefinition('auth.permission_checker', $definition);
 $container->set('auth.permission_checker', new UserPermissionChecker($container->get('auth.checker'), $container->get('session')));
 
-
-
 // Anonymous authentication
 if (!$token = $session->get('auth_token')) {
     $token = new AnonymousToken('something', 'anonymous');
@@ -105,3 +114,12 @@ $definition = new Definition(EngineInterface::class);
 $definition->setFactory([TemplatingFactory::class, 'create']);
 $container->setDefinition('template_engine', $definition);
 
+
+/**
+ * Tester/probes
+ */
+$definition = new Definition(Util\TestEvaluators\HttpEvaluator::class, [
+    new Reference('event_dispatcher'),
+    ]);
+$definition->setFactory([Util\TestEvaluators\HttpEvaluator::class, 'factory']);
+$container->setDefinition('evaluator.http', $definition);

@@ -69,6 +69,7 @@ class FillDummyData extends Command
             $domain->setAccount($account)
                 ->setStatus(Domain::STATUS_UNKNOWN)
                 ->setUri($uri)
+                ->setIsEnabled(true)
                 ->save();
 
             $user->addDomain($domain)->save();

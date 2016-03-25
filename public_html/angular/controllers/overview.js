@@ -5,6 +5,7 @@
             $scope.user = userService;
             $scope.domains = [];
             $scope.type_names = monitorMetadata.testTypesNames;
+            $scope.statuses = monitorMetadata.domainStatuses;
 
             $http.get('domains/list.json').then(function (response) {
                 var domains = response.data;
