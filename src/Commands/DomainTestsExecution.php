@@ -2,6 +2,7 @@
 
 namespace Commands;
 
+use \DateTime;
 use \Models\Domain;
 use \Models\DomainQuery;
 use \Models\Test;
@@ -11,8 +12,10 @@ use \Symfony\Component\Console\Command\Command;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\DependencyInjection\Container;
-use \DateTime;
+use \Util\TestEvaluators\AbstractCurlDomainResponseEvaluator;
+use \Util\Tests\AbstractCurlBatch;
 use \Util\Tests\HttpBatch;
+use \Util\Tests\HttpsBatch;
 
 class DomainTestsExecution extends Command
 {
@@ -56,26 +59,29 @@ class DomainTestsExecution extends Command
 
         $output->writeln(sprintf("<info>Found %s domains</info>", $domains->count()));
         $output->writeln("<info>Executing HTTP tests...</info>");
-        $this->performHttpTests($domains);
+        $this->performCurlConnectivityTests($this->container->get('evaluator.http'), new HttpBatch(), $domains, Test::TYPE_HTTP);
+
+        $output->writeln("<info>Executing HTTPS tests...</info>");
+        $this->performCurlConnectivityTests($this->container->get('evaluator.https'), new HttpsBatch(), $domains, Test::TYPE_HTTPS);
     }
 
     /**
      *
-     * @param Domain[] $domains
+     * @param AbstractCurlDomainResponseEvaluator $evaluator
+     * @param Collection $domains
+     * @param string $type Test type
      */
-    protected function performHttpTests(Collection $domains)
+    protected function performCurlConnectivityTests(AbstractCurlDomainResponseEvaluator $evaluator, AbstractCurlBatch $tester, Collection $domains, $type)
     {
-        $tester = new HttpBatch();
-        $evaluator = $this->container->get('evaluator.http');
 
-        /* @var $test \Models\Test */
-        /* @var $domain \Models\Domain */
+        /* @var $test Test */
+        /* @var $domain Domain */
         foreach ($domains As $domain) {
             foreach ($domain->getTests() as $test) {
-                if ($test->getTestType() != Test::TYPE_HTTP) {
+                if ($test->getTestType() != $type) {
                     continue;
                 }
-                
+
                 $tester->addTest($test);
                 $test->setLastChecked($this->time);
                 $domain->setLastChecked($this->time);

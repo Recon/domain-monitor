@@ -123,3 +123,10 @@ $definition = new Definition(Util\TestEvaluators\HttpEvaluator::class, [
     ]);
 $definition->setFactory([Util\TestEvaluators\HttpEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.http', $definition);
+
+
+$definition = new Definition(Util\TestEvaluators\HttpsEvaluator::class, [
+    new Reference('event_dispatcher'),
+    ]);
+$definition->setFactory([Util\TestEvaluators\HttpsEvaluator::class, 'factory']);
+$container->setDefinition('evaluator.https', $definition);
