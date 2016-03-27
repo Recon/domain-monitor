@@ -15,12 +15,19 @@ class TestExecutionEvent extends Event
      */
     private $test;
 
+    /**
+     * TestExecutionEvent constructor.
+     * @param \Models\Test $test
+     */
     public function __construct(\Models\Test $test)
     {
         $this->test = $test;
     }
 
-    function getTest()
+    /**
+     * @return \Models\Test
+     */
+    public function getTest()
     {
         return $this->test;
     }

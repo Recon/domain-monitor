@@ -6,25 +6,25 @@
     <table name="account" phpName="Account">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="name" type="varchar" size="255" required="true"/>
-        <behavior name="timestampable" />
+        <behavior name="timestampable"/>
     </table>
     <table name="user" phpName="User">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
         <column name="account_id" type="integer" required="true"/>
         <column name="username" type="varchar" size="255" required="true"/>
-        <column name="roles" type="array" required="true" defalutValue="ROLE_USER" />
-        <column name="salt" type="varchar" size="255" required="true" />
+        <column name="roles" type="array" required="true" defalutValue="ROLE_USER"/>
+        <column name="salt" type="varchar" size="255" required="true"/>
         <column name="email" type="varchar" size="255" required="true"/>
         <column name="password" type="varchar" required="true"/>
         <column name="recovery_token" type="varchar" size="32" required="false"/>
-        <column name="recovery_date" type="timestamp" required="false" />
-        <behavior name="timestampable" />
+        <column name="recovery_date" type="timestamp" required="false"/>
+        <behavior name="timestampable"/>
         <unique>
             <unique-column name="email"/>
             <unique-column name="username"/>
         </unique>
         <foreign-key foreignTable="account" onDelete="cascade" onUpdate="cascade">
-            <reference local="account_id" foreign="id" />
+            <reference local="account_id" foreign="id"/>
         </foreign-key>
     </table>
     <table name="domain" phpName="Domain">
@@ -35,13 +35,13 @@
         <column name="status" type="tinyint" required="true" defaultValue="0"/>
         <column name="is_enabled" type="boolean" required="true" defaultValue="0"/>
         <column name="last_checked" type="timestamp"/>
-        <behavior name="timestampable" />
+        <behavior name="timestampable"/>
         <unique>
             <unique-column name="account_id"/>
             <unique-column name="uri"/>
         </unique>
         <foreign-key foreignTable="account" onDelete="cascade" onUpdate="cascade">
-            <reference local="account_id" foreign="id" />
+            <reference local="account_id" foreign="id"/>
         </foreign-key>
     </table>
     <table name="users_domain" isCrossRef="true">
@@ -51,7 +51,7 @@
             <reference local="user_id" foreign="id"/>
         </foreign-key>
         <foreign-key foreignTable="domain" onDelete="cascade" onUpdate="cascade">
-            <reference local="domain_id" foreign="id" />
+            <reference local="domain_id" foreign="id"/>
         </foreign-key>
     </table>
     <table name="test" phpName="Test">
@@ -61,7 +61,17 @@
         <column name="status" type="boolean" required="true"/>
         <column name="last_checked" type="timestamp"/>
         <foreign-key foreignTable="domain" onDelete="cascade" onUpdate="cascade">
-            <reference local="domain_id" foreign="id" />
+            <reference local="domain_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    <table name="status_change_log" phpName="StatusChange">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="test_id" type="integer" required="true"/>
+        <column name="date" type="timestamp"/>
+        <column name="old_status" type="boolean" required="true"/> <!-- false for failure, true for success-->
+        <column name="new_status" type="boolean" required="true"/>
+        <foreign-key foreignTable="test" onDelete="cascade" onUpdate="cascade">
+            <reference local="test_id" foreign="id"/>
         </foreign-key>
     </table>
 </database>

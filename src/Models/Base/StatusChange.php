@@ -5,20 +5,15 @@ namespace Models\Base;
 use \DateTime;
 use \Exception;
 use \PDO;
-use Models\Domain as ChildDomain;
-use Models\DomainQuery as ChildDomainQuery;
-use Models\StatusChange as ChildStatusChange;
 use Models\StatusChangeQuery as ChildStatusChangeQuery;
 use Models\Test as ChildTest;
 use Models\TestQuery as ChildTestQuery;
 use Models\Map\StatusChangeTableMap;
-use Models\Map\TestTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Collection\Collection;
-use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\BadMethodCallException;
 use Propel\Runtime\Exception\LogicException;
@@ -28,18 +23,18 @@ use Propel\Runtime\Parser\AbstractParser;
 use Propel\Runtime\Util\PropelDateTime;
 
 /**
- * Base class that represents a row from the 'test' table.
+ * Base class that represents a row from the 'status_change_log' table.
  *
  *
  *
 * @package    propel.generator.Models.Base
 */
-abstract class Test implements ActiveRecordInterface
+abstract class StatusChange implements ActiveRecordInterface
 {
     /**
      * TableMap class name
      */
-    const TABLE_MAP = '\\Models\\Map\\TestTableMap';
+    const TABLE_MAP = '\\Models\\Map\\StatusChangeTableMap';
 
 
     /**
@@ -76,43 +71,37 @@ abstract class Test implements ActiveRecordInterface
     protected $id;
 
     /**
-     * The value for the domain_id field.
+     * The value for the test_id field.
      *
      * @var        int
      */
-    protected $domain_id;
+    protected $test_id;
 
     /**
-     * The value for the test_type field.
-     *
-     * @var        int
-     */
-    protected $test_type;
-
-    /**
-     * The value for the status field.
-     *
-     * @var        boolean
-     */
-    protected $status;
-
-    /**
-     * The value for the last_checked field.
+     * The value for the date field.
      *
      * @var        DateTime
      */
-    protected $last_checked;
+    protected $date;
 
     /**
-     * @var        ChildDomain
+     * The value for the old_status field.
+     *
+     * @var        boolean
      */
-    protected $aDomain;
+    protected $old_status;
 
     /**
-     * @var        ObjectCollection|ChildStatusChange[] Collection to store aggregation of ChildStatusChange objects.
+     * The value for the new_status field.
+     *
+     * @var        boolean
      */
-    protected $collStatusChanges;
-    protected $collStatusChangesPartial;
+    protected $new_status;
+
+    /**
+     * @var        ChildTest
+     */
+    protected $aTest;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -123,13 +112,7 @@ abstract class Test implements ActiveRecordInterface
     protected $alreadyInSave = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var ObjectCollection|ChildStatusChange[]
-     */
-    protected $statusChangesScheduledForDeletion = null;
-
-    /**
-     * Initializes internal state of Models\Base\Test object.
+     * Initializes internal state of Models\Base\StatusChange object.
      */
     public function __construct()
     {
@@ -224,9 +207,9 @@ abstract class Test implements ActiveRecordInterface
     }
 
     /**
-     * Compares this with another <code>Test</code> instance.  If
-     * <code>obj</code> is an instance of <code>Test</code>, delegates to
-     * <code>equals(Test)</code>.  Otherwise, returns <code>false</code>.
+     * Compares this with another <code>StatusChange</code> instance.  If
+     * <code>obj</code> is an instance of <code>StatusChange</code>, delegates to
+     * <code>equals(StatusChange)</code>.  Otherwise, returns <code>false</code>.
      *
      * @param  mixed   $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
@@ -292,7 +275,7 @@ abstract class Test implements ActiveRecordInterface
      * @param string $name  The virtual column name
      * @param mixed  $value The value to give to the virtual column
      *
-     * @return $this|Test The current object, for fluid interface
+     * @return $this|StatusChange The current object, for fluid interface
      */
     public function setVirtualColumn($name, $value)
     {
@@ -364,47 +347,17 @@ abstract class Test implements ActiveRecordInterface
     }
 
     /**
-     * Get the [domain_id] column value.
+     * Get the [test_id] column value.
      *
      * @return int
      */
-    public function getDomainId()
+    public function getTestId()
     {
-        return $this->domain_id;
+        return $this->test_id;
     }
 
     /**
-     * Get the [test_type] column value.
-     *
-     * @return int
-     */
-    public function getTestType()
-    {
-        return $this->test_type;
-    }
-
-    /**
-     * Get the [status] column value.
-     *
-     * @return boolean
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Get the [status] column value.
-     *
-     * @return boolean
-     */
-    public function isStatus()
-    {
-        return $this->getStatus();
-    }
-
-    /**
-     * Get the [optionally formatted] temporal [last_checked] column value.
+     * Get the [optionally formatted] temporal [date] column value.
      *
      *
      * @param      string $format The date/time format string (either date()-style or strftime()-style).
@@ -414,20 +367,60 @@ abstract class Test implements ActiveRecordInterface
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getLastChecked($format = NULL)
+    public function getDate($format = NULL)
     {
         if ($format === null) {
-            return $this->last_checked;
+            return $this->date;
         } else {
-            return $this->last_checked instanceof \DateTimeInterface ? $this->last_checked->format($format) : null;
+            return $this->date instanceof \DateTimeInterface ? $this->date->format($format) : null;
         }
+    }
+
+    /**
+     * Get the [old_status] column value.
+     *
+     * @return boolean
+     */
+    public function getOldStatus()
+    {
+        return $this->old_status;
+    }
+
+    /**
+     * Get the [old_status] column value.
+     *
+     * @return boolean
+     */
+    public function isOldStatus()
+    {
+        return $this->getOldStatus();
+    }
+
+    /**
+     * Get the [new_status] column value.
+     *
+     * @return boolean
+     */
+    public function getNewStatus()
+    {
+        return $this->new_status;
+    }
+
+    /**
+     * Get the [new_status] column value.
+     *
+     * @return boolean
+     */
+    public function isNewStatus()
+    {
+        return $this->getNewStatus();
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return $this|\Models\Test The current object (for fluent API support)
+     * @return $this|\Models\StatusChange The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -437,67 +430,67 @@ abstract class Test implements ActiveRecordInterface
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[TestTableMap::COL_ID] = true;
+            $this->modifiedColumns[StatusChangeTableMap::COL_ID] = true;
         }
 
         return $this;
     } // setId()
 
     /**
-     * Set the value of [domain_id] column.
+     * Set the value of [test_id] column.
      *
      * @param int $v new value
-     * @return $this|\Models\Test The current object (for fluent API support)
+     * @return $this|\Models\StatusChange The current object (for fluent API support)
      */
-    public function setDomainId($v)
+    public function setTestId($v)
     {
         if ($v !== null) {
             $v = (int) $v;
         }
 
-        if ($this->domain_id !== $v) {
-            $this->domain_id = $v;
-            $this->modifiedColumns[TestTableMap::COL_DOMAIN_ID] = true;
+        if ($this->test_id !== $v) {
+            $this->test_id = $v;
+            $this->modifiedColumns[StatusChangeTableMap::COL_TEST_ID] = true;
         }
 
-        if ($this->aDomain !== null && $this->aDomain->getId() !== $v) {
-            $this->aDomain = null;
+        if ($this->aTest !== null && $this->aTest->getId() !== $v) {
+            $this->aTest = null;
         }
 
         return $this;
-    } // setDomainId()
+    } // setTestId()
 
     /**
-     * Set the value of [test_type] column.
+     * Sets the value of [date] column to a normalized version of the date/time value specified.
      *
-     * @param int $v new value
-     * @return $this|\Models\Test The current object (for fluent API support)
+     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
+     *               Empty strings are treated as NULL.
+     * @return $this|\Models\StatusChange The current object (for fluent API support)
      */
-    public function setTestType($v)
+    public function setDate($v)
     {
-        if ($v !== null) {
-            $v = (int) $v;
-        }
-
-        if ($this->test_type !== $v) {
-            $this->test_type = $v;
-            $this->modifiedColumns[TestTableMap::COL_TEST_TYPE] = true;
-        }
+        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
+        if ($this->date !== null || $dt !== null) {
+            if ($this->date === null || $dt === null || $dt->format("Y-m-d H:i:s") !== $this->date->format("Y-m-d H:i:s")) {
+                $this->date = $dt === null ? null : clone $dt;
+                $this->modifiedColumns[StatusChangeTableMap::COL_DATE] = true;
+            }
+        } // if either are not null
 
         return $this;
-    } // setTestType()
+    } // setDate()
 
     /**
-     * Sets the value of the [status] column.
+     * Sets the value of the [old_status] column.
      * Non-boolean arguments are converted using the following rules:
      *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
      *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
      * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      *
      * @param  boolean|integer|string $v The new value
-     * @return $this|\Models\Test The current object (for fluent API support)
+     * @return $this|\Models\StatusChange The current object (for fluent API support)
      */
-    public function setStatus($v)
+    public function setOldStatus($v)
     {
         if ($v !== null) {
             if (is_string($v)) {
@@ -507,33 +500,41 @@ abstract class Test implements ActiveRecordInterface
             }
         }
 
-        if ($this->status !== $v) {
-            $this->status = $v;
-            $this->modifiedColumns[TestTableMap::COL_STATUS] = true;
+        if ($this->old_status !== $v) {
+            $this->old_status = $v;
+            $this->modifiedColumns[StatusChangeTableMap::COL_OLD_STATUS] = true;
         }
 
         return $this;
-    } // setStatus()
+    } // setOldStatus()
 
     /**
-     * Sets the value of [last_checked] column to a normalized version of the date/time value specified.
+     * Sets the value of the [new_status] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
      *
-     * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
-     * @return $this|\Models\Test The current object (for fluent API support)
+     * @param  boolean|integer|string $v The new value
+     * @return $this|\Models\StatusChange The current object (for fluent API support)
      */
-    public function setLastChecked($v)
+    public function setNewStatus($v)
     {
-        $dt = PropelDateTime::newInstance($v, null, 'DateTime');
-        if ($this->last_checked !== null || $dt !== null) {
-            if ($this->last_checked === null || $dt === null || $dt->format("Y-m-d H:i:s") !== $this->last_checked->format("Y-m-d H:i:s")) {
-                $this->last_checked = $dt === null ? null : clone $dt;
-                $this->modifiedColumns[TestTableMap::COL_LAST_CHECKED] = true;
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
             }
-        } // if either are not null
+        }
+
+        if ($this->new_status !== $v) {
+            $this->new_status = $v;
+            $this->modifiedColumns[StatusChangeTableMap::COL_NEW_STATUS] = true;
+        }
 
         return $this;
-    } // setLastChecked()
+    } // setNewStatus()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -571,23 +572,23 @@ abstract class Test implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : TestTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : StatusChangeTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
             $this->id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TestTableMap::translateFieldName('DomainId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->domain_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : StatusChangeTableMap::translateFieldName('TestId', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->test_id = (null !== $col) ? (int) $col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TestTableMap::translateFieldName('TestType', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->test_type = (null !== $col) ? (int) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TestTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->status = (null !== $col) ? (boolean) $col : null;
-
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TestTableMap::translateFieldName('LastChecked', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : StatusChangeTableMap::translateFieldName('Date', TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
-            $this->last_checked = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+            $this->date = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : StatusChangeTableMap::translateFieldName('OldStatus', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->old_status = (null !== $col) ? (boolean) $col : null;
+
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : StatusChangeTableMap::translateFieldName('NewStatus', TableMap::TYPE_PHPNAME, $indexType)];
+            $this->new_status = (null !== $col) ? (boolean) $col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -596,10 +597,10 @@ abstract class Test implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 5; // 5 = TestTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = StatusChangeTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException(sprintf('Error populating %s object', '\\Models\\Test'), 0, $e);
+            throw new PropelException(sprintf('Error populating %s object', '\\Models\\StatusChange'), 0, $e);
         }
     }
 
@@ -618,8 +619,8 @@ abstract class Test implements ActiveRecordInterface
      */
     public function ensureConsistency()
     {
-        if ($this->aDomain !== null && $this->domain_id !== $this->aDomain->getId()) {
-            $this->aDomain = null;
+        if ($this->aTest !== null && $this->test_id !== $this->aTest->getId()) {
+            $this->aTest = null;
         }
     } // ensureConsistency
 
@@ -644,13 +645,13 @@ abstract class Test implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getReadConnection(TestTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getReadConnection(StatusChangeTableMap::DATABASE_NAME);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildTestQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildStatusChangeQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -660,9 +661,7 @@ abstract class Test implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->aDomain = null;
-            $this->collStatusChanges = null;
-
+            $this->aTest = null;
         } // if (deep)
     }
 
@@ -672,8 +671,8 @@ abstract class Test implements ActiveRecordInterface
      * @param      ConnectionInterface $con
      * @return void
      * @throws PropelException
-     * @see Test::setDeleted()
-     * @see Test::isDeleted()
+     * @see StatusChange::setDeleted()
+     * @see StatusChange::isDeleted()
      */
     public function delete(ConnectionInterface $con = null)
     {
@@ -682,11 +681,11 @@ abstract class Test implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TestTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(StatusChangeTableMap::DATABASE_NAME);
         }
 
         $con->transaction(function () use ($con) {
-            $deleteQuery = ChildTestQuery::create()
+            $deleteQuery = ChildStatusChangeQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -717,7 +716,7 @@ abstract class Test implements ActiveRecordInterface
         }
 
         if ($con === null) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TestTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(StatusChangeTableMap::DATABASE_NAME);
         }
 
         return $con->transaction(function () use ($con) {
@@ -736,7 +735,7 @@ abstract class Test implements ActiveRecordInterface
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                TestTableMap::addInstanceToPool($this);
+                StatusChangeTableMap::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -767,11 +766,11 @@ abstract class Test implements ActiveRecordInterface
             // method.  This object relates to these object(s) by a
             // foreign key reference.
 
-            if ($this->aDomain !== null) {
-                if ($this->aDomain->isModified() || $this->aDomain->isNew()) {
-                    $affectedRows += $this->aDomain->save($con);
+            if ($this->aTest !== null) {
+                if ($this->aTest->isModified() || $this->aTest->isNew()) {
+                    $affectedRows += $this->aTest->save($con);
                 }
-                $this->setDomain($this->aDomain);
+                $this->setTest($this->aTest);
             }
 
             if ($this->isNew() || $this->isModified()) {
@@ -783,23 +782,6 @@ abstract class Test implements ActiveRecordInterface
                     $affectedRows += $this->doUpdate($con);
                 }
                 $this->resetModified();
-            }
-
-            if ($this->statusChangesScheduledForDeletion !== null) {
-                if (!$this->statusChangesScheduledForDeletion->isEmpty()) {
-                    \Models\StatusChangeQuery::create()
-                        ->filterByPrimaryKeys($this->statusChangesScheduledForDeletion->getPrimaryKeys(false))
-                        ->delete($con);
-                    $this->statusChangesScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collStatusChanges !== null) {
-                foreach ($this->collStatusChanges as $referrerFK) {
-                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -822,30 +804,30 @@ abstract class Test implements ActiveRecordInterface
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[TestTableMap::COL_ID] = true;
+        $this->modifiedColumns[StatusChangeTableMap::COL_ID] = true;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TestTableMap::COL_ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . StatusChangeTableMap::COL_ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(TestTableMap::COL_ID)) {
+        if ($this->isColumnModified(StatusChangeTableMap::COL_ID)) {
             $modifiedColumns[':p' . $index++]  = 'id';
         }
-        if ($this->isColumnModified(TestTableMap::COL_DOMAIN_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'domain_id';
+        if ($this->isColumnModified(StatusChangeTableMap::COL_TEST_ID)) {
+            $modifiedColumns[':p' . $index++]  = 'test_id';
         }
-        if ($this->isColumnModified(TestTableMap::COL_TEST_TYPE)) {
-            $modifiedColumns[':p' . $index++]  = 'test_type';
+        if ($this->isColumnModified(StatusChangeTableMap::COL_DATE)) {
+            $modifiedColumns[':p' . $index++]  = 'date';
         }
-        if ($this->isColumnModified(TestTableMap::COL_STATUS)) {
-            $modifiedColumns[':p' . $index++]  = 'status';
+        if ($this->isColumnModified(StatusChangeTableMap::COL_OLD_STATUS)) {
+            $modifiedColumns[':p' . $index++]  = 'old_status';
         }
-        if ($this->isColumnModified(TestTableMap::COL_LAST_CHECKED)) {
-            $modifiedColumns[':p' . $index++]  = 'last_checked';
+        if ($this->isColumnModified(StatusChangeTableMap::COL_NEW_STATUS)) {
+            $modifiedColumns[':p' . $index++]  = 'new_status';
         }
 
         $sql = sprintf(
-            'INSERT INTO test (%s) VALUES (%s)',
+            'INSERT INTO status_change_log (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -857,17 +839,17 @@ abstract class Test implements ActiveRecordInterface
                     case 'id':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case 'domain_id':
-                        $stmt->bindValue($identifier, $this->domain_id, PDO::PARAM_INT);
+                    case 'test_id':
+                        $stmt->bindValue($identifier, $this->test_id, PDO::PARAM_INT);
                         break;
-                    case 'test_type':
-                        $stmt->bindValue($identifier, $this->test_type, PDO::PARAM_INT);
+                    case 'date':
+                        $stmt->bindValue($identifier, $this->date ? $this->date->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
                         break;
-                    case 'status':
-                        $stmt->bindValue($identifier, (int) $this->status, PDO::PARAM_INT);
+                    case 'old_status':
+                        $stmt->bindValue($identifier, (int) $this->old_status, PDO::PARAM_INT);
                         break;
-                    case 'last_checked':
-                        $stmt->bindValue($identifier, $this->last_checked ? $this->last_checked->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                    case 'new_status':
+                        $stmt->bindValue($identifier, (int) $this->new_status, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -915,7 +897,7 @@ abstract class Test implements ActiveRecordInterface
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = TestTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = StatusChangeTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -935,16 +917,16 @@ abstract class Test implements ActiveRecordInterface
                 return $this->getId();
                 break;
             case 1:
-                return $this->getDomainId();
+                return $this->getTestId();
                 break;
             case 2:
-                return $this->getTestType();
+                return $this->getDate();
                 break;
             case 3:
-                return $this->getStatus();
+                return $this->getOldStatus();
                 break;
             case 4:
-                return $this->getLastChecked();
+                return $this->getNewStatus();
                 break;
             default:
                 return null;
@@ -970,20 +952,20 @@ abstract class Test implements ActiveRecordInterface
     public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
 
-        if (isset($alreadyDumpedObjects['Test'][$this->hashCode()])) {
+        if (isset($alreadyDumpedObjects['StatusChange'][$this->hashCode()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Test'][$this->hashCode()] = true;
-        $keys = TestTableMap::getFieldNames($keyType);
+        $alreadyDumpedObjects['StatusChange'][$this->hashCode()] = true;
+        $keys = StatusChangeTableMap::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getDomainId(),
-            $keys[2] => $this->getTestType(),
-            $keys[3] => $this->getStatus(),
-            $keys[4] => $this->getLastChecked(),
+            $keys[1] => $this->getTestId(),
+            $keys[2] => $this->getDate(),
+            $keys[3] => $this->getOldStatus(),
+            $keys[4] => $this->getNewStatus(),
         );
-        if ($result[$keys[4]] instanceof \DateTime) {
-            $result[$keys[4]] = $result[$keys[4]]->format('c');
+        if ($result[$keys[2]] instanceof \DateTime) {
+            $result[$keys[2]] = $result[$keys[2]]->format('c');
         }
 
         $virtualColumns = $this->virtualColumns;
@@ -992,35 +974,20 @@ abstract class Test implements ActiveRecordInterface
         }
 
         if ($includeForeignObjects) {
-            if (null !== $this->aDomain) {
+            if (null !== $this->aTest) {
 
                 switch ($keyType) {
                     case TableMap::TYPE_CAMELNAME:
-                        $key = 'domain';
+                        $key = 'test';
                         break;
                     case TableMap::TYPE_FIELDNAME:
-                        $key = 'domain';
+                        $key = 'test';
                         break;
                     default:
-                        $key = 'Domain';
+                        $key = 'Test';
                 }
 
-                $result[$key] = $this->aDomain->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
-            }
-            if (null !== $this->collStatusChanges) {
-
-                switch ($keyType) {
-                    case TableMap::TYPE_CAMELNAME:
-                        $key = 'statusChanges';
-                        break;
-                    case TableMap::TYPE_FIELDNAME:
-                        $key = 'status_change_logs';
-                        break;
-                    default:
-                        $key = 'StatusChanges';
-                }
-
-                $result[$key] = $this->collStatusChanges->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+                $result[$key] = $this->aTest->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -1036,11 +1003,11 @@ abstract class Test implements ActiveRecordInterface
      *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *                Defaults to TableMap::TYPE_PHPNAME.
-     * @return $this|\Models\Test
+     * @return $this|\Models\StatusChange
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
     {
-        $pos = TestTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
+        $pos = StatusChangeTableMap::translateFieldName($name, $type, TableMap::TYPE_NUM);
 
         return $this->setByPosition($pos, $value);
     }
@@ -1051,7 +1018,7 @@ abstract class Test implements ActiveRecordInterface
      *
      * @param  int $pos position in xml schema
      * @param  mixed $value field value
-     * @return $this|\Models\Test
+     * @return $this|\Models\StatusChange
      */
     public function setByPosition($pos, $value)
     {
@@ -1060,16 +1027,16 @@ abstract class Test implements ActiveRecordInterface
                 $this->setId($value);
                 break;
             case 1:
-                $this->setDomainId($value);
+                $this->setTestId($value);
                 break;
             case 2:
-                $this->setTestType($value);
+                $this->setDate($value);
                 break;
             case 3:
-                $this->setStatus($value);
+                $this->setOldStatus($value);
                 break;
             case 4:
-                $this->setLastChecked($value);
+                $this->setNewStatus($value);
                 break;
         } // switch()
 
@@ -1095,22 +1062,22 @@ abstract class Test implements ActiveRecordInterface
      */
     public function fromArray($arr, $keyType = TableMap::TYPE_PHPNAME)
     {
-        $keys = TestTableMap::getFieldNames($keyType);
+        $keys = StatusChangeTableMap::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) {
             $this->setId($arr[$keys[0]]);
         }
         if (array_key_exists($keys[1], $arr)) {
-            $this->setDomainId($arr[$keys[1]]);
+            $this->setTestId($arr[$keys[1]]);
         }
         if (array_key_exists($keys[2], $arr)) {
-            $this->setTestType($arr[$keys[2]]);
+            $this->setDate($arr[$keys[2]]);
         }
         if (array_key_exists($keys[3], $arr)) {
-            $this->setStatus($arr[$keys[3]]);
+            $this->setOldStatus($arr[$keys[3]]);
         }
         if (array_key_exists($keys[4], $arr)) {
-            $this->setLastChecked($arr[$keys[4]]);
+            $this->setNewStatus($arr[$keys[4]]);
         }
     }
 
@@ -1131,7 +1098,7 @@ abstract class Test implements ActiveRecordInterface
      * @param string $data The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
-     * @return $this|\Models\Test The current object, for fluid interface
+     * @return $this|\Models\StatusChange The current object, for fluid interface
      */
     public function importFrom($parser, $data, $keyType = TableMap::TYPE_PHPNAME)
     {
@@ -1151,22 +1118,22 @@ abstract class Test implements ActiveRecordInterface
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(TestTableMap::DATABASE_NAME);
+        $criteria = new Criteria(StatusChangeTableMap::DATABASE_NAME);
 
-        if ($this->isColumnModified(TestTableMap::COL_ID)) {
-            $criteria->add(TestTableMap::COL_ID, $this->id);
+        if ($this->isColumnModified(StatusChangeTableMap::COL_ID)) {
+            $criteria->add(StatusChangeTableMap::COL_ID, $this->id);
         }
-        if ($this->isColumnModified(TestTableMap::COL_DOMAIN_ID)) {
-            $criteria->add(TestTableMap::COL_DOMAIN_ID, $this->domain_id);
+        if ($this->isColumnModified(StatusChangeTableMap::COL_TEST_ID)) {
+            $criteria->add(StatusChangeTableMap::COL_TEST_ID, $this->test_id);
         }
-        if ($this->isColumnModified(TestTableMap::COL_TEST_TYPE)) {
-            $criteria->add(TestTableMap::COL_TEST_TYPE, $this->test_type);
+        if ($this->isColumnModified(StatusChangeTableMap::COL_DATE)) {
+            $criteria->add(StatusChangeTableMap::COL_DATE, $this->date);
         }
-        if ($this->isColumnModified(TestTableMap::COL_STATUS)) {
-            $criteria->add(TestTableMap::COL_STATUS, $this->status);
+        if ($this->isColumnModified(StatusChangeTableMap::COL_OLD_STATUS)) {
+            $criteria->add(StatusChangeTableMap::COL_OLD_STATUS, $this->old_status);
         }
-        if ($this->isColumnModified(TestTableMap::COL_LAST_CHECKED)) {
-            $criteria->add(TestTableMap::COL_LAST_CHECKED, $this->last_checked);
+        if ($this->isColumnModified(StatusChangeTableMap::COL_NEW_STATUS)) {
+            $criteria->add(StatusChangeTableMap::COL_NEW_STATUS, $this->new_status);
         }
 
         return $criteria;
@@ -1184,8 +1151,8 @@ abstract class Test implements ActiveRecordInterface
      */
     public function buildPkeyCriteria()
     {
-        $criteria = ChildTestQuery::create();
-        $criteria->add(TestTableMap::COL_ID, $this->id);
+        $criteria = ChildStatusChangeQuery::create();
+        $criteria->add(StatusChangeTableMap::COL_ID, $this->id);
 
         return $criteria;
     }
@@ -1247,31 +1214,17 @@ abstract class Test implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Models\Test (or compatible) type.
+     * @param      object $copyObj An object of \Models\StatusChange (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setDomainId($this->getDomainId());
-        $copyObj->setTestType($this->getTestType());
-        $copyObj->setStatus($this->getStatus());
-        $copyObj->setLastChecked($this->getLastChecked());
-
-        if ($deepCopy) {
-            // important: temporarily setNew(false) because this affects the behavior of
-            // the getter/setter methods for fkey referrer objects.
-            $copyObj->setNew(false);
-
-            foreach ($this->getStatusChanges() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addStatusChange($relObj->copy($deepCopy));
-                }
-            }
-
-        } // if ($deepCopy)
-
+        $copyObj->setTestId($this->getTestId());
+        $copyObj->setDate($this->getDate());
+        $copyObj->setOldStatus($this->getOldStatus());
+        $copyObj->setNewStatus($this->getNewStatus());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1287,7 +1240,7 @@ abstract class Test implements ActiveRecordInterface
      * objects.
      *
      * @param  boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return \Models\Test Clone of current object.
+     * @return \Models\StatusChange Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -1301,26 +1254,26 @@ abstract class Test implements ActiveRecordInterface
     }
 
     /**
-     * Declares an association between this object and a ChildDomain object.
+     * Declares an association between this object and a ChildTest object.
      *
-     * @param  ChildDomain $v
-     * @return $this|\Models\Test The current object (for fluent API support)
+     * @param  ChildTest $v
+     * @return $this|\Models\StatusChange The current object (for fluent API support)
      * @throws PropelException
      */
-    public function setDomain(ChildDomain $v = null)
+    public function setTest(ChildTest $v = null)
     {
         if ($v === null) {
-            $this->setDomainId(NULL);
+            $this->setTestId(NULL);
         } else {
-            $this->setDomainId($v->getId());
+            $this->setTestId($v->getId());
         }
 
-        $this->aDomain = $v;
+        $this->aTest = $v;
 
         // Add binding for other direction of this n:n relationship.
-        // If this object has already been added to the ChildDomain object, it will not be re-added.
+        // If this object has already been added to the ChildTest object, it will not be re-added.
         if ($v !== null) {
-            $v->addTest($this);
+            $v->addStatusChange($this);
         }
 
 
@@ -1329,267 +1282,26 @@ abstract class Test implements ActiveRecordInterface
 
 
     /**
-     * Get the associated ChildDomain object
+     * Get the associated ChildTest object
      *
      * @param  ConnectionInterface $con Optional Connection object.
-     * @return ChildDomain The associated ChildDomain object.
+     * @return ChildTest The associated ChildTest object.
      * @throws PropelException
      */
-    public function getDomain(ConnectionInterface $con = null)
+    public function getTest(ConnectionInterface $con = null)
     {
-        if ($this->aDomain === null && ($this->domain_id !== null)) {
-            $this->aDomain = ChildDomainQuery::create()->findPk($this->domain_id, $con);
+        if ($this->aTest === null && ($this->test_id !== null)) {
+            $this->aTest = ChildTestQuery::create()->findPk($this->test_id, $con);
             /* The following can be used additionally to
                 guarantee the related object contains a reference
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aDomain->addTests($this);
+                $this->aTest->addStatusChanges($this);
              */
         }
 
-        return $this->aDomain;
-    }
-
-
-    /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
-     *
-     * @param      string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('StatusChange' == $relationName) {
-            return $this->initStatusChanges();
-        }
-    }
-
-    /**
-     * Clears out the collStatusChanges collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addStatusChanges()
-     */
-    public function clearStatusChanges()
-    {
-        $this->collStatusChanges = null; // important to set this to NULL since that means it is uninitialized
-    }
-
-    /**
-     * Reset is the collStatusChanges collection loaded partially.
-     */
-    public function resetPartialStatusChanges($v = true)
-    {
-        $this->collStatusChangesPartial = $v;
-    }
-
-    /**
-     * Initializes the collStatusChanges collection.
-     *
-     * By default this just sets the collStatusChanges collection to an empty array (like clearcollStatusChanges());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initStatusChanges($overrideExisting = true)
-    {
-        if (null !== $this->collStatusChanges && !$overrideExisting) {
-            return;
-        }
-
-        $collectionClassName = StatusChangeTableMap::getTableMap()->getCollectionClassName();
-
-        $this->collStatusChanges = new $collectionClassName;
-        $this->collStatusChanges->setModel('\Models\StatusChange');
-    }
-
-    /**
-     * Gets an array of ChildStatusChange objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this ChildTest is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @return ObjectCollection|ChildStatusChange[] List of ChildStatusChange objects
-     * @throws PropelException
-     */
-    public function getStatusChanges(Criteria $criteria = null, ConnectionInterface $con = null)
-    {
-        $partial = $this->collStatusChangesPartial && !$this->isNew();
-        if (null === $this->collStatusChanges || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collStatusChanges) {
-                // return empty collection
-                $this->initStatusChanges();
-            } else {
-                $collStatusChanges = ChildStatusChangeQuery::create(null, $criteria)
-                    ->filterByTest($this)
-                    ->find($con);
-
-                if (null !== $criteria) {
-                    if (false !== $this->collStatusChangesPartial && count($collStatusChanges)) {
-                        $this->initStatusChanges(false);
-
-                        foreach ($collStatusChanges as $obj) {
-                            if (false == $this->collStatusChanges->contains($obj)) {
-                                $this->collStatusChanges->append($obj);
-                            }
-                        }
-
-                        $this->collStatusChangesPartial = true;
-                    }
-
-                    return $collStatusChanges;
-                }
-
-                if ($partial && $this->collStatusChanges) {
-                    foreach ($this->collStatusChanges as $obj) {
-                        if ($obj->isNew()) {
-                            $collStatusChanges[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collStatusChanges = $collStatusChanges;
-                $this->collStatusChangesPartial = false;
-            }
-        }
-
-        return $this->collStatusChanges;
-    }
-
-    /**
-     * Sets a collection of ChildStatusChange objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param      Collection $statusChanges A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
-     * @return $this|ChildTest The current object (for fluent API support)
-     */
-    public function setStatusChanges(Collection $statusChanges, ConnectionInterface $con = null)
-    {
-        /** @var ChildStatusChange[] $statusChangesToDelete */
-        $statusChangesToDelete = $this->getStatusChanges(new Criteria(), $con)->diff($statusChanges);
-
-
-        $this->statusChangesScheduledForDeletion = $statusChangesToDelete;
-
-        foreach ($statusChangesToDelete as $statusChangeRemoved) {
-            $statusChangeRemoved->setTest(null);
-        }
-
-        $this->collStatusChanges = null;
-        foreach ($statusChanges as $statusChange) {
-            $this->addStatusChange($statusChange);
-        }
-
-        $this->collStatusChanges = $statusChanges;
-        $this->collStatusChangesPartial = false;
-
-        return $this;
-    }
-
-    /**
-     * Returns the number of related StatusChange objects.
-     *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
-     * @param      ConnectionInterface $con
-     * @return int             Count of related StatusChange objects.
-     * @throws PropelException
-     */
-    public function countStatusChanges(Criteria $criteria = null, $distinct = false, ConnectionInterface $con = null)
-    {
-        $partial = $this->collStatusChangesPartial && !$this->isNew();
-        if (null === $this->collStatusChanges || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collStatusChanges) {
-                return 0;
-            }
-
-            if ($partial && !$criteria) {
-                return count($this->getStatusChanges());
-            }
-
-            $query = ChildStatusChangeQuery::create(null, $criteria);
-            if ($distinct) {
-                $query->distinct();
-            }
-
-            return $query
-                ->filterByTest($this)
-                ->count($con);
-        }
-
-        return count($this->collStatusChanges);
-    }
-
-    /**
-     * Method called to associate a ChildStatusChange object to this object
-     * through the ChildStatusChange foreign key attribute.
-     *
-     * @param  ChildStatusChange $l ChildStatusChange
-     * @return $this|\Models\Test The current object (for fluent API support)
-     */
-    public function addStatusChange(ChildStatusChange $l)
-    {
-        if ($this->collStatusChanges === null) {
-            $this->initStatusChanges();
-            $this->collStatusChangesPartial = true;
-        }
-
-        if (!$this->collStatusChanges->contains($l)) {
-            $this->doAddStatusChange($l);
-
-            if ($this->statusChangesScheduledForDeletion and $this->statusChangesScheduledForDeletion->contains($l)) {
-                $this->statusChangesScheduledForDeletion->remove($this->statusChangesScheduledForDeletion->search($l));
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ChildStatusChange $statusChange The ChildStatusChange object to add.
-     */
-    protected function doAddStatusChange(ChildStatusChange $statusChange)
-    {
-        $this->collStatusChanges[]= $statusChange;
-        $statusChange->setTest($this);
-    }
-
-    /**
-     * @param  ChildStatusChange $statusChange The ChildStatusChange object to remove.
-     * @return $this|ChildTest The current object (for fluent API support)
-     */
-    public function removeStatusChange(ChildStatusChange $statusChange)
-    {
-        if ($this->getStatusChanges()->contains($statusChange)) {
-            $pos = $this->collStatusChanges->search($statusChange);
-            $this->collStatusChanges->remove($pos);
-            if (null === $this->statusChangesScheduledForDeletion) {
-                $this->statusChangesScheduledForDeletion = clone $this->collStatusChanges;
-                $this->statusChangesScheduledForDeletion->clear();
-            }
-            $this->statusChangesScheduledForDeletion[]= clone $statusChange;
-            $statusChange->setTest(null);
-        }
-
-        return $this;
+        return $this->aTest;
     }
 
     /**
@@ -1599,14 +1311,14 @@ abstract class Test implements ActiveRecordInterface
      */
     public function clear()
     {
-        if (null !== $this->aDomain) {
-            $this->aDomain->removeTest($this);
+        if (null !== $this->aTest) {
+            $this->aTest->removeStatusChange($this);
         }
         $this->id = null;
-        $this->domain_id = null;
-        $this->test_type = null;
-        $this->status = null;
-        $this->last_checked = null;
+        $this->test_id = null;
+        $this->date = null;
+        $this->old_status = null;
+        $this->new_status = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();
@@ -1625,15 +1337,9 @@ abstract class Test implements ActiveRecordInterface
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collStatusChanges) {
-                foreach ($this->collStatusChanges as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
         } // if ($deep)
 
-        $this->collStatusChanges = null;
-        $this->aDomain = null;
+        $this->aTest = null;
     }
 
     /**
@@ -1643,7 +1349,7 @@ abstract class Test implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(TestTableMap::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(StatusChangeTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**

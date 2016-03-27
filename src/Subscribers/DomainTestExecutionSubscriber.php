@@ -2,11 +2,25 @@
 
 namespace Subscribers;
 
-use \Events\TestExecutionEvent;
-use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Events\TestExecutionEvent;
+use Events\TestStatusChangeEvent;
+use Models\StatusChangeQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class DomainTestExecutionSubscriber implements EventSubscriberInterface
 {
+
+    /**
+     * @var EventDispatcher
+     */
+    protected $dispatcher;
+
+    public function __construct(EventDispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
 
     /**
      * @return array
@@ -17,10 +31,12 @@ class DomainTestExecutionSubscriber implements EventSubscriberInterface
             'domain.test.succeded' => [
                 ['updateTestSuccededStatus', 10],
                 ['refreshDomainStatus', -10],
+                ['trackStatusChange', -10],
             ],
-            'domain.test.failed' => [
+            'domain.test.failed'   => [
                 ['updateTestFailedStatus', 10],
                 ['refreshDomainStatus', -10],
+                ['trackStatusChange', -10],
             ],
         ];
     }
@@ -64,4 +80,28 @@ class DomainTestExecutionSubscriber implements EventSubscriberInterface
         $domain->save();
     }
 
+    /**
+     * Detects status changes
+     *
+     * @param TestExecutionEvent $event
+     */
+    public function trackStatusChange(TestExecutionEvent $event)
+    {
+        $test = $event->getTest();
+
+        $oldState = StatusChangeQuery::create()
+            ->orderByDate(Criteria::DESC)
+            ->filterByTest($test)
+            ->findOne();
+
+        if ($oldState && $oldState->getNewStatus() == $test->getStatus()) {
+            return;
+        }
+
+        if ($test->getStatus() == true) {
+            $this->dispatcher->dispatch(TestStatusChangeEvent::NAME_TEST_BECOMES_SUCCESFUL, new TestStatusChangeEvent($test));
+        } else {
+            $this->dispatcher->dispatch(TestStatusChangeEvent::NAME_TEST_BECOMES_FAILED, new TestStatusChangeEvent($test));
+        }
+    }
 }

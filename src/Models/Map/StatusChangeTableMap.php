@@ -2,8 +2,8 @@
 
 namespace Models\Map;
 
-use Models\Test;
-use Models\TestQuery;
+use Models\StatusChange;
+use Models\StatusChangeQuery;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\InstancePoolTrait;
@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'test' table.
+ * This class defines the structure of the 'status_change_log' table.
  *
  *
  *
@@ -26,7 +26,7 @@ use Propel\Runtime\Map\TableMapTrait;
  * (i.e. if it's a text column type).
  *
  */
-class TestTableMap extends TableMap
+class StatusChangeTableMap extends TableMap
 {
     use InstancePoolTrait;
     use TableMapTrait;
@@ -34,7 +34,7 @@ class TestTableMap extends TableMap
     /**
      * The (dot-path) name of this class
      */
-    const CLASS_NAME = 'Models.Map.TestTableMap';
+    const CLASS_NAME = 'Models.Map.StatusChangeTableMap';
 
     /**
      * The default database name for this class
@@ -44,17 +44,17 @@ class TestTableMap extends TableMap
     /**
      * The table name for this class
      */
-    const TABLE_NAME = 'test';
+    const TABLE_NAME = 'status_change_log';
 
     /**
      * The related Propel class for this table
      */
-    const OM_CLASS = '\\Models\\Test';
+    const OM_CLASS = '\\Models\\StatusChange';
 
     /**
      * A class that can be returned by this tableMap
      */
-    const CLASS_DEFAULT = 'Models.Test';
+    const CLASS_DEFAULT = 'Models.StatusChange';
 
     /**
      * The total number of columns
@@ -74,27 +74,27 @@ class TestTableMap extends TableMap
     /**
      * the column name for the id field
      */
-    const COL_ID = 'test.id';
+    const COL_ID = 'status_change_log.id';
 
     /**
-     * the column name for the domain_id field
+     * the column name for the test_id field
      */
-    const COL_DOMAIN_ID = 'test.domain_id';
+    const COL_TEST_ID = 'status_change_log.test_id';
 
     /**
-     * the column name for the test_type field
+     * the column name for the date field
      */
-    const COL_TEST_TYPE = 'test.test_type';
+    const COL_DATE = 'status_change_log.date';
 
     /**
-     * the column name for the status field
+     * the column name for the old_status field
      */
-    const COL_STATUS = 'test.status';
+    const COL_OLD_STATUS = 'status_change_log.old_status';
 
     /**
-     * the column name for the last_checked field
+     * the column name for the new_status field
      */
-    const COL_LAST_CHECKED = 'test.last_checked';
+    const COL_NEW_STATUS = 'status_change_log.new_status';
 
     /**
      * The default string format for model objects of the related table
@@ -108,10 +108,10 @@ class TestTableMap extends TableMap
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'DomainId', 'TestType', 'Status', 'LastChecked', ),
-        self::TYPE_CAMELNAME     => array('id', 'domainId', 'testType', 'status', 'lastChecked', ),
-        self::TYPE_COLNAME       => array(TestTableMap::COL_ID, TestTableMap::COL_DOMAIN_ID, TestTableMap::COL_TEST_TYPE, TestTableMap::COL_STATUS, TestTableMap::COL_LAST_CHECKED, ),
-        self::TYPE_FIELDNAME     => array('id', 'domain_id', 'test_type', 'status', 'last_checked', ),
+        self::TYPE_PHPNAME       => array('Id', 'TestId', 'Date', 'OldStatus', 'NewStatus', ),
+        self::TYPE_CAMELNAME     => array('id', 'testId', 'date', 'oldStatus', 'newStatus', ),
+        self::TYPE_COLNAME       => array(StatusChangeTableMap::COL_ID, StatusChangeTableMap::COL_TEST_ID, StatusChangeTableMap::COL_DATE, StatusChangeTableMap::COL_OLD_STATUS, StatusChangeTableMap::COL_NEW_STATUS, ),
+        self::TYPE_FIELDNAME     => array('id', 'test_id', 'date', 'old_status', 'new_status', ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
@@ -122,10 +122,10 @@ class TestTableMap extends TableMap
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'DomainId' => 1, 'TestType' => 2, 'Status' => 3, 'LastChecked' => 4, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'domainId' => 1, 'testType' => 2, 'status' => 3, 'lastChecked' => 4, ),
-        self::TYPE_COLNAME       => array(TestTableMap::COL_ID => 0, TestTableMap::COL_DOMAIN_ID => 1, TestTableMap::COL_TEST_TYPE => 2, TestTableMap::COL_STATUS => 3, TestTableMap::COL_LAST_CHECKED => 4, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'domain_id' => 1, 'test_type' => 2, 'status' => 3, 'last_checked' => 4, ),
+        self::TYPE_PHPNAME       => array('Id' => 0, 'TestId' => 1, 'Date' => 2, 'OldStatus' => 3, 'NewStatus' => 4, ),
+        self::TYPE_CAMELNAME     => array('id' => 0, 'testId' => 1, 'date' => 2, 'oldStatus' => 3, 'newStatus' => 4, ),
+        self::TYPE_COLNAME       => array(StatusChangeTableMap::COL_ID => 0, StatusChangeTableMap::COL_TEST_ID => 1, StatusChangeTableMap::COL_DATE => 2, StatusChangeTableMap::COL_OLD_STATUS => 3, StatusChangeTableMap::COL_NEW_STATUS => 4, ),
+        self::TYPE_FIELDNAME     => array('id' => 0, 'test_id' => 1, 'date' => 2, 'old_status' => 3, 'new_status' => 4, ),
         self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
     );
 
@@ -139,18 +139,18 @@ class TestTableMap extends TableMap
     public function initialize()
     {
         // attributes
-        $this->setName('test');
-        $this->setPhpName('Test');
+        $this->setName('status_change_log');
+        $this->setPhpName('StatusChange');
         $this->setIdentifierQuoting(false);
-        $this->setClassName('\\Models\\Test');
+        $this->setClassName('\\Models\\StatusChange');
         $this->setPackage('Models');
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
-        $this->addForeignKey('domain_id', 'DomainId', 'INTEGER', 'domain', 'id', true, null, null);
-        $this->addColumn('test_type', 'TestType', 'TINYINT', true, null, null);
-        $this->addColumn('status', 'Status', 'BOOLEAN', true, 1, null);
-        $this->addColumn('last_checked', 'LastChecked', 'TIMESTAMP', false, null, null);
+        $this->addForeignKey('test_id', 'TestId', 'INTEGER', 'test', 'id', true, null, null);
+        $this->addColumn('date', 'Date', 'TIMESTAMP', false, null, null);
+        $this->addColumn('old_status', 'OldStatus', 'BOOLEAN', true, 1, null);
+        $this->addColumn('new_status', 'NewStatus', 'BOOLEAN', true, 1, null);
     } // initialize()
 
     /**
@@ -158,30 +158,14 @@ class TestTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Domain', '\\Models\\Domain', RelationMap::MANY_TO_ONE, array (
-  0 =>
-  array (
-    0 => ':domain_id',
-    1 => ':id',
-  ),
-), 'CASCADE', 'CASCADE', null, false);
-        $this->addRelation('StatusChange', '\\Models\\StatusChange', RelationMap::ONE_TO_MANY, array (
+        $this->addRelation('Test', '\\Models\\Test', RelationMap::MANY_TO_ONE, array (
   0 =>
   array (
     0 => ':test_id',
     1 => ':id',
   ),
-), 'CASCADE', 'CASCADE', 'StatusChanges', false);
+), 'CASCADE', 'CASCADE', null, false);
     } // buildRelations()
-    /**
-     * Method to invalidate the instance pool of all tables related to test     * by a foreign key with ON DELETE CASCADE
-     */
-    public static function clearRelatedInstancePool()
-    {
-        // Invalidate objects in related instance pools,
-        // since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-        StatusChangeTableMap::clearInstancePool();
-    }
 
     /**
      * Retrieves a string version of the primary key from the DB resultset row that can be used to uniquely identify a row in this table.
@@ -240,7 +224,7 @@ class TestTableMap extends TableMap
      */
     public static function getOMClass($withPrefix = true)
     {
-        return $withPrefix ? TestTableMap::CLASS_DEFAULT : TestTableMap::OM_CLASS;
+        return $withPrefix ? StatusChangeTableMap::CLASS_DEFAULT : StatusChangeTableMap::OM_CLASS;
     }
 
     /**
@@ -254,22 +238,22 @@ class TestTableMap extends TableMap
      *
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
-     * @return array           (Test object, last column rank)
+     * @return array           (StatusChange object, last column rank)
      */
     public static function populateObject($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        $key = TestTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
-        if (null !== ($obj = TestTableMap::getInstanceFromPool($key))) {
+        $key = StatusChangeTableMap::getPrimaryKeyHashFromRow($row, $offset, $indexType);
+        if (null !== ($obj = StatusChangeTableMap::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $offset, true); // rehydrate
-            $col = $offset + TestTableMap::NUM_HYDRATE_COLUMNS;
+            $col = $offset + StatusChangeTableMap::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = TestTableMap::OM_CLASS;
-            /** @var Test $obj */
+            $cls = StatusChangeTableMap::OM_CLASS;
+            /** @var StatusChange $obj */
             $obj = new $cls();
             $col = $obj->hydrate($row, $offset, false, $indexType);
-            TestTableMap::addInstanceToPool($obj, $key);
+            StatusChangeTableMap::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -292,18 +276,18 @@ class TestTableMap extends TableMap
         $cls = static::getOMClass(false);
         // populate the object(s)
         while ($row = $dataFetcher->fetch()) {
-            $key = TestTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
-            if (null !== ($obj = TestTableMap::getInstanceFromPool($key))) {
+            $key = StatusChangeTableMap::getPrimaryKeyHashFromRow($row, 0, $dataFetcher->getIndexType());
+            if (null !== ($obj = StatusChangeTableMap::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
                 $results[] = $obj;
             } else {
-                /** @var Test $obj */
+                /** @var StatusChange $obj */
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                TestTableMap::addInstanceToPool($obj, $key);
+                StatusChangeTableMap::addInstanceToPool($obj, $key);
             } // if key exists
         }
 
@@ -324,17 +308,17 @@ class TestTableMap extends TableMap
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(TestTableMap::COL_ID);
-            $criteria->addSelectColumn(TestTableMap::COL_DOMAIN_ID);
-            $criteria->addSelectColumn(TestTableMap::COL_TEST_TYPE);
-            $criteria->addSelectColumn(TestTableMap::COL_STATUS);
-            $criteria->addSelectColumn(TestTableMap::COL_LAST_CHECKED);
+            $criteria->addSelectColumn(StatusChangeTableMap::COL_ID);
+            $criteria->addSelectColumn(StatusChangeTableMap::COL_TEST_ID);
+            $criteria->addSelectColumn(StatusChangeTableMap::COL_DATE);
+            $criteria->addSelectColumn(StatusChangeTableMap::COL_OLD_STATUS);
+            $criteria->addSelectColumn(StatusChangeTableMap::COL_NEW_STATUS);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.domain_id');
-            $criteria->addSelectColumn($alias . '.test_type');
-            $criteria->addSelectColumn($alias . '.status');
-            $criteria->addSelectColumn($alias . '.last_checked');
+            $criteria->addSelectColumn($alias . '.test_id');
+            $criteria->addSelectColumn($alias . '.date');
+            $criteria->addSelectColumn($alias . '.old_status');
+            $criteria->addSelectColumn($alias . '.new_status');
         }
     }
 
@@ -347,7 +331,7 @@ class TestTableMap extends TableMap
      */
     public static function getTableMap()
     {
-        return Propel::getServiceContainer()->getDatabaseMap(TestTableMap::DATABASE_NAME)->getTable(TestTableMap::TABLE_NAME);
+        return Propel::getServiceContainer()->getDatabaseMap(StatusChangeTableMap::DATABASE_NAME)->getTable(StatusChangeTableMap::TABLE_NAME);
     }
 
     /**
@@ -355,16 +339,16 @@ class TestTableMap extends TableMap
      */
     public static function buildTableMap()
     {
-        $dbMap = Propel::getServiceContainer()->getDatabaseMap(TestTableMap::DATABASE_NAME);
-        if (!$dbMap->hasTable(TestTableMap::TABLE_NAME)) {
-            $dbMap->addTableObject(new TestTableMap());
+        $dbMap = Propel::getServiceContainer()->getDatabaseMap(StatusChangeTableMap::DATABASE_NAME);
+        if (!$dbMap->hasTable(StatusChangeTableMap::TABLE_NAME)) {
+            $dbMap->addTableObject(new StatusChangeTableMap());
         }
     }
 
     /**
-     * Performs a DELETE on the database, given a Test or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a StatusChange or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Test object or primary key or array of primary keys
+     * @param mixed               $values Criteria or StatusChange object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param  ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -375,27 +359,27 @@ class TestTableMap extends TableMap
      public static function doDelete($values, ConnectionInterface $con = null)
      {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TestTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(StatusChangeTableMap::DATABASE_NAME);
         }
 
         if ($values instanceof Criteria) {
             // rename for clarity
             $criteria = $values;
-        } elseif ($values instanceof \Models\Test) { // it's a model object
+        } elseif ($values instanceof \Models\StatusChange) { // it's a model object
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(TestTableMap::DATABASE_NAME);
-            $criteria->add(TestTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(StatusChangeTableMap::DATABASE_NAME);
+            $criteria->add(StatusChangeTableMap::COL_ID, (array) $values, Criteria::IN);
         }
 
-        $query = TestQuery::create()->mergeWith($criteria);
+        $query = StatusChangeQuery::create()->mergeWith($criteria);
 
         if ($values instanceof Criteria) {
-            TestTableMap::clearInstancePool();
+            StatusChangeTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
             foreach ((array) $values as $singleval) {
-                TestTableMap::removeInstanceFromPool($singleval);
+                StatusChangeTableMap::removeInstanceFromPool($singleval);
             }
         }
 
@@ -403,20 +387,20 @@ class TestTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the test table.
+     * Deletes all rows from the status_change_log table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).
      */
     public static function doDeleteAll(ConnectionInterface $con = null)
     {
-        return TestQuery::create()->doDeleteAll($con);
+        return StatusChangeQuery::create()->doDeleteAll($con);
     }
 
     /**
-     * Performs an INSERT on the database, given a Test or Criteria object.
+     * Performs an INSERT on the database, given a StatusChange or Criteria object.
      *
-     * @param mixed               $criteria Criteria or Test object containing data that is used to create the INSERT statement.
+     * @param mixed               $criteria Criteria or StatusChange object containing data that is used to create the INSERT statement.
      * @param ConnectionInterface $con the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -425,22 +409,22 @@ class TestTableMap extends TableMap
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
         if (null === $con) {
-            $con = Propel::getServiceContainer()->getWriteConnection(TestTableMap::DATABASE_NAME);
+            $con = Propel::getServiceContainer()->getWriteConnection(StatusChangeTableMap::DATABASE_NAME);
         }
 
         if ($criteria instanceof Criteria) {
             $criteria = clone $criteria; // rename for clarity
         } else {
-            $criteria = $criteria->buildCriteria(); // build Criteria from Test object
+            $criteria = $criteria->buildCriteria(); // build Criteria from StatusChange object
         }
 
-        if ($criteria->containsKey(TestTableMap::COL_ID) && $criteria->keyContainsValue(TestTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.TestTableMap::COL_ID.')');
+        if ($criteria->containsKey(StatusChangeTableMap::COL_ID) && $criteria->keyContainsValue(StatusChangeTableMap::COL_ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.StatusChangeTableMap::COL_ID.')');
         }
 
 
         // Set the correct dbName
-        $query = TestQuery::create()->mergeWith($criteria);
+        $query = StatusChangeQuery::create()->mergeWith($criteria);
 
         // use transaction because $criteria could contain info
         // for more than one table (I guess, conceivably)
@@ -449,7 +433,7 @@ class TestTableMap extends TableMap
         });
     }
 
-} // TestTableMap
+} // StatusChangeTableMap
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-TestTableMap::buildTableMap();
+StatusChangeTableMap::buildTableMap();

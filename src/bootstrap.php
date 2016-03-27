@@ -47,15 +47,25 @@ $definition = new Definition(Mailer::class, [new Reference('template_engine')]);
 $definition->setFactory([Mailer::class, 'factory']);
 $container->setDefinition('mailer', $definition);
 
+/**
+ * Test session time provider
+ */
+$definition = new Definition(Util\TestSessionTimeProvider::class);
+$definition->setFactory([Util\TestSessionTimeProvider::class, 'instance']);
+$container->setDefinition('test_session_time_provider', $definition);
+
 
 /**
  * Event system
  */
 $definition = new Definition(EventDispatcher::class);
+$dispatcher = new EventDispatcher();
 $definition->setSynthetic(true);
 $container->setDefinition('dispatcher', $definition);
-$container->set('event_dispatcher', new EventDispatcher());
-$container->get('event_dispatcher')->addSubscriber(new Subscribers\DomainTestExecutionSubscriber());
+$container->set('event_dispatcher', $dispatcher);
+// Add subscribers to dispatcher
+$dispatcher->addSubscriber(new Subscribers\DomainTestExecutionSubscriber($dispatcher));
+$dispatcher->addSubscriber(new Subscribers\TestStatusChangeSubscriber($container->get('test_session_time_provider')));
 
 
 /**
@@ -68,20 +78,20 @@ $container->setDefinition('auth.token_storage', $definition);
 $definition = new Definition(EncoderFactory::class);
 $definition->setSynthetic(true);
 $container->setDefinition('auth.encoder', $definition);
-$container->set('auth.encoder', new EncoderFactory(array(
+$container->set('auth.encoder', new EncoderFactory([
     'Models\User' => new PlaintextPasswordEncoder(),
-)));
+]));
 
 $definition = new Definition(AuthenticationProviderManager::class, [
     new Reference('auth.encoder')
-    ]);
+]);
 $definition->setFactory([AuthenticationManagerFactory::class, 'create']);
 $container->setDefinition('auth.manager', $definition);
 
 $definition = new Definition(AuthorizationChecker::class, [
     new Reference('auth.manager'),
     new Reference('auth.token_storage'),
-    ]);
+]);
 $definition->setFactory([AuthorizationCheckerFactory::class, 'create']);
 $container->setDefinition('auth.checker', $definition);
 
@@ -106,7 +116,6 @@ $definition->setFactory([ValidatorFactory::class, 'create']);
 $container->setDefinition('validator', $definition);
 
 
-
 /**
  * Templating
  */
@@ -120,13 +129,14 @@ $container->setDefinition('template_engine', $definition);
  */
 $definition = new Definition(Util\TestEvaluators\HttpEvaluator::class, [
     new Reference('event_dispatcher'),
-    ]);
+]);
 $definition->setFactory([Util\TestEvaluators\HttpEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.http', $definition);
 
 
 $definition = new Definition(Util\TestEvaluators\HttpsEvaluator::class, [
     new Reference('event_dispatcher'),
-    ]);
+]);
 $definition->setFactory([Util\TestEvaluators\HttpsEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.https', $definition);
+

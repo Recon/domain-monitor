@@ -2,10 +2,10 @@
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1458824325.
- * Generated on 2016-03-24 13:58:45 
+ * up to version 1459072342.
+ * Generated on 2016-03-27 11:52:22 
  */
-class PropelMigration_1458824325
+class PropelMigration_1459072342
 {
     public $comment = '';
 
@@ -128,6 +128,22 @@ CREATE TABLE `test`
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE `status_change_log`
+(
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `test_id` INTEGER NOT NULL,
+    `date` DATETIME,
+    `old_status` TINYINT(1) NOT NULL,
+    `new_status` TINYINT(1) NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `status_change_log_fi_61fecd` (`test_id`),
+    CONSTRAINT `status_change_log_fk_61fecd`
+        FOREIGN KEY (`test_id`)
+        REFERENCES `test` (`id`)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
 ',
@@ -157,6 +173,8 @@ DROP TABLE IF EXISTS `domain`;
 DROP TABLE IF EXISTS `users_domain`;
 
 DROP TABLE IF EXISTS `test`;
+
+DROP TABLE IF EXISTS `status_change_log`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

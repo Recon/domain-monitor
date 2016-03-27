@@ -50,7 +50,17 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTestQuery rightJoinWithDomain() Adds a RIGHT JOIN clause and with to the query using the Domain relation
  * @method     ChildTestQuery innerJoinWithDomain() Adds a INNER JOIN clause and with to the query using the Domain relation
  *
- * @method     \Models\DomainQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
+ * @method     ChildTestQuery leftJoinStatusChange($relationAlias = null) Adds a LEFT JOIN clause to the query using the StatusChange relation
+ * @method     ChildTestQuery rightJoinStatusChange($relationAlias = null) Adds a RIGHT JOIN clause to the query using the StatusChange relation
+ * @method     ChildTestQuery innerJoinStatusChange($relationAlias = null) Adds a INNER JOIN clause to the query using the StatusChange relation
+ *
+ * @method     ChildTestQuery joinWithStatusChange($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the StatusChange relation
+ *
+ * @method     ChildTestQuery leftJoinWithStatusChange() Adds a LEFT JOIN clause and with to the query using the StatusChange relation
+ * @method     ChildTestQuery rightJoinWithStatusChange() Adds a RIGHT JOIN clause and with to the query using the StatusChange relation
+ * @method     ChildTestQuery innerJoinWithStatusChange() Adds a INNER JOIN clause and with to the query using the StatusChange relation
+ *
+ * @method     \Models\DomainQuery|\Models\StatusChangeQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildTest findOne(ConnectionInterface $con = null) Return the first ChildTest matching the query
  * @method     ChildTest findOneOrCreate(ConnectionInterface $con = null) Return the first ChildTest matching the query, or a new ChildTest object populated from the query conditions when no match is found
@@ -528,6 +538,79 @@ abstract class TestQuery extends ModelCriteria
         return $this
             ->joinDomain($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'Domain', '\Models\DomainQuery');
+    }
+
+    /**
+     * Filter the query by a related \Models\StatusChange object
+     *
+     * @param \Models\StatusChange|ObjectCollection $statusChange the related object to use as filter
+     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ChildTestQuery The current query, for fluid interface
+     */
+    public function filterByStatusChange($statusChange, $comparison = null)
+    {
+        if ($statusChange instanceof \Models\StatusChange) {
+            return $this
+                ->addUsingAlias(TestTableMap::COL_ID, $statusChange->getTestId(), $comparison);
+        } elseif ($statusChange instanceof ObjectCollection) {
+            return $this
+                ->useStatusChangeQuery()
+                ->filterByPrimaryKeys($statusChange->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByStatusChange() only accepts arguments of type \Models\StatusChange or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the StatusChange relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this|ChildTestQuery The current query, for fluid interface
+     */
+    public function joinStatusChange($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('StatusChange');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'StatusChange');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the StatusChange relation StatusChange object
+     *
+     * @see useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \Models\StatusChangeQuery A secondary query class using the current class as primary query
+     */
+    public function useStatusChangeQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinStatusChange($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'StatusChange', '\Models\StatusChangeQuery');
     }
 
     /**
