@@ -8,6 +8,7 @@ use \Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use \Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use \Symfony\Component\Security\Core\User\InMemoryUserProvider;
 use \Symfony\Component\Security\Core\User\UserChecker;
+use Symfony\Component\Validator\Constraints\Length;
 
 class AuthenticationManagerFactory
 {

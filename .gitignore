@@ -2,6 +2,7 @@
 propel.yml
 
 /nbproject
+.idea/
 
 composer.phar
 /vendor/
