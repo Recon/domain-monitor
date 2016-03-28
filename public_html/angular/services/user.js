@@ -15,16 +15,18 @@
                     self.info = {is_authenticated: false};
                 }
             });
+
+            $rootScope.$emit('user.info.loaded');
         };
 
         this.refresh();
 
-        $rootScope.$on('user.login', function(){
+        $rootScope.$on('user.login', function () {
             self.refresh();
         });
     };
 
     app.factory('userService', ['$http', '$rootScope', function ($http, $scope) {
-            return new UserService($http, $scope);
-        }]);
+        return new UserService($http, $scope);
+    }]);
 })(window.angular, window.jQuery);

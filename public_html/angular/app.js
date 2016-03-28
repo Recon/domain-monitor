@@ -20,75 +20,66 @@
     });
 
     app.config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
-            cfpLoadingBarProvider.includeSpinner = false;
-            cfpLoadingBarProvider.includeBar = true;
-        }]);
+        cfpLoadingBarProvider.includeSpinner = false;
+        cfpLoadingBarProvider.includeBar = true;
+    }]);
 
     app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-            $locationProvider.html5Mode(false);
+        $locationProvider.html5Mode(false);
 
-            $routeProvider
-                    .when('/overview', {
-                        templateUrl: '/templates/overview.html'
-                    })
-                    .when('/domain-settings/new', {
-                        templateUrl: '/templates/domain-settings.html'
-                    })
-                    .when('/domain-settings/:id', {
-                        templateUrl: '/templates/domain-settings.html'
-                    })
-                    .when('/user/edit/:id', {
-                        templateUrl: '/templates/users/user-edit.html'
-                    })
-                    .when('/user/new', {
-                        templateUrl: '/templates/users/user-edit.html'
-                    })
-                    .when('/users', {
-                        templateUrl: '/templates/users/user-list.html'
-                    })
-                    .when('/profile', {
-                        templateUrl: '/templates/profile/profile.html'
-                    })
-                    .when('/login', {
-                        templateUrl: '/templates/login.html'
-                    })
-                    .when('/reset-password/:token', {
-                        templateUrl: '/templates/reset-password.html'
-                    })
-                    .when('/', {
-                        templateUrl: '/templates/index.html',
-                        controller: 'index'
-                    })
-                    .otherwise({
-                        redirectTo: '/'
-                    });
-        }]);
-
+        $routeProvider
+            .when('/overview', {
+                templateUrl: '/templates/overview.html'
+            })
+            .when('/domain-settings/new', {
+                templateUrl: '/templates/domain-settings.html'
+            })
+            .when('/domain-settings/:id', {
+                templateUrl: '/templates/domain-settings.html'
+            })
+            .when('/user/edit/:id', {
+                templateUrl: '/templates/users/user-edit.html'
+            })
+            .when('/user/new', {
+                templateUrl: '/templates/users/user-edit.html'
+            })
+            .when('/users', {
+                templateUrl: '/templates/users/user-list.html'
+            })
+            .when('/profile', {
+                templateUrl: '/templates/profile/profile.html'
+            })
+            .when('/login', {
+                templateUrl: '/templates/login.html'
+            })
+            .when('/reset-password/:token', {
+                templateUrl: '/templates/reset-password.html'
+            })
+            .when('/', {
+                templateUrl: '/templates/index.html',
+                controller: 'index'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    }]);
 
 
     app.run(function ($rootScope, $location, $timeout, userService) {
+
+        // Redirect if not logged in
+        $rootScope.$on('$routeChangeSuccess', function (event, next) {
+            if (!userService.info.is_authenticated && [
+                    // Whitelist paths which can be accessed without logging in
+                    '/',
+                    '/login',
+                    '/reset-password/:token'
+                ].indexOf(next.originalPath) == -1) {
+                $location.path("/login");
+            }
+        });
+
         $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
-
-            // Redirect if not logged in
-//            var redirectToLoginIfRestricted = function () {
-//                if (!userService.isAuthenticated() && [
-//                    // Whitelist paths which can be accessed without logging in
-//                    '/',
-//                    '/user/recover',
-//                    '/user/reset/:token'
-//                ].indexOf(next.originalPath) == -1) {
-//                    $location.path("/");
-//                }
-//            };
-//            if (userService.isLoaded()) {
-//                redirectToLoginIfRestricted();
-//            } else {
-//                var unregister = $rootScope.$on('user.info.update', function () {
-//                    redirectToLoginIfRestricted();
-//                    unregister();
-//                });
-//            }
-
             // Tracking - not used at the moment
             /*
              if (window._paq) {
@@ -96,12 +87,7 @@
              window._paq.push(['trackPageView']);
              }*/
 
-
             $rootScope.$emit('ui-component-update');
-
-            $timeout(function () {
-                $('.viewport-min-height').css('min-height', ($('.site-view').height() - 65) + 'px');
-            }, 100);
         });
 
         $rootScope.$on('ui-component-update', function () {
