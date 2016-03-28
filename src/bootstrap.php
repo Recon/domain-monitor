@@ -40,12 +40,28 @@ $definition->setSynthetic(true);
 $container->setDefinition('session', $definition);
 $container->set('session', $session);
 
+
+/**
+ * Templating
+ */
+$definition = new Definition(EngineInterface::class);
+$definition->setFactory([TemplatingFactory::class, 'create']);
+$container->setDefinition('template_engine', $definition);
+
+
 /**
  * Mailer
  */
+
+$container->register('mailer_factory', \Util\MailerFactory::class)
+    ->addArgument($container->get('template_engine'));
+
 $definition = new Definition(Mailer::class, [new Reference('template_engine')]);
-$definition->setFactory([Mailer::class, 'factory']);
+$definition->setFactory([\Util\MailerFactory::class, 'factory']);
 $container->setDefinition('mailer', $definition);
+
+$container->register('mailer.test_change_notificaion_renderer', \Util\UserTestNotifications\MailRenderer::class)
+    ->addArgument($container->get('template_engine'));
 
 /**
  * Test session time provider
@@ -66,6 +82,11 @@ $container->set('event_dispatcher', $dispatcher);
 // Add subscribers to dispatcher
 $dispatcher->addSubscriber(new Subscribers\DomainTestExecutionSubscriber($dispatcher));
 $dispatcher->addSubscriber(new Subscribers\TestStatusChangeSubscriber($container->get('test_session_time_provider')));
+$dispatcher->addSubscriber(new Subscribers\StatusChangeNotificationEmailsSubscriber(
+        $container->get('test_session_time_provider'),
+        $container->get('mailer_factory'),
+        $container->get('mailer.test_change_notificaion_renderer'))
+);
 
 
 /**
@@ -114,14 +135,6 @@ $container->get('auth.token_storage')->setToken($token);
 $definition = new Definition(Validation::class);
 $definition->setFactory([ValidatorFactory::class, 'create']);
 $container->setDefinition('validator', $definition);
-
-
-/**
- * Templating
- */
-$definition = new Definition(EngineInterface::class);
-$definition->setFactory([TemplatingFactory::class, 'create']);
-$container->setDefinition('template_engine', $definition);
 
 
 /**

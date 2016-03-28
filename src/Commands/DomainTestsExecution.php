@@ -3,6 +3,7 @@
 namespace Commands;
 
 use \DateTime;
+use Events\TestSessionFinishedEvent;
 use \Models\Domain;
 use \Models\DomainQuery;
 use \Models\Test;
@@ -12,6 +13,7 @@ use \Symfony\Component\Console\Command\Command;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use \Util\TestEvaluators\AbstractCurlDomainResponseEvaluator;
 use \Util\Tests\AbstractCurlBatch;
 use \Util\Tests\HttpBatch;
@@ -19,6 +21,11 @@ use \Util\Tests\HttpsBatch;
 
 class DomainTestsExecution extends Command
 {
+
+    /**
+     * @var EventDispatcher
+     */
+    private $dispatcher;
 
     /**
      * @var Container
@@ -34,6 +41,7 @@ class DomainTestsExecution extends Command
     public function __construct(Container $container)
     {
         $this->container = $container;
+        $this->dispatcher = $this->container->get('event_dispatcher');
 
         parent::__construct();
     }
@@ -42,8 +50,7 @@ class DomainTestsExecution extends Command
     {
         $this
             ->setName('execute_tests')
-            ->setDescription('Executes all the domain tests')
-        ;
+            ->setDescription('Executes all the domain tests');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -63,6 +70,8 @@ class DomainTestsExecution extends Command
 
         $output->writeln("<info>Executing HTTPS tests...</info>");
         $this->performCurlConnectivityTests($this->container->get('evaluator.https'), new HttpsBatch(), $domains, Test::TYPE_HTTPS);
+
+        $this->dispatcher->dispatch(TestSessionFinishedEvent::NAME, new TestSessionFinishedEvent());
     }
 
     /**

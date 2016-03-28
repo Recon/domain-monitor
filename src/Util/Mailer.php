@@ -18,22 +18,31 @@ class Mailer
      */
     private $message;
 
-    public static function factory(EngineInterface $templatingEngine)
-    {
-        return new Mailer(Swift_Message::newInstance(), $templatingEngine);
-    }
-
+    /**
+     * Mailer constructor.
+     * @param Swift_Message $message
+     * @param EngineInterface $templatingEngine
+     */
     public function __construct(Swift_Message $message, EngineInterface $templatingEngine)
     {
         $this->message = $message;
         $this->templatingEngine = $templatingEngine;
+
+        $this->message->setFrom('websitemonitor@localhost');
     }
 
+    /**
+     * @return Swift_Message
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
+    /**
+     * @param $template
+     * @param array $data
+     */
     public function renderMessageBody($template, array $data = [])
     {
         $this->message->setBody($this->templatingEngine->render($template, $data), 'text/html');
