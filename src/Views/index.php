@@ -50,6 +50,11 @@
 
     <script src="js/monitor-metadata.js"></script>
     <script src="angular/app.js"></script>
+    <script src="angular/config/http-error-interceptor.js"></script>
+    <script src="angular/config/http-default-headers.js"></script>
+    <script src="angular/config/routing.js"></script>
+    <script src="angular/config/loading-bar.js"></script>
+    <script src="angular/config/json-to-query-strings.js"></script>
     <script src="angular/controllers/index.js"></script>
     <script src="angular/controllers/overview.js"></script>
     <script src="angular/controllers/navigation.js"></script>
@@ -62,6 +67,8 @@
     <script src="angular/services/user.js"></script>
     <script src="angular/filters/moment.js"></script>
     <script src="angular/filters/range.js"></script>
+    <script src="angular/filters/unsafe.js"></script>
+    <script src="angular/filters/capitalize.js"></script>
 </body>
 
 </html>
