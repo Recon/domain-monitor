@@ -1,6 +1,15 @@
 home:
     path:     /
     defaults: { _controller: 'Controllers\HomeController::showHomePage' }
+install:
+    path:     /install
+    defaults: { _controller: 'Controllers\InstallController::showInstallPage' }
+install_submit:
+    path:     /install_submit
+    defaults: { _controller: 'Controllers\InstallController::submitInstallConfiguration' }
+install_done:
+    path:     /install/done
+    defaults: { _controller: 'Controllers\InstallController::submitInstallCompletePage' }
 login:
     path:     /login
     defaults: { _controller: 'Controllers\AuthenticationController::login' }

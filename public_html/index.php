@@ -1,12 +1,12 @@
 <?php
 
-use \Symfony\Component\Config\FileLocator;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpKernel\Controller\ControllerResolver;
-use \Symfony\Component\Routing\Loader\YamlFileLoader;
-use \Symfony\Component\Routing\Matcher\UrlMatcher;
-use \Symfony\Component\Routing\RequestContext;
-use \Symfony\Component\Routing\Router;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\Routing\Loader\YamlFileLoader;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Router;
 
 global $container;
 
@@ -23,7 +23,13 @@ $context->fromRequest(Request::createFromGlobals());
 
 $router = new Router(new YamlFileLoader($locator), 'routes.yml', ['cache_dir' => null], $context);
 $matcher = new UrlMatcher($router->getRouteCollection(), $context);
-$parameters = $router->match(parse_url($_SERVER['REQUEST_URI'])['path']);
+
+try {
+    $parameters = $router->match(parse_url($_SERVER['REQUEST_URI'])['path']);
+} catch (\Symfony\Component\Routing\Exception\ResourceNotFoundException $ex) {
+    throw new \Exceptions\HTTP\Error404();
+}
+
 $request = Request::createFromGlobals();
 $resolver = new ControllerResolver();
 
@@ -35,6 +41,7 @@ $controller[0]->setRequest($request);
 $controller[0]->setAuthorizationChecker($container->get('auth.checker'));
 $controller[0]->setPermissionChecker($container->get('auth.permission_checker'));
 $controller[0]->setSessionManager($container->get('session'));
+$controller[0]->init();
 $arguments = $resolver->getArguments($request, $controller);
 $response = call_user_func_array($controller, $arguments);
 

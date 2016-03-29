@@ -1,30 +1,29 @@
 <?php
 
-use \Authentication\AuthenticationManagerFactory;
-use \Authentication\AuthorizationCheckerFactory;
-use \Authentication\TokenStorageFactory;
-use \Symfony\Component\DependencyInjection\ContainerBuilder;
-use \Symfony\Component\DependencyInjection\Definition;
-use \Symfony\Component\DependencyInjection\Reference;
-use \Symfony\Component\EventDispatcher\EventDispatcher;
-use \Symfony\Component\HttpFoundation\Session\Session;
-use \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
-use \Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
-use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use \Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
-use \Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use \Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
-use \Symfony\Component\Templating\EngineInterface;
-use \Symfony\Component\Validator\Validation;
-use \Util\Mailer;
-use \Util\TemplatingFactory;
-use \Util\UserPermissionChecker;
-use \Util\ValidatorFactory;
+use Authentication\AuthenticationManagerFactory;
+use Authentication\AuthorizationCheckerFactory;
+use Authentication\TokenStorageFactory;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\Validator\Validation;
+use Util\Mailer;
+use Util\TemplatingFactory;
+use Util\UserPermissionChecker;
+use Util\ValidatorFactory;
 
 //require 'authentication.php';
 require __DIR__ . "/../vendor/autoload.php";
 require __DIR__ . "/functions.php";
-require __DIR__ . "/Config/Propel/config.php";
 
 $container = new ContainerBuilder();
 
@@ -63,6 +62,7 @@ $container->setDefinition('mailer', $definition);
 $container->register('mailer.test_change_notificaion_renderer', \Util\UserTestNotifications\MailRenderer::class)
     ->addArgument($container->get('template_engine'));
 
+
 /**
  * Test session time provider
  */
@@ -87,6 +87,8 @@ $dispatcher->addSubscriber(new Subscribers\StatusChangeNotificationEmailsSubscri
         $container->get('mailer_factory'),
         $container->get('mailer.test_change_notificaion_renderer'))
 );
+$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\PropelConfiguratorSubscriber());
+$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\MailerConfiguratorSubscriber());
 
 
 /**
@@ -152,4 +154,21 @@ $definition = new Definition(Util\TestEvaluators\HttpsEvaluator::class, [
 ]);
 $definition->setFactory([Util\TestEvaluators\HttpsEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.https', $definition);
+
+
+/**
+ * Config
+ */
+$container->register('config_writer', \Util\Config\Install\ConfigFileWriter::class)
+    ->addArgument(__DIR__ . '/Config');
+$container->register('config_loader', \Util\Config\ConfigLoader::class)
+    ->addArgument(__DIR__ . '/Config');
+
+try {
+    $container->get('config_loader')->load();
+    $container->get('event_dispatcher')->dispatch(\Events\ConfigLoadEvent::NAME, new \Events\ConfigLoadEvent($container->get('config_loader')));
+} catch (\Exceptions\MissingConfigurationFileException $ex) {
+    
+}
+
 

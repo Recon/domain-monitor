@@ -3,7 +3,7 @@
 namespace Models;
 
 use \Models\Base\Domain as BaseDomain;
-use  \Symfony\Component\Validator\Constraints As Assert;
+use \Symfony\Component\Validator\Constraints As Assert;
 use \Symfony\Component\Validator\Mapping\ClassMetadata;
 use \Validator\Constraints\UniqueDomainOnAccountConstraint;
 use \Validator\Constraints\ValidDomainConstraint;

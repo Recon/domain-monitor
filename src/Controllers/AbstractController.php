@@ -129,4 +129,10 @@ class AbstractController
         return $messages;
     }
 
+    /**
+     * Called after the container and other dependencies have been injected
+     */
+    public function init()
+    {
+    }
 }
