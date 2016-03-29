@@ -70,7 +70,6 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildTest findOneByTestType(int $test_type) Return the first ChildTest filtered by the test_type column
  * @method     ChildTest findOneByStatus(boolean $status) Return the first ChildTest filtered by the status column
  * @method     ChildTest findOneByLastChecked(string $last_checked) Return the first ChildTest filtered by the last_checked column *
-
  * @method     ChildTest requirePk($key, ConnectionInterface $con = null) Return the ChildTest by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildTest requireOne(ConnectionInterface $con = null) Return the first ChildTest matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -96,8 +95,8 @@ abstract class TestQuery extends ModelCriteria
     /**
      * Initializes internal state of \Models\Base\TestQuery object.
      *
-     * @param     string $dbName The database name
-     * @param     string $modelName The phpName of a model, e.g. 'Book'
+     * @param     string $dbName     The database name
+     * @param     string $modelName  The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
     public function __construct($dbName = 'default', $modelName = '\\Models\\Test', $modelAlias = null)
@@ -108,8 +107,8 @@ abstract class TestQuery extends ModelCriteria
     /**
      * Returns a new ChildTestQuery object.
      *
-     * @param     string $modelAlias The alias of a model in the query
-     * @param     Criteria $criteria Optional Criteria to build the query from
+     * @param     string   $modelAlias The alias of a model in the query
+     * @param     Criteria $criteria   Optional Criteria to build the query from
      *
      * @return ChildTestQuery
      */
@@ -138,7 +137,7 @@ abstract class TestQuery extends ModelCriteria
      * $obj  = $c->findPk(12, $con);
      * </code>
      *
-     * @param mixed $key Primary key to use for the query
+     * @param mixed               $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
      * @return ChildTest|array|mixed the result, formatted by the current formatter
@@ -148,7 +147,11 @@ abstract class TestQuery extends ModelCriteria
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = TestTableMap::getInstanceFromPool(null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key))) && !$this->formatter) {
+        if ((null !== ($obj = TestTableMap::getInstanceFromPool(null === $key || is_scalar($key) || is_callable([
+                    $key,
+                    '__toString',
+                ]) ? (string)$key : $key))) && !$this->formatter
+        ) {
             // the object is already in the instance pool
             return $obj;
         }
@@ -157,8 +160,9 @@ abstract class TestQuery extends ModelCriteria
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
-         || $this->selectColumns || $this->asColumns || $this->selectModifiers
-         || $this->map || $this->having || $this->joins) {
+            || $this->selectColumns || $this->asColumns || $this->selectModifiers
+            || $this->map || $this->having || $this->joins
+        ) {
             return $this->findPkComplex($key, $con);
         } else {
             return $this->findPkSimple($key, $con);
@@ -169,7 +173,7 @@ abstract class TestQuery extends ModelCriteria
      * Find object by primary key using raw SQL to go fast.
      * Bypass doSelect() and the object formatter by using generated code.
      *
-     * @param     mixed $key Primary key to use for the query
+     * @param     mixed               $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
      * @throws \Propel\Runtime\Exception\PropelException
@@ -192,7 +196,8 @@ abstract class TestQuery extends ModelCriteria
             /** @var ChildTest $obj */
             $obj = new ChildTest();
             $obj->hydrate($row);
-            TestTableMap::addInstanceToPool($obj, null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key);
+            TestTableMap::addInstanceToPool($obj,
+                null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string)$key : $key);
         }
         $stmt->closeCursor();
 
@@ -202,7 +207,7 @@ abstract class TestQuery extends ModelCriteria
     /**
      * Find object by primary key.
      *
-     * @param     mixed $key Primary key to use for the query
+     * @param     mixed               $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
      * @return ChildTest|array|mixed the result, formatted by the current formatter
@@ -223,8 +228,9 @@ abstract class TestQuery extends ModelCriteria
      * <code>
      * $objs = $c->findPks(array(12, 56, 832), $con);
      * </code>
-     * @param     array $keys Primary keys to use for the query
-     * @param     ConnectionInterface $con an optional connection object
+     *
+     * @param     array               $keys Primary keys to use for the query
+     * @param     ConnectionInterface $con  an optional connection object
      *
      * @return ObjectCollection|array|mixed the list of results, formatted by the current formatter
      */
@@ -278,10 +284,10 @@ abstract class TestQuery extends ModelCriteria
      * $query->filterById(array('min' => 12)); // WHERE id > 12
      * </code>
      *
-     * @param     mixed $id The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $id         The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
@@ -321,10 +327,10 @@ abstract class TestQuery extends ModelCriteria
      *
      * @see       filterByDomain()
      *
-     * @param     mixed $domainId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $domainId   The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
@@ -362,10 +368,10 @@ abstract class TestQuery extends ModelCriteria
      * $query->filterByTestType(array('min' => 12)); // WHERE test_type > 12
      * </code>
      *
-     * @param     mixed $testType The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $testType   The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
@@ -402,19 +408,19 @@ abstract class TestQuery extends ModelCriteria
      * $query->filterByStatus('yes'); // WHERE status = true
      * </code>
      *
-     * @param     boolean|string $status The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param     boolean|string $status     The value to use as filter.
+     *                                       Non-boolean arguments are converted using the following rules:
+     *                                       * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                                       * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *                                       Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string         $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
      */
     public function filterByStatus($status = null, $comparison = null)
     {
         if (is_string($status)) {
-            $status = in_array(strtolower($status), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            $status = in_array(strtolower($status), ['false', 'off', '-', 'no', 'n', '0', '']) ? false : true;
         }
 
         return $this->addUsingAlias(TestTableMap::COL_STATUS, $status, $comparison);
@@ -430,13 +436,13 @@ abstract class TestQuery extends ModelCriteria
      * $query->filterByLastChecked(array('max' => 'yesterday')); // WHERE last_checked > '2011-03-13'
      * </code>
      *
-     * @param     mixed $lastChecked The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param     mixed  $lastChecked The value to use as filter.
+     *                                Values can be integers (unix timestamps), DateTime objects, or strings.
+     *                                Empty strings are treated as NULL.
+     *                                Use scalar values for equality.
+     *                                Use array values for in_array() equivalent.
+     *                                Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     string $comparison  Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
      */
@@ -466,8 +472,8 @@ abstract class TestQuery extends ModelCriteria
     /**
      * Filter the query by a related \Models\Domain object
      *
-     * @param \Models\Domain|ObjectCollection $domain The related object(s) to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param \Models\Domain|ObjectCollection $domain     The related object(s) to use as filter
+     * @param string                          $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
@@ -494,7 +500,7 @@ abstract class TestQuery extends ModelCriteria
      * Adds a JOIN clause to the query using the Domain relation
      *
      * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType      Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
      */
@@ -527,9 +533,9 @@ abstract class TestQuery extends ModelCriteria
      *
      * @see useQuery()
      *
-     * @param     string $relationAlias optional alias for the relation,
+     * @param     string $relationAlias  optional alias for the relation,
      *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType       Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return \Models\DomainQuery A secondary query class using the current class as primary query
      */
@@ -544,7 +550,7 @@ abstract class TestQuery extends ModelCriteria
      * Filter the query by a related \Models\StatusChange object
      *
      * @param \Models\StatusChange|ObjectCollection $statusChange the related object to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param string                                $comparison   Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ChildTestQuery The current query, for fluid interface
      */
@@ -567,7 +573,7 @@ abstract class TestQuery extends ModelCriteria
      * Adds a JOIN clause to the query using the StatusChange relation
      *
      * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType      Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildTestQuery The current query, for fluid interface
      */
@@ -600,9 +606,9 @@ abstract class TestQuery extends ModelCriteria
      *
      * @see useQuery()
      *
-     * @param     string $relationAlias optional alias for the relation,
+     * @param     string $relationAlias  optional alias for the relation,
      *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType       Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return \Models\StatusChangeQuery A secondary query class using the current class as primary query
      */
@@ -661,9 +667,9 @@ abstract class TestQuery extends ModelCriteria
      *
      * @param ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
-     *                         if supported by native driver or if emulated using Propel.
+     *                                 if supported by native driver or if emulated using Propel.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                 rethrown wrapped into a PropelException.
      */
     public function delete(ConnectionInterface $con = null)
     {

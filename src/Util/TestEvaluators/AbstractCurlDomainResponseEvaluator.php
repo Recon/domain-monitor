@@ -2,10 +2,10 @@
 
 namespace Util\TestEvaluators;
 
-use \Events\TestExecutionEvent;
-use \Models\Test;
-use \Symfony\Component\EventDispatcher\EventDispatcher;
-use \Util\Tests\CurlDomainResponse;
+use Events\TestExecutionEvent;
+use Models\Test;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Util\Tests\CurlDomainResponse;
 
 /**
  * This class evaluates CURL responses and triggers the corresponding events
@@ -31,7 +31,7 @@ class AbstractCurlDomainResponseEvaluator
 
     public function evaluate(CurlDomainResponse $response)
     {
-        $info = (array) $response->getInfo();
+        $info = (array)$response->getInfo();
 
         if (empty($info['http_code'])) {
             return $this->onTestFailed($response->getTest());

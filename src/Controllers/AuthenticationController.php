@@ -2,13 +2,13 @@
 
 namespace Controllers;
 
-use \DateTime;
-use \Exceptions\HTTP\JSON\InvalidResetToken;
-use \Models\UserQuery;
-use \Propel\Runtime\ActiveQuery\Criteria;
-use \Symfony\Component\HttpFoundation\JsonResponse;
-use \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use \Symfony\Component\Security\Core\Exception\AuthenticationException;
+use DateTime;
+use Exceptions\HTTP\JSON\InvalidResetToken;
+use Models\UserQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class AuthenticationController extends AbstractController
 {
@@ -29,13 +29,13 @@ class AuthenticationController extends AbstractController
             $this->session->set('auth_token', $token);
 
             return new JsonResponse([
-                'success' => true
+                'success' => true,
             ]);
         } catch (AuthenticationException $e) {
             return new JsonResponse([
                 'success' => false,
-                'message' => $e->getMessage()
-                ], 400);
+                'message' => $e->getMessage(),
+            ], 400);
         }
     }
 
@@ -54,7 +54,7 @@ class AuthenticationController extends AbstractController
 
         $mailer = $this->container->get('mailer');
         $mailer->renderMessageBody('email/reset', [
-            'recovery_link' => $this->request->getUriForPath(sprintf('/#/reset-password/%s', $user->getRecoveryToken()))
+            'recovery_link' => $this->request->getUriForPath(sprintf('/#/reset-password/%s', $user->getRecoveryToken())),
         ]);
         $mailer->getMessage()->setSubject("[Website Monitor] Password request");
         $mailer->getMessage()->setTo($user->getEmail());
@@ -82,7 +82,8 @@ class AuthenticationController extends AbstractController
         $encoderFactory = $this->container->get('auth.encoder');
         $messages = [];
         if ($this->request->get('password') == $this->request->get('password2')) {
-            $password = $encoderFactory->getEncoder($user)->encodePassword($this->request->get('password'), $user->getSalt());
+            $password = $encoderFactory->getEncoder($user)->encodePassword($this->request->get('password'),
+                $user->getSalt());
             $user->setPassword($password);
         } else {
             $messages[] = 'The passwords do not match';
@@ -91,9 +92,9 @@ class AuthenticationController extends AbstractController
         $messages = array_merge($messages, $this->getErrorMessages($user));
         if (count($messages)) {
             return new JsonResponse([
-                'success' => false,
-                'messages' => $messages
-                ], 400);
+                'success'  => false,
+                'messages' => $messages,
+            ], 400);
         }
 
         $user->setRecoveryToken(null);
@@ -101,7 +102,7 @@ class AuthenticationController extends AbstractController
         $user->save();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 

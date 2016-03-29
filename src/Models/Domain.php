@@ -2,11 +2,11 @@
 
 namespace Models;
 
-use \Models\Base\Domain as BaseDomain;
-use \Symfony\Component\Validator\Constraints As Assert;
-use \Symfony\Component\Validator\Mapping\ClassMetadata;
-use \Validator\Constraints\UniqueDomainOnAccountConstraint;
-use \Validator\Constraints\ValidDomainConstraint;
+use Models\Base\Domain as BaseDomain;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Validator\Constraints\UniqueDomainOnAccountConstraint;
+use Validator\Constraints\ValidDomainConstraint;
 
 /**
  * Skeleton subclass for representing a row from the 'domain' table.
@@ -30,11 +30,11 @@ class Domain extends BaseDomain
     {
         $metadata->addGetterConstraint('uri', new Assert\Regex([
             'pattern' => '#^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$#',
-            'message' => 'The URI provided doesn\'t seem to be a valid domain name'
+            'message' => 'The URI provided doesn\'t seem to be a valid domain name',
         ]));
 
         $metadata->addGetterConstraint('uri', new Assert\NotBlank([
-            'message' => 'The domain cannot be blank'
+            'message' => 'The domain cannot be blank',
         ]));
 
         $metadata->addGetterConstraint('uri', new UniqueDomainOnAccountConstraint());

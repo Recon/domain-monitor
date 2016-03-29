@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends AbstractController
 {

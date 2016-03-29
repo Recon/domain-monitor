@@ -102,13 +102,18 @@ class AccountTableMap extends TableMap
      * first dimension keys are the type constants
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
-    protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'Name', 'CreatedAt', 'UpdatedAt', ),
-        self::TYPE_CAMELNAME     => array('id', 'name', 'createdAt', 'updatedAt', ),
-        self::TYPE_COLNAME       => array(AccountTableMap::COL_ID, AccountTableMap::COL_NAME, AccountTableMap::COL_CREATED_AT, AccountTableMap::COL_UPDATED_AT, ),
-        self::TYPE_FIELDNAME     => array('id', 'name', 'created_at', 'updated_at', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, )
-    );
+    protected static $fieldNames = [
+        self::TYPE_PHPNAME   => ['Id', 'Name', 'CreatedAt', 'UpdatedAt',],
+        self::TYPE_CAMELNAME => ['id', 'name', 'createdAt', 'updatedAt',],
+        self::TYPE_COLNAME   => [
+            AccountTableMap::COL_ID,
+            AccountTableMap::COL_NAME,
+            AccountTableMap::COL_CREATED_AT,
+            AccountTableMap::COL_UPDATED_AT,
+        ],
+        self::TYPE_FIELDNAME => ['id', 'name', 'created_at', 'updated_at',],
+        self::TYPE_NUM       => [0, 1, 2, 3,],
+    ];
 
     /**
      * holds an array of keys for quick access to the fieldnames array
@@ -116,13 +121,18 @@ class AccountTableMap extends TableMap
      * first dimension keys are the type constants
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
-    protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'Name' => 1, 'CreatedAt' => 2, 'UpdatedAt' => 3, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'name' => 1, 'createdAt' => 2, 'updatedAt' => 3, ),
-        self::TYPE_COLNAME       => array(AccountTableMap::COL_ID => 0, AccountTableMap::COL_NAME => 1, AccountTableMap::COL_CREATED_AT => 2, AccountTableMap::COL_UPDATED_AT => 3, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'name' => 1, 'created_at' => 2, 'updated_at' => 3, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, )
-    );
+    protected static $fieldKeys = [
+        self::TYPE_PHPNAME   => ['Id' => 0, 'Name' => 1, 'CreatedAt' => 2, 'UpdatedAt' => 3,],
+        self::TYPE_CAMELNAME => ['id' => 0, 'name' => 1, 'createdAt' => 2, 'updatedAt' => 3,],
+        self::TYPE_COLNAME   => [
+            AccountTableMap::COL_ID         => 0,
+            AccountTableMap::COL_NAME       => 1,
+            AccountTableMap::COL_CREATED_AT => 2,
+            AccountTableMap::COL_UPDATED_AT => 3,
+        ],
+        self::TYPE_FIELDNAME => ['id' => 0, 'name' => 1, 'created_at' => 2, 'updated_at' => 3,],
+        self::TYPE_NUM       => [0, 1, 2, 3,],
+    ];
 
     /**
      * Initialize the table attributes and columns
@@ -152,20 +162,20 @@ class AccountTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('User', '\\Models\\User', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':account_id',
-    1 => ':id',
-  ),
-), 'CASCADE', 'CASCADE', 'Users', false);
-        $this->addRelation('Domain', '\\Models\\Domain', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':account_id',
-    1 => ':id',
-  ),
-), 'CASCADE', 'CASCADE', 'Domains', false);
+        $this->addRelation('User', '\\Models\\User', RelationMap::ONE_TO_MANY, [
+            0 =>
+                [
+                    0 => ':account_id',
+                    1 => ':id',
+                ],
+        ], 'CASCADE', 'CASCADE', 'Users', false);
+        $this->addRelation('Domain', '\\Models\\Domain', RelationMap::ONE_TO_MANY, [
+            0 =>
+                [
+                    0 => ':account_id',
+                    1 => ':id',
+                ],
+        ], 'CASCADE', 'CASCADE', 'Domains', false);
     } // buildRelations()
 
     /**
@@ -176,10 +186,16 @@ class AccountTableMap extends TableMap
      */
     public function getBehaviors()
     {
-        return array(
-            'timestampable' => array('create_column' => 'created_at', 'update_column' => 'updated_at', 'disable_created_at' => 'false', 'disable_updated_at' => 'false', ),
-        );
+        return [
+            'timestampable' => [
+                'create_column'      => 'created_at',
+                'update_column'      => 'updated_at',
+                'disable_created_at' => 'false',
+                'disable_updated_at' => 'false',
+            ],
+        ];
     } // getBehaviors()
+
     /**
      * Method to invalidate the instance pool of all tables related to account     * by a foreign key with ON DELETE CASCADE
      */
@@ -197,9 +213,9 @@ class AccountTableMap extends TableMap
      * For tables with a single-column primary key, that simple pkey value will be returned.  For tables with
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
-     * @param array  $row       resultset row.
-     * @param int    $offset    The 0-based offset for reading from the resultset row.
-     * @param string $indexType One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array  $row        resultset row.
+     * @param int    $offset     The 0-based offset for reading from the resultset row.
+     * @param string $indexType  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                           TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM
      *
      * @return string The primary key hash of the row
@@ -207,11 +223,23 @@ class AccountTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+                TableMap::TYPE_PHPNAME, $indexType)] === null
+        ) {
             return null;
         }
 
-        return null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+        return null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME,
+            $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([
+            $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+                TableMap::TYPE_PHPNAME, $indexType)],
+            '__toString',
+        ]) ? (string)$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME,
+            $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME, $indexType)];
     }
 
     /**
@@ -219,20 +247,18 @@ class AccountTableMap extends TableMap
      * For tables with a single-column primary key, that simple pkey value will be returned.  For tables with
      * a multi-column primary key, an array of the primary key columns will be returned.
      *
-     * @param array  $row       resultset row.
-     * @param int    $offset    The 0-based offset for reading from the resultset row.
-     * @param string $indexType One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array  $row        resultset row.
+     * @param int    $offset     The 0-based offset for reading from the resultset row.
+     * @param string $indexType  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                           TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM
      *
      * @return mixed The primary key of the row
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        return (int) $row[
-            $indexType == TableMap::TYPE_NUM
-                ? 0 + $offset
-                : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
-        ];
+        return (int)$row[$indexType == TableMap::TYPE_NUM
+            ? 0 + $offset
+            : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
     }
 
     /**
@@ -254,10 +280,10 @@ class AccountTableMap extends TableMap
     /**
      * Populates an object of the default type or an object that inherit from the default.
      *
-     * @param array  $row       row returned by DataFetcher->fetch().
-     * @param int    $offset    The 0-based offset for reading from the resultset row.
-     * @param string $indexType The index type of $row. Mostly DataFetcher->getIndexType().
-                                 One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array  $row        row returned by DataFetcher->fetch().
+     * @param int    $offset     The 0-based offset for reading from the resultset row.
+     * @param string $indexType  The index type of $row. Mostly DataFetcher->getIndexType().
+     *                           One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                           TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *
      * @throws PropelException Any exceptions caught during processing will be
@@ -280,7 +306,7 @@ class AccountTableMap extends TableMap
             AccountTableMap::addInstanceToPool($obj, $key);
         }
 
-        return array($obj, $col);
+        return [$obj, $col];
     }
 
     /**
@@ -294,7 +320,7 @@ class AccountTableMap extends TableMap
      */
     public static function populateObjects(DataFetcherInterface $dataFetcher)
     {
-        $results = array();
+        $results = [];
 
         // set the class once to avoid overhead in the loop
         $cls = static::getOMClass(false);
@@ -317,6 +343,7 @@ class AccountTableMap extends TableMap
 
         return $results;
     }
+
     /**
      * Add all the columns needed to create a new object.
      *
@@ -327,7 +354,7 @@ class AccountTableMap extends TableMap
      * @param Criteria $criteria object containing the columns to add.
      * @param string   $alias    optional table alias
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                           rethrown wrapped into a PropelException.
      */
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
@@ -347,6 +374,7 @@ class AccountTableMap extends TableMap
     /**
      * Returns the TableMap related to this object.
      * This method is not needed for general use but a specific application could have a need.
+     *
      * @return TableMap
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
@@ -370,16 +398,16 @@ class AccountTableMap extends TableMap
     /**
      * Performs a DELETE on the database, given a Account or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Account object or primary key or array of primary keys
-     *              which is used to create the DELETE statement
-     * @param  ConnectionInterface $con the connection to use
+     * @param mixed                $values Criteria or Account object or primary key or array of primary keys
+     *                                     which is used to create the DELETE statement
+     * @param  ConnectionInterface $con    the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
-     *                         if supported by native driver or if emulated using Propel.
+     *                                     if supported by native driver or if emulated using Propel.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                     rethrown wrapped into a PropelException.
      */
-     public static function doDelete($values, ConnectionInterface $con = null)
-     {
+    public static function doDelete($values, ConnectionInterface $con = null)
+    {
         if (null === $con) {
             $con = Propel::getServiceContainer()->getWriteConnection(AccountTableMap::DATABASE_NAME);
         }
@@ -392,7 +420,7 @@ class AccountTableMap extends TableMap
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(AccountTableMap::DATABASE_NAME);
-            $criteria->add(AccountTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria->add(AccountTableMap::COL_ID, (array)$values, Criteria::IN);
         }
 
         $query = AccountQuery::create()->mergeWith($criteria);
@@ -400,7 +428,7 @@ class AccountTableMap extends TableMap
         if ($values instanceof Criteria) {
             AccountTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
-            foreach ((array) $values as $singleval) {
+            foreach ((array)$values as $singleval) {
                 AccountTableMap::removeInstanceFromPool($singleval);
             }
         }
@@ -423,10 +451,10 @@ class AccountTableMap extends TableMap
      * Performs an INSERT on the database, given a Account or Criteria object.
      *
      * @param mixed               $criteria Criteria or Account object containing data that is used to create the INSERT statement.
-     * @param ConnectionInterface $con the ConnectionInterface connection to use
+     * @param ConnectionInterface $con      the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                      rethrown wrapped into a PropelException.
      */
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
@@ -440,8 +468,8 @@ class AccountTableMap extends TableMap
             $criteria = $criteria->buildCriteria(); // build Criteria from Account object
         }
 
-        if ($criteria->containsKey(AccountTableMap::COL_ID) && $criteria->keyContainsValue(AccountTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.AccountTableMap::COL_ID.')');
+        if ($criteria->containsKey(AccountTableMap::COL_ID) && $criteria->keyContainsValue(AccountTableMap::COL_ID)) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AccountTableMap::COL_ID . ')');
         }
 
 

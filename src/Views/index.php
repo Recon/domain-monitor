@@ -1,74 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <title>Website Monitor</title>
-        <base href="/">
+    <title>Website Monitor</title>
+    <base href="/">
 
-        <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-        <link href="bower/angular-loading-bar/build/loading-bar.css" rel="stylesheet">
-        <link href="bower/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bower/angular-loading-bar/build/loading-bar.css" rel="stylesheet">
+    <link href="bower/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-        <style>
-            body {
-                padding-top: 70px;
-            }
-            .table > tbody > tr > td,
-            .table > tbody > tr > th{
-                vertical-align: middle;
-            }
-        </style>
+    <style>
+        body {
+            padding-top: 70px;
+        }
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
+        .table > tbody > tr > td,
+        .table > tbody > tr > th {
+            vertical-align: middle;
+        }
+    </style>
 
-    <body ng-app="app">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-    <ng-include src="'templates/common/navigation.html'"></ng-include>
+<body ng-app="app">
 
-    <!-- Page Content -->
+<ng-include src="'templates/common/navigation.html'"></ng-include>
 
-    <div class="site-view">
-        <ng-view autoscroll="true"></ng-view>
-    </div>
+<!-- Page Content -->
 
-    <script src="bower/jquery/dist/jquery.js"></script>
-    <script src="bower/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower/angular/angular.js"></script>
-    <script src="bower/moment/moment.js"></script>
-    <script src="bower/angular-loading-bar/build/loading-bar.js"></script>
-    <script src="bower/angular-route/angular-route.js"></script>
+<div class="site-view">
+    <ng-view autoscroll="true"></ng-view>
+</div>
 
-    <script src="js/monitor-metadata.js"></script>
-    <script src="angular/app.js"></script>
-    <script src="angular/config/http-error-interceptor.js"></script>
-    <script src="angular/config/http-default-headers.js"></script>
-    <script src="angular/config/routing.js"></script>
-    <script src="angular/config/loading-bar.js"></script>
-    <script src="angular/config/json-to-query-strings.js"></script>
-    <script src="angular/controllers/index.js"></script>
-    <script src="angular/controllers/overview.js"></script>
-    <script src="angular/controllers/navigation.js"></script>
-    <script src="angular/controllers/domain-settings.js"></script>
-    <script src="angular/controllers/user-manager.js"></script>
-    <script src="angular/controllers/user-settings.js"></script>
-    <script src="angular/controllers/login.js"></script>
-    <script src="angular/controllers/profile/profile-user-info.js"></script>
-    <script src="angular/controllers/password-reset.js"></script>
-    <script src="angular/services/user.js"></script>
-    <script src="angular/filters/moment.js"></script>
-    <script src="angular/filters/range.js"></script>
-    <script src="angular/filters/unsafe.js"></script>
-    <script src="angular/filters/capitalize.js"></script>
+<script src="bower/jquery/dist/jquery.js"></script>
+<script src="bower/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower/angular/angular.js"></script>
+<script src="bower/moment/moment.js"></script>
+<script src="bower/angular-loading-bar/build/loading-bar.js"></script>
+<script src="bower/angular-route/angular-route.js"></script>
+
+<script src="js/monitor-metadata.js"></script>
+<script src="angular/app.js"></script>
+<script src="angular/config/http-error-interceptor.js"></script>
+<script src="angular/config/http-default-headers.js"></script>
+<script src="angular/config/routing.js"></script>
+<script src="angular/config/loading-bar.js"></script>
+<script src="angular/config/json-to-query-strings.js"></script>
+<script src="angular/controllers/index.js"></script>
+<script src="angular/controllers/overview.js"></script>
+<script src="angular/controllers/navigation.js"></script>
+<script src="angular/controllers/domain-settings.js"></script>
+<script src="angular/controllers/user-manager.js"></script>
+<script src="angular/controllers/user-settings.js"></script>
+<script src="angular/controllers/login.js"></script>
+<script src="angular/controllers/profile/profile-user-info.js"></script>
+<script src="angular/controllers/password-reset.js"></script>
+<script src="angular/services/user.js"></script>
+<script src="angular/filters/moment.js"></script>
+<script src="angular/filters/range.js"></script>
+<script src="angular/filters/unsafe.js"></script>
+<script src="angular/filters/capitalize.js"></script>
 </body>
 
 </html>

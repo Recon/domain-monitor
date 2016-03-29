@@ -2,9 +2,9 @@
 
 namespace Util;
 
-use \Models\Account;
-use \Symfony\Component\HttpFoundation\Session\Session;
-use \Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Models\Account;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class UserPermissionChecker
 {

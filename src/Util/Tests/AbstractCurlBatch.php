@@ -2,7 +2,7 @@
 
 namespace Util\Tests;
 
-use \Models\Test;
+use Models\Test;
 
 abstract class AbstractCurlBatch
 {
@@ -48,6 +48,7 @@ abstract class AbstractCurlBatch
 
     /**
      * Performs CURL get requests on the defined tests and returns a result array
+     *
      * @return CurlDomainResponse[]
      */
     public function execute()

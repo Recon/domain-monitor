@@ -2,8 +2,7 @@
 
 namespace Util\Tests;
 
-use \Models\Domain;
-use \Models\Test;
+use Models\Test;
 
 class HttpBatch extends AbstractCurlBatch
 {

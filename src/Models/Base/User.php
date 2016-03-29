@@ -34,8 +34,8 @@ use Propel\Runtime\Util\PropelDateTime;
  *
  *
  *
-* @package    propel.generator.Models.Base
-*/
+ * @package    propel.generator.Models.Base
+ */
 abstract class User implements ActiveRecordInterface
 {
     /**
@@ -46,12 +46,14 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * attribute to determine if this object has previously been saved.
+     *
      * @var boolean
      */
     protected $new = true;
 
     /**
      * attribute to determine whether this object has been deleted.
+     *
      * @var boolean
      */
     protected $deleted = false;
@@ -59,16 +61,18 @@ abstract class User implements ActiveRecordInterface
     /**
      * The columns that have been modified in current object.
      * Tracking modified columns allows us to only update modified columns.
+     *
      * @var array
      */
-    protected $modifiedColumns = array();
+    protected $modifiedColumns = [];
 
     /**
      * The (virtual) columns that are added at runtime
      * The formatters can add supplementary columns based on a resultset
+     *
      * @var array
      */
-    protected $virtualColumns = array();
+    protected $virtualColumns = [];
 
     /**
      * The value for the id field.
@@ -101,6 +105,7 @@ abstract class User implements ActiveRecordInterface
     /**
      * The unserialized $roles value - i.e. the persisted object.
      * This is necessary to avoid repeated calls to unserialize() at runtime.
+     *
      * @var object
      */
     protected $roles_unserialized;
@@ -185,12 +190,14 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
+     *
      * @var ObjectCollection|ChildDomain[]
      */
     protected $domainsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
+     *
      * @var ObjectCollection|ChildUsersDomain[]
      */
     protected $usersDomainsScheduledForDeletion = null;
@@ -215,7 +222,7 @@ abstract class User implements ActiveRecordInterface
     /**
      * Has specified column been modified?
      *
-     * @param  string  $col column fully qualified name (TableMap::TYPE_COLNAME), e.g. Book::AUTHOR_ID
+     * @param  string $col column fully qualified name (TableMap::TYPE_COLNAME), e.g. Book::AUTHOR_ID
      * @return boolean True if $col has been modified.
      */
     public function isColumnModified($col)
@@ -225,6 +232,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Get the columns that have been modified in this object.
+     *
      * @return array A unique list of the modified column names for this object.
      */
     public function getModifiedColumns()
@@ -252,11 +260,12 @@ abstract class User implements ActiveRecordInterface
      */
     public function setNew($b)
     {
-        $this->new = (boolean) $b;
+        $this->new = (boolean)$b;
     }
 
     /**
      * Whether this object has been deleted.
+     *
      * @return boolean The deleted state of this object.
      */
     public function isDeleted()
@@ -266,16 +275,18 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Specify whether this object has been deleted.
+     *
      * @param  boolean $b The deleted state of this object.
      * @return void
      */
     public function setDeleted($b)
     {
-        $this->deleted = (boolean) $b;
+        $this->deleted = (boolean)$b;
     }
 
     /**
      * Sets the modified state for the object to be false.
+     *
      * @param  string $col If supplied, only the specified column is reset.
      * @return void
      */
@@ -286,7 +297,7 @@ abstract class User implements ActiveRecordInterface
                 unset($this->modifiedColumns[$col]);
             }
         } else {
-            $this->modifiedColumns = array();
+            $this->modifiedColumns = [];
         }
     }
 
@@ -295,7 +306,7 @@ abstract class User implements ActiveRecordInterface
      * <code>obj</code> is an instance of <code>User</code>, delegates to
      * <code>equals(User)</code>.  Otherwise, returns <code>false</code>.
      *
-     * @param  mixed   $obj The object to compare to.
+     * @param  mixed $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
      */
     public function equals($obj)
@@ -328,7 +339,7 @@ abstract class User implements ActiveRecordInterface
     /**
      * Checks the existence of a virtual column in this object
      *
-     * @param  string  $name The virtual column name
+     * @param  string $name The virtual column name
      * @return boolean
      */
     public function hasVirtualColumn($name)
@@ -371,8 +382,8 @@ abstract class User implements ActiveRecordInterface
     /**
      * Logs a message using Propel::log().
      *
-     * @param  string  $msg
-     * @param  int     $priority One of the Propel::LOG_* logging levels
+     * @param  string $msg
+     * @param  int    $priority One of the Propel::LOG_* logging levels
      * @return boolean
      */
     protected function log($msg, $priority = Propel::LOG_INFO)
@@ -398,7 +409,7 @@ abstract class User implements ActiveRecordInterface
             $parser = AbstractParser::getParser($parser);
         }
 
-        return $parser->fromArray($this->toArray(TableMap::TYPE_PHPNAME, $includeLazyLoadColumns, array(), true));
+        return $parser->fromArray($this->toArray(TableMap::TYPE_PHPNAME, $includeLazyLoadColumns, [], true));
     }
 
     /**
@@ -411,9 +422,10 @@ abstract class User implements ActiveRecordInterface
 
         $cls = new \ReflectionClass($this);
         $propertyNames = [];
-        $serializableProperties = array_diff($cls->getProperties(), $cls->getProperties(\ReflectionProperty::IS_STATIC));
+        $serializableProperties = array_diff($cls->getProperties(),
+            $cls->getProperties(\ReflectionProperty::IS_STATIC));
 
-        foreach($serializableProperties as $property) {
+        foreach ($serializableProperties as $property) {
             $propertyNames[] = $property->getName();
         }
 
@@ -458,11 +470,11 @@ abstract class User implements ActiveRecordInterface
     public function getRoles()
     {
         if (null === $this->roles_unserialized) {
-            $this->roles_unserialized = array();
+            $this->roles_unserialized = [];
         }
         if (!$this->roles_unserialized && null !== $this->roles) {
             $roles_unserialized = substr($this->roles, 2, -2);
-            $this->roles_unserialized = $roles_unserialized ? explode(' | ', $roles_unserialized) : array();
+            $this->roles_unserialized = $roles_unserialized ? explode(' | ', $roles_unserialized) : [];
         }
 
         return $this->roles_unserialized;
@@ -470,6 +482,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Test the presence of a value in the [roles] array column value.
+     *
      * @param      mixed $value
      *
      * @return boolean
@@ -530,7 +543,7 @@ abstract class User implements ActiveRecordInterface
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getRecoveryDate($format = NULL)
+    public function getRecoveryDate($format = null)
     {
         if ($format === null) {
             return $this->recovery_date;
@@ -550,7 +563,7 @@ abstract class User implements ActiveRecordInterface
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getCreatedAt($format = NULL)
+    public function getCreatedAt($format = null)
     {
         if ($format === null) {
             return $this->created_at;
@@ -570,7 +583,7 @@ abstract class User implements ActiveRecordInterface
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getUpdatedAt($format = NULL)
+    public function getUpdatedAt($format = null)
     {
         if ($format === null) {
             return $this->updated_at;
@@ -588,7 +601,7 @@ abstract class User implements ActiveRecordInterface
     public function setId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->id !== $v) {
@@ -608,7 +621,7 @@ abstract class User implements ActiveRecordInterface
     public function setAccountId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->account_id !== $v) {
@@ -632,7 +645,7 @@ abstract class User implements ActiveRecordInterface
     public function setUsername($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (string)$v;
         }
 
         if ($this->username !== $v) {
@@ -662,6 +675,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Adds a value to the [roles] array column value.
+     *
      * @param  mixed $value
      *
      * @return $this|\Models\User The current object (for fluent API support)
@@ -669,7 +683,7 @@ abstract class User implements ActiveRecordInterface
     public function addRole($value)
     {
         $currentArray = $this->getRoles();
-        $currentArray []= $value;
+        $currentArray [] = $value;
         $this->setRoles($currentArray);
 
         return $this;
@@ -677,16 +691,17 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Removes a value from the [roles] array column value.
+     *
      * @param  mixed $value
      *
      * @return $this|\Models\User The current object (for fluent API support)
      */
     public function removeRole($value)
     {
-        $targetArray = array();
+        $targetArray = [];
         foreach ($this->getRoles() as $element) {
             if ($element != $value) {
-                $targetArray []= $element;
+                $targetArray [] = $element;
             }
         }
         $this->setRoles($targetArray);
@@ -703,7 +718,7 @@ abstract class User implements ActiveRecordInterface
     public function setSalt($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (string)$v;
         }
 
         if ($this->salt !== $v) {
@@ -723,7 +738,7 @@ abstract class User implements ActiveRecordInterface
     public function setEmail($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (string)$v;
         }
 
         if ($this->email !== $v) {
@@ -743,7 +758,7 @@ abstract class User implements ActiveRecordInterface
     public function setPassword($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (string)$v;
         }
 
         if ($this->password !== $v) {
@@ -763,7 +778,7 @@ abstract class User implements ActiveRecordInterface
     public function setRecoveryToken($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (string)$v;
         }
 
         if ($this->recovery_token !== $v) {
@@ -778,7 +793,7 @@ abstract class User implements ActiveRecordInterface
      * Sets the value of [recovery_date] column to a normalized version of the date/time value specified.
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     *                  Empty strings are treated as NULL.
      * @return $this|\Models\User The current object (for fluent API support)
      */
     public function setRecoveryDate($v)
@@ -798,7 +813,7 @@ abstract class User implements ActiveRecordInterface
      * Sets the value of [created_at] column to a normalized version of the date/time value specified.
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     *                  Empty strings are treated as NULL.
      * @return $this|\Models\User The current object (for fluent API support)
      */
     public function setCreatedAt($v)
@@ -818,7 +833,7 @@ abstract class User implements ActiveRecordInterface
      * Sets the value of [updated_at] column to a normalized version of the date/time value specified.
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     *                  Empty strings are treated as NULL.
      * @return $this|\Models\User The current object (for fluent API support)
      */
     public function setUpdatedAt($v)
@@ -856,11 +871,11 @@ abstract class User implements ActiveRecordInterface
      * for results of JOIN queries where the resultset row includes columns from two or
      * more tables.
      *
-     * @param array   $row       The row returned by DataFetcher->fetch().
-     * @param int     $startcol  0-based offset column which indicates which restultset column to start with.
-     * @param boolean $rehydrate Whether this object is being re-hydrated from the database.
-     * @param string  $indexType The index type of $row. Mostly DataFetcher->getIndexType().
-                                  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array   $row        The row returned by DataFetcher->fetch().
+     * @param int     $startcol   0-based offset column which indicates which restultset column to start with.
+     * @param boolean $rehydrate  Whether this object is being re-hydrated from the database.
+     * @param string  $indexType  The index type of $row. Mostly DataFetcher->getIndexType().
+     *                            One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                            TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *
      * @return int             next starting column
@@ -870,44 +885,55 @@ abstract class User implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : UserTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : UserTableMap::translateFieldName('Id',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->id = (null !== $col) ? (int)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UserTableMap::translateFieldName('AccountId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->account_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UserTableMap::translateFieldName('AccountId',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->account_id = (null !== $col) ? (int)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UserTableMap::translateFieldName('Username', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->username = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : UserTableMap::translateFieldName('Username',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->username = (null !== $col) ? (string)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UserTableMap::translateFieldName('Roles', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UserTableMap::translateFieldName('Roles',
+                TableMap::TYPE_PHPNAME, $indexType)];
             $this->roles = $col;
             $this->roles_unserialized = null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UserTableMap::translateFieldName('Salt', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->salt = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : UserTableMap::translateFieldName('Salt',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->salt = (null !== $col) ? (string)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UserTableMap::translateFieldName('Email', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->email = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 5 + $startcol : UserTableMap::translateFieldName('Email',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->email = (null !== $col) ? (string)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UserTableMap::translateFieldName('Password', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->password = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 6 + $startcol : UserTableMap::translateFieldName('Password',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->password = (null !== $col) ? (string)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UserTableMap::translateFieldName('RecoveryToken', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->recovery_token = (null !== $col) ? (string) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 7 + $startcol : UserTableMap::translateFieldName('RecoveryToken',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->recovery_token = (null !== $col) ? (string)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UserTableMap::translateFieldName('RecoveryDate', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 8 + $startcol : UserTableMap::translateFieldName('RecoveryDate',
+                TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->recovery_date = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : UserTableMap::translateFieldName('CreatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 9 + $startcol : UserTableMap::translateFieldName('CreatedAt',
+                TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
             $this->created_at = (null !== $col) ? PropelDateTime::newInstance($col, null, 'DateTime') : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UserTableMap::translateFieldName('UpdatedAt', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 10 + $startcol : UserTableMap::translateFieldName('UpdatedAt',
+                TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -952,8 +978,8 @@ abstract class User implements ActiveRecordInterface
      *
      * This will only work if the object has been saved and has a valid primary key set.
      *
-     * @param      boolean $deep (optional) Whether to also de-associated any related objects.
-     * @param      ConnectionInterface $con (optional) The ConnectionInterface connection to use.
+     * @param      boolean             $deep (optional) Whether to also de-associated any related objects.
+     * @param      ConnectionInterface $con  (optional) The ConnectionInterface connection to use.
      * @return void
      * @throws PropelException - if this object is deleted, unsaved or doesn't have pk match in db
      */
@@ -974,7 +1000,8 @@ abstract class User implements ActiveRecordInterface
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildUserQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildUserQuery::create(null,
+            $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -1124,7 +1151,7 @@ abstract class User implements ActiveRecordInterface
 
             if ($this->domainsScheduledForDeletion !== null) {
                 if (!$this->domainsScheduledForDeletion->isEmpty()) {
-                    $pks = array();
+                    $pks = [];
                     foreach ($this->domainsScheduledForDeletion as $entry) {
                         $entryPk = [];
 
@@ -1185,7 +1212,7 @@ abstract class User implements ActiveRecordInterface
      */
     protected function doInsert(ConnectionInterface $con)
     {
-        $modifiedColumns = array();
+        $modifiedColumns = [];
         $index = 0;
 
         $this->modifiedColumns[UserTableMap::COL_ID] = true;
@@ -1193,39 +1220,39 @@ abstract class User implements ActiveRecordInterface
             throw new PropelException('Cannot insert a value for auto-increment primary key (' . UserTableMap::COL_ID . ')');
         }
 
-         // check the columns in natural order for more readable SQL queries
+        // check the columns in natural order for more readable SQL queries
         if ($this->isColumnModified(UserTableMap::COL_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'id';
+            $modifiedColumns[':p' . $index++] = 'id';
         }
         if ($this->isColumnModified(UserTableMap::COL_ACCOUNT_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'account_id';
+            $modifiedColumns[':p' . $index++] = 'account_id';
         }
         if ($this->isColumnModified(UserTableMap::COL_USERNAME)) {
-            $modifiedColumns[':p' . $index++]  = 'username';
+            $modifiedColumns[':p' . $index++] = 'username';
         }
         if ($this->isColumnModified(UserTableMap::COL_ROLES)) {
-            $modifiedColumns[':p' . $index++]  = 'roles';
+            $modifiedColumns[':p' . $index++] = 'roles';
         }
         if ($this->isColumnModified(UserTableMap::COL_SALT)) {
-            $modifiedColumns[':p' . $index++]  = 'salt';
+            $modifiedColumns[':p' . $index++] = 'salt';
         }
         if ($this->isColumnModified(UserTableMap::COL_EMAIL)) {
-            $modifiedColumns[':p' . $index++]  = 'email';
+            $modifiedColumns[':p' . $index++] = 'email';
         }
         if ($this->isColumnModified(UserTableMap::COL_PASSWORD)) {
-            $modifiedColumns[':p' . $index++]  = 'password';
+            $modifiedColumns[':p' . $index++] = 'password';
         }
         if ($this->isColumnModified(UserTableMap::COL_RECOVERY_TOKEN)) {
-            $modifiedColumns[':p' . $index++]  = 'recovery_token';
+            $modifiedColumns[':p' . $index++] = 'recovery_token';
         }
         if ($this->isColumnModified(UserTableMap::COL_RECOVERY_DATE)) {
-            $modifiedColumns[':p' . $index++]  = 'recovery_date';
+            $modifiedColumns[':p' . $index++] = 'recovery_date';
         }
         if ($this->isColumnModified(UserTableMap::COL_CREATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'created_at';
+            $modifiedColumns[':p' . $index++] = 'created_at';
         }
         if ($this->isColumnModified(UserTableMap::COL_UPDATED_AT)) {
-            $modifiedColumns[':p' . $index++]  = 'updated_at';
+            $modifiedColumns[':p' . $index++] = 'updated_at';
         }
 
         $sql = sprintf(
@@ -1263,13 +1290,16 @@ abstract class User implements ActiveRecordInterface
                         $stmt->bindValue($identifier, $this->recovery_token, PDO::PARAM_STR);
                         break;
                     case 'recovery_date':
-                        $stmt->bindValue($identifier, $this->recovery_date ? $this->recovery_date->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier,
+                            $this->recovery_date ? $this->recovery_date->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
                         break;
                     case 'created_at':
-                        $stmt->bindValue($identifier, $this->created_at ? $this->created_at->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier,
+                            $this->created_at ? $this->created_at->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
                         break;
                     case 'updated_at':
-                        $stmt->bindValue($identifier, $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier,
+                            $this->updated_at ? $this->updated_at->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -1310,9 +1340,9 @@ abstract class User implements ActiveRecordInterface
      *
      * @param      string $name name
      * @param      string $type The type of fieldname the $name is of:
-     *                     one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                     TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                     Defaults to TableMap::TYPE_PHPNAME.
+     *                          one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     *                          TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                          Defaults to TableMap::TYPE_PHPNAME.
      * @return mixed Value of field.
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
@@ -1378,36 +1408,40 @@ abstract class User implements ActiveRecordInterface
      * You can specify the key type of the array by passing one of the class
      * type constants.
      *
-     * @param     string  $keyType (optional) One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
-     *                    TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                    Defaults to TableMap::TYPE_PHPNAME.
+     * @param     string  $keyType                (optional) One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
+     *                                            TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                                            Defaults to TableMap::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
-     * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
-     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
+     * @param     array   $alreadyDumpedObjects   List of objects to skip to avoid recursion
+     * @param     boolean $includeForeignObjects  (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
-    {
+    public function toArray(
+        $keyType = TableMap::TYPE_PHPNAME,
+        $includeLazyLoadColumns = true,
+        $alreadyDumpedObjects = [],
+        $includeForeignObjects = false
+    ) {
 
         if (isset($alreadyDumpedObjects['User'][$this->hashCode()])) {
             return '*RECURSION*';
         }
         $alreadyDumpedObjects['User'][$this->hashCode()] = true;
         $keys = UserTableMap::getFieldNames($keyType);
-        $result = array(
-            $keys[0] => $this->getId(),
-            $keys[1] => $this->getAccountId(),
-            $keys[2] => $this->getUsername(),
-            $keys[3] => $this->getRoles(),
-            $keys[4] => $this->getSalt(),
-            $keys[5] => $this->getEmail(),
-            $keys[6] => $this->getPassword(),
-            $keys[7] => $this->getRecoveryToken(),
-            $keys[8] => $this->getRecoveryDate(),
-            $keys[9] => $this->getCreatedAt(),
+        $result = [
+            $keys[0]  => $this->getId(),
+            $keys[1]  => $this->getAccountId(),
+            $keys[2]  => $this->getUsername(),
+            $keys[3]  => $this->getRoles(),
+            $keys[4]  => $this->getSalt(),
+            $keys[5]  => $this->getEmail(),
+            $keys[6]  => $this->getPassword(),
+            $keys[7]  => $this->getRecoveryToken(),
+            $keys[8]  => $this->getRecoveryDate(),
+            $keys[9]  => $this->getCreatedAt(),
             $keys[10] => $this->getUpdatedAt(),
-        );
+        ];
         if ($result[$keys[8]] instanceof \DateTime) {
             $result[$keys[8]] = $result[$keys[8]]->format('c');
         }
@@ -1439,7 +1473,8 @@ abstract class User implements ActiveRecordInterface
                         $key = 'Account';
                 }
 
-                $result[$key] = $this->aAccount->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aAccount->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects,
+                    true);
             }
             if (null !== $this->collUsersDomains) {
 
@@ -1454,7 +1489,8 @@ abstract class User implements ActiveRecordInterface
                         $key = 'UsersDomains';
                 }
 
-                $result[$key] = $this->collUsersDomains->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+                $result[$key] = $this->collUsersDomains->toArray(null, false, $keyType, $includeLazyLoadColumns,
+                    $alreadyDumpedObjects);
             }
         }
 
@@ -1466,10 +1502,10 @@ abstract class User implements ActiveRecordInterface
      *
      * @param  string $name
      * @param  mixed  $value field value
-     * @param  string $type The type of fieldname the $name is of:
-     *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                Defaults to TableMap::TYPE_PHPNAME.
+     * @param  string $type  The type of fieldname the $name is of:
+     *                       one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     *                       TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                       Defaults to TableMap::TYPE_PHPNAME.
      * @return $this|\Models\User
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
@@ -1483,7 +1519,7 @@ abstract class User implements ActiveRecordInterface
      * Sets a field from the object by Position as specified in the xml schema.
      * Zero-based.
      *
-     * @param  int $pos position in xml schema
+     * @param  int   $pos   position in xml schema
      * @param  mixed $value field value
      * @return $this|\Models\User
      */
@@ -1502,7 +1538,7 @@ abstract class User implements ActiveRecordInterface
             case 3:
                 if (!is_array($value)) {
                     $v = trim(substr($value, 2, -2));
-                    $value = $v ? explode(' | ', $v) : array();
+                    $value = $v ? explode(' | ', $v) : [];
                 }
                 $this->setRoles($value);
                 break;
@@ -1588,7 +1624,7 @@ abstract class User implements ActiveRecordInterface
         }
     }
 
-     /**
+    /**
      * Populate the current object from a string, using a given parser format
      * <code>
      * $book = new Book();
@@ -1600,9 +1636,9 @@ abstract class User implements ActiveRecordInterface
      * TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      * The default key type is the column's TableMap::TYPE_PHPNAME.
      *
-     * @param mixed $parser A AbstractParser instance,
-     *                       or a format name ('XML', 'YAML', 'JSON', 'CSV')
-     * @param string $data The source data to import from
+     * @param mixed  $parser  A AbstractParser instance,
+     *                        or a format name ('XML', 'YAML', 'JSON', 'CSV')
+     * @param string $data    The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
      * @return $this|\Models\User The current object, for fluid interface
@@ -1706,6 +1742,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Returns the primary key for this object (row).
+     *
      * @return int
      */
     public function getPrimaryKey()
@@ -1726,6 +1763,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Returns true if the primary key for this object is null.
+     *
      * @return boolean
      */
     public function isPrimaryKeyNull()
@@ -1739,9 +1777,9 @@ abstract class User implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Models\User (or compatible) type.
+     * @param      object  $copyObj  An object of \Models\User (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
+     * @param      boolean $makeNew  Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
@@ -1772,7 +1810,7 @@ abstract class User implements ActiveRecordInterface
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setId(null); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -1808,7 +1846,7 @@ abstract class User implements ActiveRecordInterface
     public function setAccount(ChildAccount $v = null)
     {
         if ($v === null) {
-            $this->setAccountId(NULL);
+            $this->setAccountId(null);
         } else {
             $this->setAccountId($v->getId());
         }
@@ -1894,7 +1932,7 @@ abstract class User implements ActiveRecordInterface
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
+     * @param      boolean $overrideExisting  If set to true, the method call initializes
      *                                        the collection even if it is not empty
      *
      * @return void
@@ -1920,15 +1958,15 @@ abstract class User implements ActiveRecordInterface
      * If this ChildUser is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
+     * @param      Criteria            $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con      optional connection object
      * @return ObjectCollection|ChildUsersDomain[] List of ChildUsersDomain objects
      * @throws PropelException
      */
     public function getUsersDomains(Criteria $criteria = null, ConnectionInterface $con = null)
     {
         $partial = $this->collUsersDomainsPartial && !$this->isNew();
-        if (null === $this->collUsersDomains || null !== $criteria  || $partial) {
+        if (null === $this->collUsersDomains || null !== $criteria || $partial) {
             if ($this->isNew() && null === $this->collUsersDomains) {
                 // return empty collection
                 $this->initUsersDomains();
@@ -1975,8 +2013,8 @@ abstract class User implements ActiveRecordInterface
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param      Collection $usersDomains A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
+     * @param      Collection          $usersDomains A Propel collection.
+     * @param      ConnectionInterface $con          Optional connection object
      * @return $this|ChildUser The current object (for fluent API support)
      */
     public function setUsersDomains(Collection $usersDomains, ConnectionInterface $con = null)
@@ -2008,8 +2046,8 @@ abstract class User implements ActiveRecordInterface
     /**
      * Returns the number of related UsersDomain objects.
      *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
+     * @param      Criteria            $criteria
+     * @param      boolean             $distinct
      * @param      ConnectionInterface $con
      * @return int             Count of related UsersDomain objects.
      * @throws PropelException
@@ -2069,7 +2107,7 @@ abstract class User implements ActiveRecordInterface
      */
     protected function doAddUsersDomain(ChildUsersDomain $usersDomain)
     {
-        $this->collUsersDomains[]= $usersDomain;
+        $this->collUsersDomains[] = $usersDomain;
         $usersDomain->setUser($this);
     }
 
@@ -2086,7 +2124,7 @@ abstract class User implements ActiveRecordInterface
                 $this->usersDomainsScheduledForDeletion = clone $this->collUsersDomains;
                 $this->usersDomainsScheduledForDeletion->clear();
             }
-            $this->usersDomainsScheduledForDeletion[]= clone $usersDomain;
+            $this->usersDomainsScheduledForDeletion[] = clone $usersDomain;
             $usersDomain->setUser(null);
         }
 
@@ -2105,13 +2143,16 @@ abstract class User implements ActiveRecordInterface
      * api reasonable.  You can provide public methods for those you
      * actually need in User.
      *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
-     * @param      string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @param      Criteria            $criteria     optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con          optional connection object
+     * @param      string              $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
      * @return ObjectCollection|ChildUsersDomain[] List of ChildUsersDomain objects
      */
-    public function getUsersDomainsJoinDomain(Criteria $criteria = null, ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
-    {
+    public function getUsersDomainsJoinDomain(
+        Criteria $criteria = null,
+        ConnectionInterface $con = null,
+        $joinBehavior = Criteria::LEFT_JOIN
+    ) {
         $query = ChildUsersDomainQuery::create(null, $criteria);
         $query->joinWith('Domain', $joinBehavior);
 
@@ -2170,8 +2211,8 @@ abstract class User implements ActiveRecordInterface
      * If this ChildUser is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
-     * @param      Criteria $criteria Optional query object to filter the query
-     * @param      ConnectionInterface $con Optional connection object
+     * @param      Criteria            $criteria Optional query object to filter the query
+     * @param      ConnectionInterface $con      Optional connection object
      *
      * @return ObjectCollection|ChildDomain[] List of ChildDomain objects
      */
@@ -2216,8 +2257,8 @@ abstract class User implements ActiveRecordInterface
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param  Collection $domains A Propel collection.
-     * @param  ConnectionInterface $con Optional connection object
+     * @param  Collection          $domains A Propel collection.
+     * @param  ConnectionInterface $con     Optional connection object
      * @return $this|ChildUser The current object (for fluent API support)
      */
     public function setDomains(Collection $domains, ConnectionInterface $con = null)
@@ -2247,9 +2288,9 @@ abstract class User implements ActiveRecordInterface
      * Gets the number of Domain objects related by a many-to-many relationship
      * to the current object by way of the users_domain cross-reference table.
      *
-     * @param      Criteria $criteria Optional query object to filter the query
-     * @param      boolean $distinct Set to true to force count distinct
-     * @param      ConnectionInterface $con Optional connection object
+     * @param      Criteria            $criteria Optional query object to filter the query
+     * @param      boolean             $distinct Set to true to force count distinct
+     * @param      ConnectionInterface $con      Optional connection object
      *
      * @return int the number of related Domain objects
      */
@@ -2335,7 +2376,8 @@ abstract class User implements ActiveRecordInterface
      */
     public function removeDomain(ChildDomain $domain)
     {
-        if ($this->getDomains()->contains($domain)) { $usersDomain = new ChildUsersDomain();
+        if ($this->getDomains()->contains($domain)) {
+            $usersDomain = new ChildUsersDomain();
 
             $usersDomain->setDomain($domain);
             if ($domain->isUsersLoaded()) {
@@ -2425,7 +2467,7 @@ abstract class User implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(UserTableMap::DEFAULT_STRING_FORMAT);
+        return (string)$this->exportTo(UserTableMap::DEFAULT_STRING_FORMAT);
     }
 
     // timestampable behavior
@@ -2444,6 +2486,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run before persisting the object
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -2454,6 +2497,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run after persisting the object
+     *
      * @param ConnectionInterface $con
      */
     public function postSave(ConnectionInterface $con = null)
@@ -2463,6 +2507,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run before inserting to database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -2473,6 +2518,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run after inserting to database
+     *
      * @param ConnectionInterface $con
      */
     public function postInsert(ConnectionInterface $con = null)
@@ -2482,6 +2528,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run before updating the object in database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -2492,6 +2539,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run after updating the object in database
+     *
      * @param ConnectionInterface $con
      */
     public function postUpdate(ConnectionInterface $con = null)
@@ -2501,6 +2549,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run before deleting the object in database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -2511,6 +2560,7 @@ abstract class User implements ActiveRecordInterface
 
     /**
      * Code to be run after deleting the object in database
+     *
      * @param ConnectionInterface $con
      */
     public function postDelete(ConnectionInterface $con = null)

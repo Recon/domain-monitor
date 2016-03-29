@@ -2,14 +2,14 @@
 
 namespace Controllers;
 
-use \Exceptions\HTTP\JSON\ResourceNotFoundException;
-use \Exceptions\HTTP\JSON\UnauthorizedException;
-use \Models\Domain;
-use \Models\DomainQuery;
-use \Models\Test;
-use \Propel\Runtime\Map\TableMap;
-use \Propel\Runtime\Propel;
-use \Symfony\Component\HttpFoundation\JsonResponse;
+use Exceptions\HTTP\JSON\ResourceNotFoundException;
+use Exceptions\HTTP\JSON\UnauthorizedException;
+use Models\Domain;
+use Models\DomainQuery;
+use Models\Test;
+use Propel\Runtime\Map\TableMap;
+use Propel\Runtime\Propel;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DomainsController extends AbstractController
 {
@@ -43,7 +43,7 @@ class DomainsController extends AbstractController
         }
 
         $result = DomainQuery::create()
-            ->filterById((int) $this->request->get('id'))
+            ->filterById((int)$this->request->get('id'))
             ->filterByUser($this->getLoggedInUser())
             ->find();
 
@@ -68,7 +68,7 @@ class DomainsController extends AbstractController
         }
 
         $result = DomainQuery::create()
-            ->filterById((int) $this->request->get('id'))
+            ->filterById((int)$this->request->get('id'))
             ->filterByAccount($this->getLoggedInUser()->getAccount())
             ->find();
 
@@ -82,7 +82,7 @@ class DomainsController extends AbstractController
         $domain->save();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -117,9 +117,9 @@ class DomainsController extends AbstractController
         if (count($messages)) {
             $connection->rollBack();
             return new JsonResponse([
-                'success' => false,
-                'messages' => $messages
-                ], 400);
+                'success'  => false,
+                'messages' => $messages,
+            ], 400);
         }
 
         $domain->save();
@@ -128,7 +128,7 @@ class DomainsController extends AbstractController
         $connection->commit();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -139,7 +139,7 @@ class DomainsController extends AbstractController
         }
 
         $result = DomainQuery::create()
-            ->filterById((int) $this->request->get('id'))
+            ->filterById((int)$this->request->get('id'))
             ->filterByAccount($this->getLoggedInUser()->getAccount())
             ->find();
 
@@ -174,8 +174,9 @@ class DomainsController extends AbstractController
         }
 
         foreach ($this->request->get('tests', []) As $testData) {
-            if (isset($testData['id']))
+            if (isset($testData['id'])) {
                 continue;
+            }
 
             $test = new Test();
             $test->setTestName($testData['type']['name'])
@@ -189,15 +190,15 @@ class DomainsController extends AbstractController
         if (count($messages)) {
             $connection->rollBack();
             return new JsonResponse([
-                'success' => false,
-                'messages' => $messages
-                ], 400);
+                'success'  => false,
+                'messages' => $messages,
+            ], 400);
         }
 
         $connection->commit();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -208,7 +209,7 @@ class DomainsController extends AbstractController
         }
 
         $result = DomainQuery::create()
-            ->filterById((int) $this->request->get('id'))
+            ->filterById((int)$this->request->get('id'))
             ->filterByAccount($this->getLoggedInUser()->getAccount())
             ->find();
 
@@ -221,7 +222,7 @@ class DomainsController extends AbstractController
         $domain->delete();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 

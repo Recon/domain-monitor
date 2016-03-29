@@ -99,9 +99,11 @@ class DomainTestExecutionSubscriber implements EventSubscriberInterface
         }
 
         if ($test->getStatus() == true) {
-            $this->dispatcher->dispatch(TestStatusChangeEvent::NAME_TEST_BECOMES_SUCCESFUL, new TestStatusChangeEvent($test));
+            $this->dispatcher->dispatch(TestStatusChangeEvent::NAME_TEST_BECOMES_SUCCESFUL,
+                new TestStatusChangeEvent($test));
         } else {
-            $this->dispatcher->dispatch(TestStatusChangeEvent::NAME_TEST_BECOMES_FAILED, new TestStatusChangeEvent($test));
+            $this->dispatcher->dispatch(TestStatusChangeEvent::NAME_TEST_BECOMES_FAILED,
+                new TestStatusChangeEvent($test));
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Exceptions;
 
-use \RuntimeException;
+use RuntimeException;
 
 class UserNotFoundException extends RuntimeException
 {

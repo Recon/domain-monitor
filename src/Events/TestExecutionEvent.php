@@ -2,7 +2,7 @@
 
 namespace Events;
 
-use \Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 
 class TestExecutionEvent extends Event
 {
@@ -17,6 +17,7 @@ class TestExecutionEvent extends Event
 
     /**
      * TestExecutionEvent constructor.
+     *
      * @param \Models\Test $test
      */
     public function __construct(\Models\Test $test)

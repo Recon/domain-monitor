@@ -2,11 +2,11 @@
 
 namespace Authentication;
 
-use \Models\User;
-use \Models\UserQuery;
-use \Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use \Symfony\Component\Security\Core\User\UserInterface;
-use \Symfony\Component\Security\Core\User\UserProviderInterface;
+use Models\User;
+use Models\UserQuery;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class PropelUserProvider implements UserProviderInterface
 {

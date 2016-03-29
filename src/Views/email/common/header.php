@@ -13,7 +13,7 @@
         }
 
         * {
-            font-family: "Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+            font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
         }
 
         img {
@@ -128,14 +128,14 @@
             font-weight: 700;
         }
 
-        h1,h2,h3,h4,h5,h6 {
-            font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
             line-height: 1.1;
             margin-bottom: 15px;
             color: #000;
         }
 
-        h1 small,h2 small,h3 small,h4 small,h5 small,h6 small {
+        h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
             font-size: 60%;
             color: #6f6f6f;
             line-height: 0;
@@ -178,7 +178,7 @@
             margin: 0 !important;
         }
 
-        p,ul {
+        p, ul {
             margin-bottom: 10px;
             font-weight: 400;
             font-size: 14px;
@@ -227,7 +227,7 @@
             border-bottom-width: 0;
         }
 
-        ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.sidebar li a h5,ul.sidebar li a h6,ul.sidebar li a p {
+        ul.sidebar li a h1, ul.sidebar li a h2, ul.sidebar li a h3, ul.sidebar li a h4, ul.sidebar li a h5, ul.sidebar li a h6, ul.sidebar li a p {
             margin-bottom: 0 !important;
         }
 

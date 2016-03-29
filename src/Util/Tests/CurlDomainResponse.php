@@ -2,8 +2,6 @@
 
 namespace Util\Tests;
 
-use \Models\Domain;
-
 class CurlDomainResponse
 {
 

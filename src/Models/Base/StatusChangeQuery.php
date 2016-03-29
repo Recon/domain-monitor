@@ -60,7 +60,6 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildStatusChange findOneByDate(string $date) Return the first ChildStatusChange filtered by the date column
  * @method     ChildStatusChange findOneByOldStatus(boolean $old_status) Return the first ChildStatusChange filtered by the old_status column
  * @method     ChildStatusChange findOneByNewStatus(boolean $new_status) Return the first ChildStatusChange filtered by the new_status column *
-
  * @method     ChildStatusChange requirePk($key, ConnectionInterface $con = null) Return the ChildStatusChange by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildStatusChange requireOne(ConnectionInterface $con = null) Return the first ChildStatusChange matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -86,8 +85,8 @@ abstract class StatusChangeQuery extends ModelCriteria
     /**
      * Initializes internal state of \Models\Base\StatusChangeQuery object.
      *
-     * @param     string $dbName The database name
-     * @param     string $modelName The phpName of a model, e.g. 'Book'
+     * @param     string $dbName     The database name
+     * @param     string $modelName  The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
     public function __construct($dbName = 'default', $modelName = '\\Models\\StatusChange', $modelAlias = null)
@@ -98,8 +97,8 @@ abstract class StatusChangeQuery extends ModelCriteria
     /**
      * Returns a new ChildStatusChangeQuery object.
      *
-     * @param     string $modelAlias The alias of a model in the query
-     * @param     Criteria $criteria Optional Criteria to build the query from
+     * @param     string   $modelAlias The alias of a model in the query
+     * @param     Criteria $criteria   Optional Criteria to build the query from
      *
      * @return ChildStatusChangeQuery
      */
@@ -128,7 +127,7 @@ abstract class StatusChangeQuery extends ModelCriteria
      * $obj  = $c->findPk(12, $con);
      * </code>
      *
-     * @param mixed $key Primary key to use for the query
+     * @param mixed               $key Primary key to use for the query
      * @param ConnectionInterface $con an optional connection object
      *
      * @return ChildStatusChange|array|mixed the result, formatted by the current formatter
@@ -138,7 +137,11 @@ abstract class StatusChangeQuery extends ModelCriteria
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = StatusChangeTableMap::getInstanceFromPool(null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key))) && !$this->formatter) {
+        if ((null !== ($obj = StatusChangeTableMap::getInstanceFromPool(null === $key || is_scalar($key) || is_callable([
+                    $key,
+                    '__toString',
+                ]) ? (string)$key : $key))) && !$this->formatter
+        ) {
             // the object is already in the instance pool
             return $obj;
         }
@@ -147,8 +150,9 @@ abstract class StatusChangeQuery extends ModelCriteria
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
-         || $this->selectColumns || $this->asColumns || $this->selectModifiers
-         || $this->map || $this->having || $this->joins) {
+            || $this->selectColumns || $this->asColumns || $this->selectModifiers
+            || $this->map || $this->having || $this->joins
+        ) {
             return $this->findPkComplex($key, $con);
         } else {
             return $this->findPkSimple($key, $con);
@@ -159,7 +163,7 @@ abstract class StatusChangeQuery extends ModelCriteria
      * Find object by primary key using raw SQL to go fast.
      * Bypass doSelect() and the object formatter by using generated code.
      *
-     * @param     mixed $key Primary key to use for the query
+     * @param     mixed               $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
      * @throws \Propel\Runtime\Exception\PropelException
@@ -182,7 +186,8 @@ abstract class StatusChangeQuery extends ModelCriteria
             /** @var ChildStatusChange $obj */
             $obj = new ChildStatusChange();
             $obj->hydrate($row);
-            StatusChangeTableMap::addInstanceToPool($obj, null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string) $key : $key);
+            StatusChangeTableMap::addInstanceToPool($obj,
+                null === $key || is_scalar($key) || is_callable([$key, '__toString']) ? (string)$key : $key);
         }
         $stmt->closeCursor();
 
@@ -192,7 +197,7 @@ abstract class StatusChangeQuery extends ModelCriteria
     /**
      * Find object by primary key.
      *
-     * @param     mixed $key Primary key to use for the query
+     * @param     mixed               $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
      * @return ChildStatusChange|array|mixed the result, formatted by the current formatter
@@ -213,8 +218,9 @@ abstract class StatusChangeQuery extends ModelCriteria
      * <code>
      * $objs = $c->findPks(array(12, 56, 832), $con);
      * </code>
-     * @param     array $keys Primary keys to use for the query
-     * @param     ConnectionInterface $con an optional connection object
+     *
+     * @param     array               $keys Primary keys to use for the query
+     * @param     ConnectionInterface $con  an optional connection object
      *
      * @return ObjectCollection|array|mixed the list of results, formatted by the current formatter
      */
@@ -268,10 +274,10 @@ abstract class StatusChangeQuery extends ModelCriteria
      * $query->filterById(array('min' => 12)); // WHERE id > 12
      * </code>
      *
-     * @param     mixed $id The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $id         The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildStatusChangeQuery The current query, for fluid interface
@@ -311,10 +317,10 @@ abstract class StatusChangeQuery extends ModelCriteria
      *
      * @see       filterByTest()
      *
-     * @param     mixed $testId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $testId     The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildStatusChangeQuery The current query, for fluid interface
@@ -352,12 +358,12 @@ abstract class StatusChangeQuery extends ModelCriteria
      * $query->filterByDate(array('max' => 'yesterday')); // WHERE date > '2011-03-13'
      * </code>
      *
-     * @param     mixed $date The value to use as filter.
-     *              Values can be integers (unix timestamps), DateTime objects, or strings.
-     *              Empty strings are treated as NULL.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $date       The value to use as filter.
+     *                               Values can be integers (unix timestamps), DateTime objects, or strings.
+     *                               Empty strings are treated as NULL.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildStatusChangeQuery The current query, for fluid interface
@@ -394,19 +400,19 @@ abstract class StatusChangeQuery extends ModelCriteria
      * $query->filterByOldStatus('yes'); // WHERE old_status = true
      * </code>
      *
-     * @param     boolean|string $oldStatus The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param     boolean|string $oldStatus  The value to use as filter.
+     *                                       Non-boolean arguments are converted using the following rules:
+     *                                       * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                                       * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *                                       Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string         $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildStatusChangeQuery The current query, for fluid interface
      */
     public function filterByOldStatus($oldStatus = null, $comparison = null)
     {
         if (is_string($oldStatus)) {
-            $oldStatus = in_array(strtolower($oldStatus), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            $oldStatus = in_array(strtolower($oldStatus), ['false', 'off', '-', 'no', 'n', '0', '']) ? false : true;
         }
 
         return $this->addUsingAlias(StatusChangeTableMap::COL_OLD_STATUS, $oldStatus, $comparison);
@@ -421,19 +427,19 @@ abstract class StatusChangeQuery extends ModelCriteria
      * $query->filterByNewStatus('yes'); // WHERE new_status = true
      * </code>
      *
-     * @param     boolean|string $newStatus The value to use as filter.
-     *              Non-boolean arguments are converted using the following rules:
-     *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
-     *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
-     *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param     boolean|string $newStatus  The value to use as filter.
+     *                                       Non-boolean arguments are converted using the following rules:
+     *                                       * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *                                       * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     *                                       Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * @param     string         $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildStatusChangeQuery The current query, for fluid interface
      */
     public function filterByNewStatus($newStatus = null, $comparison = null)
     {
         if (is_string($newStatus)) {
-            $newStatus = in_array(strtolower($newStatus), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            $newStatus = in_array(strtolower($newStatus), ['false', 'off', '-', 'no', 'n', '0', '']) ? false : true;
         }
 
         return $this->addUsingAlias(StatusChangeTableMap::COL_NEW_STATUS, $newStatus, $comparison);
@@ -442,8 +448,8 @@ abstract class StatusChangeQuery extends ModelCriteria
     /**
      * Filter the query by a related \Models\Test object
      *
-     * @param \Models\Test|ObjectCollection $test The related object(s) to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param \Models\Test|ObjectCollection $test       The related object(s) to use as filter
+     * @param string                        $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
@@ -470,7 +476,7 @@ abstract class StatusChangeQuery extends ModelCriteria
      * Adds a JOIN clause to the query using the Test relation
      *
      * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType      Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildStatusChangeQuery The current query, for fluid interface
      */
@@ -503,9 +509,9 @@ abstract class StatusChangeQuery extends ModelCriteria
      *
      * @see useQuery()
      *
-     * @param     string $relationAlias optional alias for the relation,
+     * @param     string $relationAlias  optional alias for the relation,
      *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType       Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return \Models\TestQuery A secondary query class using the current class as primary query
      */
@@ -564,9 +570,9 @@ abstract class StatusChangeQuery extends ModelCriteria
      *
      * @param ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
-     *                         if supported by native driver or if emulated using Propel.
+     *                                 if supported by native driver or if emulated using Propel.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                 rethrown wrapped into a PropelException.
      */
     public function delete(ConnectionInterface $con = null)
     {

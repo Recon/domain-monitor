@@ -2,14 +2,14 @@
 
 namespace Controllers;
 
-use \Exceptions\HTTP\JSON\UnauthorizedException;
-use \Models\User;
-use \Symfony\Component\DependencyInjection\Container;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Session\Session;
-use \Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
-use \Symfony\Component\Templating\EngineInterface;
-use \Util\UserPermissionChecker;
+use Exceptions\HTTP\JSON\UnauthorizedException;
+use Models\User;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Templating\EngineInterface;
+use Util\UserPermissionChecker;
 
 class AbstractController
 {

@@ -46,28 +46,28 @@ class InstallConfiguration
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('db_host', new Assert\NotBlank([
-            'message' => 'The database host is required'
+            'message' => 'The database host is required',
         ]));
         $metadata->addPropertyConstraint('db_port', new Assert\Type([
             'type'    => 'numeric',
-            'message' => 'The database server port has to be a number'
+            'message' => 'The database server port has to be a number',
         ]));
         $metadata->addPropertyConstraint('db_name', new Assert\NotBlank([
-            'message' => 'The database name is required'
+            'message' => 'The database name is required',
         ]));
         $metadata->addPropertyConstraint('db_user', new Assert\NotBlank([
-            'message' => 'The database user is required'
+            'message' => 'The database user is required',
         ]));
         $metadata->addPropertyConstraint('db_pass', new Assert\NotBlank([
-            'message' => 'The database password is required'
+            'message' => 'The database password is required',
         ]));
         $metadata->addPropertyConstraint('mail_transport', new Assert\NotBlank([
-            'message' => 'A mail transport option is required'
+            'message' => 'A mail transport option is required',
         ]));
         $metadata->addPropertyConstraint('mail_transport', new Assert\Choice([
             'groups'  => ['smtp'],
             'message' => 'The mail transport you selected is not a valid choice.',
-            'choices' => ["mail", "smtp"]
+            'choices' => ["mail", "smtp"],
         ]));
 
 
@@ -90,19 +90,19 @@ class InstallConfiguration
         $metadata->addPropertyConstraint('smtp_encryption', new Assert\Choice([
             'groups'  => ['smtp'],
             'message' => 'The SMTP encryption you selected is not a valid choice.',
-            'choices' => ["", "ssl", "tls"]
+            'choices' => ["", "ssl", "tls"],
         ]));
 
 
         $metadata->addPropertyConstraint('admin_email', new Assert\NotBlank([
-            'message' => 'The administrator email address is required'
+            'message' => 'The administrator email address is required',
         ]));
         $metadata->addPropertyConstraint('admin_email', new Assert\Email([
-            'message' => 'The administrator email address is not valid'
+            'message' => 'The administrator email address is not valid',
         ]));
 
         $metadata->addPropertyConstraint('admin_pass', new Assert\NotBlank([
-            'message' => 'The administrator password cannot be empty'
+            'message' => 'The administrator password cannot be empty',
         ]));
 
         $passwordLengthConstraint = new Assert\Length([

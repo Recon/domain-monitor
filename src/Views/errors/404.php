@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <title>Website Monitor</title>
-        <base href="/">
+    <title>Website Monitor</title>
+    <base href="/">
 
-        <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
-        <style>
-            body {
-                padding-top: 70px;
-            }
-            .table > tbody > tr > td,
-            .table > tbody > tr > th{
-                vertical-align: middle;
-            }
-        </style>
+    <style>
+        body {
+            padding-top: 70px;
+        }
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
+        .table > tbody > tr > td,
+        .table > tbody > tr > th {
+            vertical-align: middle;
+        }
+    </style>
 
-    <body ng-app="app">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-        <div class="col-md-12 text-center">
-            Page Not Found
-        </div>
+<body ng-app="app">
 
-    </body>
+<div class="col-md-12 text-center">
+    Page Not Found
+</div>
+
+</body>
 </html>

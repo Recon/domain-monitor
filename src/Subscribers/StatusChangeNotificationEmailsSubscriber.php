@@ -33,13 +33,17 @@ class StatusChangeNotificationEmailsSubscriber implements EventSubscriberInterfa
 
     /**
      * TestSessionFinishedSubscriber constructor.
+     *
      * @param TestSessionTimeProvider $timeProvider
-     * @param MailerFactory $mailerFactory
-     * @param MailRenderer $mailRenderer
+     * @param MailerFactory           $mailerFactory
+     * @param MailRenderer            $mailRenderer
      * @internal param Mailer $mailer
      */
-    public function __construct(TestSessionTimeProvider $timeProvider, MailerFactory $mailerFactory, MailRenderer $mailRenderer)
-    {
+    public function __construct(
+        TestSessionTimeProvider $timeProvider,
+        MailerFactory $mailerFactory,
+        MailRenderer $mailRenderer
+    ) {
         $this->timeProvider = $timeProvider;
         $this->mailRenderer = $mailRenderer;
         $this->mailerFactory = $mailerFactory;

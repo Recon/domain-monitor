@@ -32,8 +32,8 @@ use Propel\Runtime\Util\PropelDateTime;
  *
  *
  *
-* @package    propel.generator.Models.Base
-*/
+ * @package    propel.generator.Models.Base
+ */
 abstract class Test implements ActiveRecordInterface
 {
     /**
@@ -44,12 +44,14 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * attribute to determine if this object has previously been saved.
+     *
      * @var boolean
      */
     protected $new = true;
 
     /**
      * attribute to determine whether this object has been deleted.
+     *
      * @var boolean
      */
     protected $deleted = false;
@@ -57,16 +59,18 @@ abstract class Test implements ActiveRecordInterface
     /**
      * The columns that have been modified in current object.
      * Tracking modified columns allows us to only update modified columns.
+     *
      * @var array
      */
-    protected $modifiedColumns = array();
+    protected $modifiedColumns = [];
 
     /**
      * The (virtual) columns that are added at runtime
      * The formatters can add supplementary columns based on a resultset
+     *
      * @var array
      */
-    protected $virtualColumns = array();
+    protected $virtualColumns = [];
 
     /**
      * The value for the id field.
@@ -124,6 +128,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * An array of objects scheduled for deletion.
+     *
      * @var ObjectCollection|ChildStatusChange[]
      */
     protected $statusChangesScheduledForDeletion = null;
@@ -148,7 +153,7 @@ abstract class Test implements ActiveRecordInterface
     /**
      * Has specified column been modified?
      *
-     * @param  string  $col column fully qualified name (TableMap::TYPE_COLNAME), e.g. Book::AUTHOR_ID
+     * @param  string $col column fully qualified name (TableMap::TYPE_COLNAME), e.g. Book::AUTHOR_ID
      * @return boolean True if $col has been modified.
      */
     public function isColumnModified($col)
@@ -158,6 +163,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Get the columns that have been modified in this object.
+     *
      * @return array A unique list of the modified column names for this object.
      */
     public function getModifiedColumns()
@@ -185,11 +191,12 @@ abstract class Test implements ActiveRecordInterface
      */
     public function setNew($b)
     {
-        $this->new = (boolean) $b;
+        $this->new = (boolean)$b;
     }
 
     /**
      * Whether this object has been deleted.
+     *
      * @return boolean The deleted state of this object.
      */
     public function isDeleted()
@@ -199,16 +206,18 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Specify whether this object has been deleted.
+     *
      * @param  boolean $b The deleted state of this object.
      * @return void
      */
     public function setDeleted($b)
     {
-        $this->deleted = (boolean) $b;
+        $this->deleted = (boolean)$b;
     }
 
     /**
      * Sets the modified state for the object to be false.
+     *
      * @param  string $col If supplied, only the specified column is reset.
      * @return void
      */
@@ -219,7 +228,7 @@ abstract class Test implements ActiveRecordInterface
                 unset($this->modifiedColumns[$col]);
             }
         } else {
-            $this->modifiedColumns = array();
+            $this->modifiedColumns = [];
         }
     }
 
@@ -228,7 +237,7 @@ abstract class Test implements ActiveRecordInterface
      * <code>obj</code> is an instance of <code>Test</code>, delegates to
      * <code>equals(Test)</code>.  Otherwise, returns <code>false</code>.
      *
-     * @param  mixed   $obj The object to compare to.
+     * @param  mixed $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
      */
     public function equals($obj)
@@ -261,7 +270,7 @@ abstract class Test implements ActiveRecordInterface
     /**
      * Checks the existence of a virtual column in this object
      *
-     * @param  string  $name The virtual column name
+     * @param  string $name The virtual column name
      * @return boolean
      */
     public function hasVirtualColumn($name)
@@ -304,8 +313,8 @@ abstract class Test implements ActiveRecordInterface
     /**
      * Logs a message using Propel::log().
      *
-     * @param  string  $msg
-     * @param  int     $priority One of the Propel::LOG_* logging levels
+     * @param  string $msg
+     * @param  int    $priority One of the Propel::LOG_* logging levels
      * @return boolean
      */
     protected function log($msg, $priority = Propel::LOG_INFO)
@@ -331,7 +340,7 @@ abstract class Test implements ActiveRecordInterface
             $parser = AbstractParser::getParser($parser);
         }
 
-        return $parser->fromArray($this->toArray(TableMap::TYPE_PHPNAME, $includeLazyLoadColumns, array(), true));
+        return $parser->fromArray($this->toArray(TableMap::TYPE_PHPNAME, $includeLazyLoadColumns, [], true));
     }
 
     /**
@@ -344,9 +353,10 @@ abstract class Test implements ActiveRecordInterface
 
         $cls = new \ReflectionClass($this);
         $propertyNames = [];
-        $serializableProperties = array_diff($cls->getProperties(), $cls->getProperties(\ReflectionProperty::IS_STATIC));
+        $serializableProperties = array_diff($cls->getProperties(),
+            $cls->getProperties(\ReflectionProperty::IS_STATIC));
 
-        foreach($serializableProperties as $property) {
+        foreach ($serializableProperties as $property) {
             $propertyNames[] = $property->getName();
         }
 
@@ -414,7 +424,7 @@ abstract class Test implements ActiveRecordInterface
      *
      * @throws PropelException - if unable to parse/validate the date/time value.
      */
-    public function getLastChecked($format = NULL)
+    public function getLastChecked($format = null)
     {
         if ($format === null) {
             return $this->last_checked;
@@ -432,7 +442,7 @@ abstract class Test implements ActiveRecordInterface
     public function setId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->id !== $v) {
@@ -452,7 +462,7 @@ abstract class Test implements ActiveRecordInterface
     public function setDomainId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->domain_id !== $v) {
@@ -476,7 +486,7 @@ abstract class Test implements ActiveRecordInterface
     public function setTestType($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->test_type !== $v) {
@@ -501,9 +511,9 @@ abstract class Test implements ActiveRecordInterface
     {
         if ($v !== null) {
             if (is_string($v)) {
-                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+                $v = in_array(strtolower($v), ['false', 'off', '-', 'no', 'n', '0', '']) ? false : true;
             } else {
-                $v = (boolean) $v;
+                $v = (boolean)$v;
             }
         }
 
@@ -519,7 +529,7 @@ abstract class Test implements ActiveRecordInterface
      * Sets the value of [last_checked] column to a normalized version of the date/time value specified.
      *
      * @param  mixed $v string, integer (timestamp), or \DateTimeInterface value.
-     *               Empty strings are treated as NULL.
+     *                  Empty strings are treated as NULL.
      * @return $this|\Models\Test The current object (for fluent API support)
      */
     public function setLastChecked($v)
@@ -557,11 +567,11 @@ abstract class Test implements ActiveRecordInterface
      * for results of JOIN queries where the resultset row includes columns from two or
      * more tables.
      *
-     * @param array   $row       The row returned by DataFetcher->fetch().
-     * @param int     $startcol  0-based offset column which indicates which restultset column to start with.
-     * @param boolean $rehydrate Whether this object is being re-hydrated from the database.
-     * @param string  $indexType The index type of $row. Mostly DataFetcher->getIndexType().
-                                  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array   $row        The row returned by DataFetcher->fetch().
+     * @param int     $startcol   0-based offset column which indicates which restultset column to start with.
+     * @param boolean $rehydrate  Whether this object is being re-hydrated from the database.
+     * @param string  $indexType  The index type of $row. Mostly DataFetcher->getIndexType().
+     *                            One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                            TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *
      * @return int             next starting column
@@ -571,19 +581,24 @@ abstract class Test implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : TestTableMap::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : TestTableMap::translateFieldName('Id',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->id = (null !== $col) ? (int)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TestTableMap::translateFieldName('DomainId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->domain_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : TestTableMap::translateFieldName('DomainId',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->domain_id = (null !== $col) ? (int)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TestTableMap::translateFieldName('TestType', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->test_type = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 2 + $startcol : TestTableMap::translateFieldName('TestType',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->test_type = (null !== $col) ? (int)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TestTableMap::translateFieldName('Status', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->status = (null !== $col) ? (boolean) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : TestTableMap::translateFieldName('Status',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->status = (null !== $col) ? (boolean)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TestTableMap::translateFieldName('LastChecked', TableMap::TYPE_PHPNAME, $indexType)];
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : TestTableMap::translateFieldName('LastChecked',
+                TableMap::TYPE_PHPNAME, $indexType)];
             if ($col === '0000-00-00 00:00:00') {
                 $col = null;
             }
@@ -628,8 +643,8 @@ abstract class Test implements ActiveRecordInterface
      *
      * This will only work if the object has been saved and has a valid primary key set.
      *
-     * @param      boolean $deep (optional) Whether to also de-associated any related objects.
-     * @param      ConnectionInterface $con (optional) The ConnectionInterface connection to use.
+     * @param      boolean             $deep (optional) Whether to also de-associated any related objects.
+     * @param      ConnectionInterface $con  (optional) The ConnectionInterface connection to use.
      * @return void
      * @throws PropelException - if this object is deleted, unsaved or doesn't have pk match in db
      */
@@ -650,7 +665,8 @@ abstract class Test implements ActiveRecordInterface
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildTestQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildTestQuery::create(null,
+            $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -819,7 +835,7 @@ abstract class Test implements ActiveRecordInterface
      */
     protected function doInsert(ConnectionInterface $con)
     {
-        $modifiedColumns = array();
+        $modifiedColumns = [];
         $index = 0;
 
         $this->modifiedColumns[TestTableMap::COL_ID] = true;
@@ -827,21 +843,21 @@ abstract class Test implements ActiveRecordInterface
             throw new PropelException('Cannot insert a value for auto-increment primary key (' . TestTableMap::COL_ID . ')');
         }
 
-         // check the columns in natural order for more readable SQL queries
+        // check the columns in natural order for more readable SQL queries
         if ($this->isColumnModified(TestTableMap::COL_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'id';
+            $modifiedColumns[':p' . $index++] = 'id';
         }
         if ($this->isColumnModified(TestTableMap::COL_DOMAIN_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'domain_id';
+            $modifiedColumns[':p' . $index++] = 'domain_id';
         }
         if ($this->isColumnModified(TestTableMap::COL_TEST_TYPE)) {
-            $modifiedColumns[':p' . $index++]  = 'test_type';
+            $modifiedColumns[':p' . $index++] = 'test_type';
         }
         if ($this->isColumnModified(TestTableMap::COL_STATUS)) {
-            $modifiedColumns[':p' . $index++]  = 'status';
+            $modifiedColumns[':p' . $index++] = 'status';
         }
         if ($this->isColumnModified(TestTableMap::COL_LAST_CHECKED)) {
-            $modifiedColumns[':p' . $index++]  = 'last_checked';
+            $modifiedColumns[':p' . $index++] = 'last_checked';
         }
 
         $sql = sprintf(
@@ -864,10 +880,11 @@ abstract class Test implements ActiveRecordInterface
                         $stmt->bindValue($identifier, $this->test_type, PDO::PARAM_INT);
                         break;
                     case 'status':
-                        $stmt->bindValue($identifier, (int) $this->status, PDO::PARAM_INT);
+                        $stmt->bindValue($identifier, (int)$this->status, PDO::PARAM_INT);
                         break;
                     case 'last_checked':
-                        $stmt->bindValue($identifier, $this->last_checked ? $this->last_checked->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
+                        $stmt->bindValue($identifier,
+                            $this->last_checked ? $this->last_checked->format("Y-m-d H:i:s") : null, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -908,9 +925,9 @@ abstract class Test implements ActiveRecordInterface
      *
      * @param      string $name name
      * @param      string $type The type of fieldname the $name is of:
-     *                     one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                     TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                     Defaults to TableMap::TYPE_PHPNAME.
+     *                          one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     *                          TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                          Defaults to TableMap::TYPE_PHPNAME.
      * @return mixed Value of field.
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
@@ -958,30 +975,34 @@ abstract class Test implements ActiveRecordInterface
      * You can specify the key type of the array by passing one of the class
      * type constants.
      *
-     * @param     string  $keyType (optional) One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
-     *                    TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                    Defaults to TableMap::TYPE_PHPNAME.
+     * @param     string  $keyType                (optional) One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
+     *                                            TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                                            Defaults to TableMap::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
-     * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
-     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
+     * @param     array   $alreadyDumpedObjects   List of objects to skip to avoid recursion
+     * @param     boolean $includeForeignObjects  (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
-    {
+    public function toArray(
+        $keyType = TableMap::TYPE_PHPNAME,
+        $includeLazyLoadColumns = true,
+        $alreadyDumpedObjects = [],
+        $includeForeignObjects = false
+    ) {
 
         if (isset($alreadyDumpedObjects['Test'][$this->hashCode()])) {
             return '*RECURSION*';
         }
         $alreadyDumpedObjects['Test'][$this->hashCode()] = true;
         $keys = TestTableMap::getFieldNames($keyType);
-        $result = array(
+        $result = [
             $keys[0] => $this->getId(),
             $keys[1] => $this->getDomainId(),
             $keys[2] => $this->getTestType(),
             $keys[3] => $this->getStatus(),
             $keys[4] => $this->getLastChecked(),
-        );
+        ];
         if ($result[$keys[4]] instanceof \DateTime) {
             $result[$keys[4]] = $result[$keys[4]]->format('c');
         }
@@ -1005,7 +1026,7 @@ abstract class Test implements ActiveRecordInterface
                         $key = 'Domain';
                 }
 
-                $result[$key] = $this->aDomain->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aDomain->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
             }
             if (null !== $this->collStatusChanges) {
 
@@ -1020,7 +1041,8 @@ abstract class Test implements ActiveRecordInterface
                         $key = 'StatusChanges';
                 }
 
-                $result[$key] = $this->collStatusChanges->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+                $result[$key] = $this->collStatusChanges->toArray(null, false, $keyType, $includeLazyLoadColumns,
+                    $alreadyDumpedObjects);
             }
         }
 
@@ -1032,10 +1054,10 @@ abstract class Test implements ActiveRecordInterface
      *
      * @param  string $name
      * @param  mixed  $value field value
-     * @param  string $type The type of fieldname the $name is of:
-     *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                Defaults to TableMap::TYPE_PHPNAME.
+     * @param  string $type  The type of fieldname the $name is of:
+     *                       one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     *                       TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                       Defaults to TableMap::TYPE_PHPNAME.
      * @return $this|\Models\Test
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
@@ -1049,7 +1071,7 @@ abstract class Test implements ActiveRecordInterface
      * Sets a field from the object by Position as specified in the xml schema.
      * Zero-based.
      *
-     * @param  int $pos position in xml schema
+     * @param  int   $pos   position in xml schema
      * @param  mixed $value field value
      * @return $this|\Models\Test
      */
@@ -1114,7 +1136,7 @@ abstract class Test implements ActiveRecordInterface
         }
     }
 
-     /**
+    /**
      * Populate the current object from a string, using a given parser format
      * <code>
      * $book = new Book();
@@ -1126,9 +1148,9 @@ abstract class Test implements ActiveRecordInterface
      * TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      * The default key type is the column's TableMap::TYPE_PHPNAME.
      *
-     * @param mixed $parser A AbstractParser instance,
-     *                       or a format name ('XML', 'YAML', 'JSON', 'CSV')
-     * @param string $data The source data to import from
+     * @param mixed  $parser  A AbstractParser instance,
+     *                        or a format name ('XML', 'YAML', 'JSON', 'CSV')
+     * @param string $data    The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
      * @return $this|\Models\Test The current object, for fluid interface
@@ -1214,6 +1236,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Returns the primary key for this object (row).
+     *
      * @return int
      */
     public function getPrimaryKey()
@@ -1234,6 +1257,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Returns true if the primary key for this object is null.
+     *
      * @return boolean
      */
     public function isPrimaryKeyNull()
@@ -1247,9 +1271,9 @@ abstract class Test implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Models\Test (or compatible) type.
+     * @param      object  $copyObj  An object of \Models\Test (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
+     * @param      boolean $makeNew  Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
@@ -1274,7 +1298,7 @@ abstract class Test implements ActiveRecordInterface
 
         if ($makeNew) {
             $copyObj->setNew(true);
-            $copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+            $copyObj->setId(null); // this is a auto-increment column, so set to default value
         }
     }
 
@@ -1310,7 +1334,7 @@ abstract class Test implements ActiveRecordInterface
     public function setDomain(ChildDomain $v = null)
     {
         if ($v === null) {
-            $this->setDomainId(NULL);
+            $this->setDomainId(null);
         } else {
             $this->setDomainId($v->getId());
         }
@@ -1396,7 +1420,7 @@ abstract class Test implements ActiveRecordInterface
      * however, you may wish to override this method in your stub class to provide setting appropriate
      * to your application -- for example, setting the initial array to the values stored in database.
      *
-     * @param      boolean $overrideExisting If set to true, the method call initializes
+     * @param      boolean $overrideExisting  If set to true, the method call initializes
      *                                        the collection even if it is not empty
      *
      * @return void
@@ -1422,15 +1446,15 @@ abstract class Test implements ActiveRecordInterface
      * If this ChildTest is new, it will return
      * an empty collection or the current collection; the criteria is ignored on a new object.
      *
-     * @param      Criteria $criteria optional Criteria object to narrow the query
-     * @param      ConnectionInterface $con optional connection object
+     * @param      Criteria            $criteria optional Criteria object to narrow the query
+     * @param      ConnectionInterface $con      optional connection object
      * @return ObjectCollection|ChildStatusChange[] List of ChildStatusChange objects
      * @throws PropelException
      */
     public function getStatusChanges(Criteria $criteria = null, ConnectionInterface $con = null)
     {
         $partial = $this->collStatusChangesPartial && !$this->isNew();
-        if (null === $this->collStatusChanges || null !== $criteria  || $partial) {
+        if (null === $this->collStatusChanges || null !== $criteria || $partial) {
             if ($this->isNew() && null === $this->collStatusChanges) {
                 // return empty collection
                 $this->initStatusChanges();
@@ -1477,8 +1501,8 @@ abstract class Test implements ActiveRecordInterface
      * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
      * and new objects from the given Propel collection.
      *
-     * @param      Collection $statusChanges A Propel collection.
-     * @param      ConnectionInterface $con Optional connection object
+     * @param      Collection          $statusChanges A Propel collection.
+     * @param      ConnectionInterface $con           Optional connection object
      * @return $this|ChildTest The current object (for fluent API support)
      */
     public function setStatusChanges(Collection $statusChanges, ConnectionInterface $con = null)
@@ -1507,8 +1531,8 @@ abstract class Test implements ActiveRecordInterface
     /**
      * Returns the number of related StatusChange objects.
      *
-     * @param      Criteria $criteria
-     * @param      boolean $distinct
+     * @param      Criteria            $criteria
+     * @param      boolean             $distinct
      * @param      ConnectionInterface $con
      * @return int             Count of related StatusChange objects.
      * @throws PropelException
@@ -1568,7 +1592,7 @@ abstract class Test implements ActiveRecordInterface
      */
     protected function doAddStatusChange(ChildStatusChange $statusChange)
     {
-        $this->collStatusChanges[]= $statusChange;
+        $this->collStatusChanges[] = $statusChange;
         $statusChange->setTest($this);
     }
 
@@ -1585,7 +1609,7 @@ abstract class Test implements ActiveRecordInterface
                 $this->statusChangesScheduledForDeletion = clone $this->collStatusChanges;
                 $this->statusChangesScheduledForDeletion->clear();
             }
-            $this->statusChangesScheduledForDeletion[]= clone $statusChange;
+            $this->statusChangesScheduledForDeletion[] = clone $statusChange;
             $statusChange->setTest(null);
         }
 
@@ -1643,11 +1667,12 @@ abstract class Test implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(TestTableMap::DEFAULT_STRING_FORMAT);
+        return (string)$this->exportTo(TestTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**
      * Code to be run before persisting the object
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1658,6 +1683,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run after persisting the object
+     *
      * @param ConnectionInterface $con
      */
     public function postSave(ConnectionInterface $con = null)
@@ -1667,6 +1693,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run before inserting to database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1677,6 +1704,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run after inserting to database
+     *
      * @param ConnectionInterface $con
      */
     public function postInsert(ConnectionInterface $con = null)
@@ -1686,6 +1714,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run before updating the object in database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1696,6 +1725,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run after updating the object in database
+     *
      * @param ConnectionInterface $con
      */
     public function postUpdate(ConnectionInterface $con = null)
@@ -1705,6 +1735,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run before deleting the object in database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1715,6 +1746,7 @@ abstract class Test implements ActiveRecordInterface
 
     /**
      * Code to be run after deleting the object in database
+     *
      * @param ConnectionInterface $con
      */
     public function postDelete(ConnectionInterface $con = null)

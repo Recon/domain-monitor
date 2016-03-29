@@ -61,7 +61,6 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildUsersDomain findOneByUserId(int $user_id) Return the first ChildUsersDomain filtered by the user_id column
  * @method     ChildUsersDomain findOneByDomainId(int $domain_id) Return the first ChildUsersDomain filtered by the domain_id column *
-
  * @method     ChildUsersDomain requirePk($key, ConnectionInterface $con = null) Return the ChildUsersDomain by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUsersDomain requireOne(ConnectionInterface $con = null) Return the first ChildUsersDomain matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
@@ -81,8 +80,8 @@ abstract class UsersDomainQuery extends ModelCriteria
     /**
      * Initializes internal state of \Models\Base\UsersDomainQuery object.
      *
-     * @param     string $dbName The database name
-     * @param     string $modelName The phpName of a model, e.g. 'Book'
+     * @param     string $dbName     The database name
+     * @param     string $modelName  The phpName of a model, e.g. 'Book'
      * @param     string $modelAlias The alias for the model in this query, e.g. 'b'
      */
     public function __construct($dbName = 'default', $modelName = '\\Models\\UsersDomain', $modelAlias = null)
@@ -93,8 +92,8 @@ abstract class UsersDomainQuery extends ModelCriteria
     /**
      * Returns a new ChildUsersDomainQuery object.
      *
-     * @param     string $modelAlias The alias of a model in the query
-     * @param     Criteria $criteria Optional Criteria to build the query from
+     * @param     string   $modelAlias The alias of a model in the query
+     * @param     Criteria $criteria   Optional Criteria to build the query from
      *
      * @return ChildUsersDomainQuery
      */
@@ -123,8 +122,8 @@ abstract class UsersDomainQuery extends ModelCriteria
      * $obj = $c->findPk(array(12, 34), $con);
      * </code>
      *
-     * @param array[$user_id, $domain_id] $key Primary key to use for the query
-     * @param ConnectionInterface $con an optional connection object
+     * @param                     array [$user_id, $domain_id] $key Primary key to use for the query
+     * @param ConnectionInterface $con  an optional connection object
      *
      * @return ChildUsersDomain|array|mixed the result, formatted by the current formatter
      */
@@ -133,7 +132,17 @@ abstract class UsersDomainQuery extends ModelCriteria
         if ($key === null) {
             return null;
         }
-        if ((null !== ($obj = UsersDomainTableMap::getInstanceFromPool(serialize([(null === $key[0] || is_scalar($key[0]) || is_callable([$key[0], '__toString']) ? (string) $key[0] : $key[0]), (null === $key[1] || is_scalar($key[1]) || is_callable([$key[1], '__toString']) ? (string) $key[1] : $key[1])])))) && !$this->formatter) {
+        if ((null !== ($obj = UsersDomainTableMap::getInstanceFromPool(serialize([
+                    (null === $key[0] || is_scalar($key[0]) || is_callable([
+                        $key[0],
+                        '__toString',
+                    ]) ? (string)$key[0] : $key[0]),
+                    (null === $key[1] || is_scalar($key[1]) || is_callable([
+                        $key[1],
+                        '__toString',
+                    ]) ? (string)$key[1] : $key[1]),
+                ])))) && !$this->formatter
+        ) {
             // the object is already in the instance pool
             return $obj;
         }
@@ -142,8 +151,9 @@ abstract class UsersDomainQuery extends ModelCriteria
         }
         $this->basePreSelect($con);
         if ($this->formatter || $this->modelAlias || $this->with || $this->select
-         || $this->selectColumns || $this->asColumns || $this->selectModifiers
-         || $this->map || $this->having || $this->joins) {
+            || $this->selectColumns || $this->asColumns || $this->selectModifiers
+            || $this->map || $this->having || $this->joins
+        ) {
             return $this->findPkComplex($key, $con);
         } else {
             return $this->findPkSimple($key, $con);
@@ -154,7 +164,7 @@ abstract class UsersDomainQuery extends ModelCriteria
      * Find object by primary key using raw SQL to go fast.
      * Bypass doSelect() and the object formatter by using generated code.
      *
-     * @param     mixed $key Primary key to use for the query
+     * @param     mixed               $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
      * @throws \Propel\Runtime\Exception\PropelException
@@ -178,7 +188,16 @@ abstract class UsersDomainQuery extends ModelCriteria
             /** @var ChildUsersDomain $obj */
             $obj = new ChildUsersDomain();
             $obj->hydrate($row);
-            UsersDomainTableMap::addInstanceToPool($obj, serialize([(null === $key[0] || is_scalar($key[0]) || is_callable([$key[0], '__toString']) ? (string) $key[0] : $key[0]), (null === $key[1] || is_scalar($key[1]) || is_callable([$key[1], '__toString']) ? (string) $key[1] : $key[1])]));
+            UsersDomainTableMap::addInstanceToPool($obj, serialize([
+                (null === $key[0] || is_scalar($key[0]) || is_callable([
+                    $key[0],
+                    '__toString',
+                ]) ? (string)$key[0] : $key[0]),
+                (null === $key[1] || is_scalar($key[1]) || is_callable([
+                    $key[1],
+                    '__toString',
+                ]) ? (string)$key[1] : $key[1]),
+            ]));
         }
         $stmt->closeCursor();
 
@@ -188,7 +207,7 @@ abstract class UsersDomainQuery extends ModelCriteria
     /**
      * Find object by primary key.
      *
-     * @param     mixed $key Primary key to use for the query
+     * @param     mixed               $key Primary key to use for the query
      * @param     ConnectionInterface $con A connection object
      *
      * @return ChildUsersDomain|array|mixed the result, formatted by the current formatter
@@ -209,8 +228,9 @@ abstract class UsersDomainQuery extends ModelCriteria
      * <code>
      * $objs = $c->findPks(array(array(12, 56), array(832, 123), array(123, 456)), $con);
      * </code>
-     * @param     array $keys Primary keys to use for the query
-     * @param     ConnectionInterface $con an optional connection object
+     *
+     * @param     array               $keys Primary keys to use for the query
+     * @param     ConnectionInterface $con  an optional connection object
      *
      * @return ObjectCollection|array|mixed the list of results, formatted by the current formatter
      */
@@ -277,10 +297,10 @@ abstract class UsersDomainQuery extends ModelCriteria
      *
      * @see       filterByUser()
      *
-     * @param     mixed $userId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $userId     The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersDomainQuery The current query, for fluid interface
@@ -320,10 +340,10 @@ abstract class UsersDomainQuery extends ModelCriteria
      *
      * @see       filterByDomain()
      *
-     * @param     mixed $domainId The value to use as filter.
-     *              Use scalar values for equality.
-     *              Use array values for in_array() equivalent.
-     *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
+     * @param     mixed  $domainId   The value to use as filter.
+     *                               Use scalar values for equality.
+     *                               Use array values for in_array() equivalent.
+     *                               Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this|ChildUsersDomainQuery The current query, for fluid interface
@@ -354,8 +374,8 @@ abstract class UsersDomainQuery extends ModelCriteria
     /**
      * Filter the query by a related \Models\User object
      *
-     * @param \Models\User|ObjectCollection $user The related object(s) to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param \Models\User|ObjectCollection $user       The related object(s) to use as filter
+     * @param string                        $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
@@ -382,7 +402,7 @@ abstract class UsersDomainQuery extends ModelCriteria
      * Adds a JOIN clause to the query using the User relation
      *
      * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType      Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildUsersDomainQuery The current query, for fluid interface
      */
@@ -415,9 +435,9 @@ abstract class UsersDomainQuery extends ModelCriteria
      *
      * @see useQuery()
      *
-     * @param     string $relationAlias optional alias for the relation,
+     * @param     string $relationAlias  optional alias for the relation,
      *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType       Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return \Models\UserQuery A secondary query class using the current class as primary query
      */
@@ -431,8 +451,8 @@ abstract class UsersDomainQuery extends ModelCriteria
     /**
      * Filter the query by a related \Models\Domain object
      *
-     * @param \Models\Domain|ObjectCollection $domain The related object(s) to use as filter
-     * @param string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     * @param \Models\Domain|ObjectCollection $domain     The related object(s) to use as filter
+     * @param string                          $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @throws \Propel\Runtime\Exception\PropelException
      *
@@ -449,7 +469,8 @@ abstract class UsersDomainQuery extends ModelCriteria
             }
 
             return $this
-                ->addUsingAlias(UsersDomainTableMap::COL_DOMAIN_ID, $domain->toKeyValue('PrimaryKey', 'Id'), $comparison);
+                ->addUsingAlias(UsersDomainTableMap::COL_DOMAIN_ID, $domain->toKeyValue('PrimaryKey', 'Id'),
+                    $comparison);
         } else {
             throw new PropelException('filterByDomain() only accepts arguments of type \Models\Domain or Collection');
         }
@@ -459,7 +480,7 @@ abstract class UsersDomainQuery extends ModelCriteria
      * Adds a JOIN clause to the query using the Domain relation
      *
      * @param     string $relationAlias optional alias for the relation
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType      Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return $this|ChildUsersDomainQuery The current query, for fluid interface
      */
@@ -492,9 +513,9 @@ abstract class UsersDomainQuery extends ModelCriteria
      *
      * @see useQuery()
      *
-     * @param     string $relationAlias optional alias for the relation,
+     * @param     string $relationAlias  optional alias for the relation,
      *                                   to be used as main alias in the secondary query
-     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     * @param     string $joinType       Accepted values are null, 'left join', 'right join', 'inner join'
      *
      * @return \Models\DomainQuery A secondary query class using the current class as primary query
      */
@@ -515,9 +536,11 @@ abstract class UsersDomainQuery extends ModelCriteria
     public function prune($usersDomain = null)
     {
         if ($usersDomain) {
-            $this->addCond('pruneCond0', $this->getAliasedColName(UsersDomainTableMap::COL_USER_ID), $usersDomain->getUserId(), Criteria::NOT_EQUAL);
-            $this->addCond('pruneCond1', $this->getAliasedColName(UsersDomainTableMap::COL_DOMAIN_ID), $usersDomain->getDomainId(), Criteria::NOT_EQUAL);
-            $this->combine(array('pruneCond0', 'pruneCond1'), Criteria::LOGICAL_OR);
+            $this->addCond('pruneCond0', $this->getAliasedColName(UsersDomainTableMap::COL_USER_ID),
+                $usersDomain->getUserId(), Criteria::NOT_EQUAL);
+            $this->addCond('pruneCond1', $this->getAliasedColName(UsersDomainTableMap::COL_DOMAIN_ID),
+                $usersDomain->getDomainId(), Criteria::NOT_EQUAL);
+            $this->combine(['pruneCond0', 'pruneCond1'], Criteria::LOGICAL_OR);
         }
 
         return $this;
@@ -555,9 +578,9 @@ abstract class UsersDomainQuery extends ModelCriteria
      *
      * @param ConnectionInterface $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
-     *                         if supported by native driver or if emulated using Propel.
+     *                                 if supported by native driver or if emulated using Propel.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                 rethrown wrapped into a PropelException.
      */
     public function delete(ConnectionInterface $con = null)
     {

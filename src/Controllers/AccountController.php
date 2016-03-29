@@ -2,11 +2,10 @@
 
 namespace Controllers;
 
-use \Controllers\AbstractController;
-use \Exceptions\HTTP\JSON\UnauthorizedException;
-use \Models\UserQuery;
-use \Propel\Runtime\Map\TableMap;
-use \Symfony\Component\HttpFoundation\JsonResponse;
+use Exceptions\HTTP\JSON\UnauthorizedException;
+use Models\UserQuery;
+use Propel\Runtime\Map\TableMap;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AccountController extends AbstractController
 {

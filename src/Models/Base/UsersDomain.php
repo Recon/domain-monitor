@@ -27,8 +27,8 @@ use Propel\Runtime\Parser\AbstractParser;
  *
  *
  *
-* @package    propel.generator.Models.Base
-*/
+ * @package    propel.generator.Models.Base
+ */
 abstract class UsersDomain implements ActiveRecordInterface
 {
     /**
@@ -39,12 +39,14 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * attribute to determine if this object has previously been saved.
+     *
      * @var boolean
      */
     protected $new = true;
 
     /**
      * attribute to determine whether this object has been deleted.
+     *
      * @var boolean
      */
     protected $deleted = false;
@@ -52,16 +54,18 @@ abstract class UsersDomain implements ActiveRecordInterface
     /**
      * The columns that have been modified in current object.
      * Tracking modified columns allows us to only update modified columns.
+     *
      * @var array
      */
-    protected $modifiedColumns = array();
+    protected $modifiedColumns = [];
 
     /**
      * The (virtual) columns that are added at runtime
      * The formatters can add supplementary columns based on a resultset
+     *
      * @var array
      */
-    protected $virtualColumns = array();
+    protected $virtualColumns = [];
 
     /**
      * The value for the user_id field.
@@ -115,7 +119,7 @@ abstract class UsersDomain implements ActiveRecordInterface
     /**
      * Has specified column been modified?
      *
-     * @param  string  $col column fully qualified name (TableMap::TYPE_COLNAME), e.g. Book::AUTHOR_ID
+     * @param  string $col column fully qualified name (TableMap::TYPE_COLNAME), e.g. Book::AUTHOR_ID
      * @return boolean True if $col has been modified.
      */
     public function isColumnModified($col)
@@ -125,6 +129,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Get the columns that have been modified in this object.
+     *
      * @return array A unique list of the modified column names for this object.
      */
     public function getModifiedColumns()
@@ -152,11 +157,12 @@ abstract class UsersDomain implements ActiveRecordInterface
      */
     public function setNew($b)
     {
-        $this->new = (boolean) $b;
+        $this->new = (boolean)$b;
     }
 
     /**
      * Whether this object has been deleted.
+     *
      * @return boolean The deleted state of this object.
      */
     public function isDeleted()
@@ -166,16 +172,18 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Specify whether this object has been deleted.
+     *
      * @param  boolean $b The deleted state of this object.
      * @return void
      */
     public function setDeleted($b)
     {
-        $this->deleted = (boolean) $b;
+        $this->deleted = (boolean)$b;
     }
 
     /**
      * Sets the modified state for the object to be false.
+     *
      * @param  string $col If supplied, only the specified column is reset.
      * @return void
      */
@@ -186,7 +194,7 @@ abstract class UsersDomain implements ActiveRecordInterface
                 unset($this->modifiedColumns[$col]);
             }
         } else {
-            $this->modifiedColumns = array();
+            $this->modifiedColumns = [];
         }
     }
 
@@ -195,7 +203,7 @@ abstract class UsersDomain implements ActiveRecordInterface
      * <code>obj</code> is an instance of <code>UsersDomain</code>, delegates to
      * <code>equals(UsersDomain)</code>.  Otherwise, returns <code>false</code>.
      *
-     * @param  mixed   $obj The object to compare to.
+     * @param  mixed $obj The object to compare to.
      * @return boolean Whether equal to the object specified.
      */
     public function equals($obj)
@@ -228,7 +236,7 @@ abstract class UsersDomain implements ActiveRecordInterface
     /**
      * Checks the existence of a virtual column in this object
      *
-     * @param  string  $name The virtual column name
+     * @param  string $name The virtual column name
      * @return boolean
      */
     public function hasVirtualColumn($name)
@@ -271,8 +279,8 @@ abstract class UsersDomain implements ActiveRecordInterface
     /**
      * Logs a message using Propel::log().
      *
-     * @param  string  $msg
-     * @param  int     $priority One of the Propel::LOG_* logging levels
+     * @param  string $msg
+     * @param  int    $priority One of the Propel::LOG_* logging levels
      * @return boolean
      */
     protected function log($msg, $priority = Propel::LOG_INFO)
@@ -298,7 +306,7 @@ abstract class UsersDomain implements ActiveRecordInterface
             $parser = AbstractParser::getParser($parser);
         }
 
-        return $parser->fromArray($this->toArray(TableMap::TYPE_PHPNAME, $includeLazyLoadColumns, array(), true));
+        return $parser->fromArray($this->toArray(TableMap::TYPE_PHPNAME, $includeLazyLoadColumns, [], true));
     }
 
     /**
@@ -311,9 +319,10 @@ abstract class UsersDomain implements ActiveRecordInterface
 
         $cls = new \ReflectionClass($this);
         $propertyNames = [];
-        $serializableProperties = array_diff($cls->getProperties(), $cls->getProperties(\ReflectionProperty::IS_STATIC));
+        $serializableProperties = array_diff($cls->getProperties(),
+            $cls->getProperties(\ReflectionProperty::IS_STATIC));
 
-        foreach($serializableProperties as $property) {
+        foreach ($serializableProperties as $property) {
             $propertyNames[] = $property->getName();
         }
 
@@ -349,7 +358,7 @@ abstract class UsersDomain implements ActiveRecordInterface
     public function setUserId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->user_id !== $v) {
@@ -373,7 +382,7 @@ abstract class UsersDomain implements ActiveRecordInterface
     public function setDomainId($v)
     {
         if ($v !== null) {
-            $v = (int) $v;
+            $v = (int)$v;
         }
 
         if ($this->domain_id !== $v) {
@@ -410,11 +419,11 @@ abstract class UsersDomain implements ActiveRecordInterface
      * for results of JOIN queries where the resultset row includes columns from two or
      * more tables.
      *
-     * @param array   $row       The row returned by DataFetcher->fetch().
-     * @param int     $startcol  0-based offset column which indicates which restultset column to start with.
-     * @param boolean $rehydrate Whether this object is being re-hydrated from the database.
-     * @param string  $indexType The index type of $row. Mostly DataFetcher->getIndexType().
-                                  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array   $row        The row returned by DataFetcher->fetch().
+     * @param int     $startcol   0-based offset column which indicates which restultset column to start with.
+     * @param boolean $rehydrate  Whether this object is being re-hydrated from the database.
+     * @param string  $indexType  The index type of $row. Mostly DataFetcher->getIndexType().
+     *                            One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                            TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *
      * @return int             next starting column
@@ -424,11 +433,13 @@ abstract class UsersDomain implements ActiveRecordInterface
     {
         try {
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : UsersDomainTableMap::translateFieldName('UserId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->user_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 0 + $startcol : UsersDomainTableMap::translateFieldName('UserId',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->user_id = (null !== $col) ? (int)$col : null;
 
-            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UsersDomainTableMap::translateFieldName('DomainId', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->domain_id = (null !== $col) ? (int) $col : null;
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 1 + $startcol : UsersDomainTableMap::translateFieldName('DomainId',
+                TableMap::TYPE_PHPNAME, $indexType)];
+            $this->domain_id = (null !== $col) ? (int)$col : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -472,8 +483,8 @@ abstract class UsersDomain implements ActiveRecordInterface
      *
      * This will only work if the object has been saved and has a valid primary key set.
      *
-     * @param      boolean $deep (optional) Whether to also de-associated any related objects.
-     * @param      ConnectionInterface $con (optional) The ConnectionInterface connection to use.
+     * @param      boolean             $deep (optional) Whether to also de-associated any related objects.
+     * @param      ConnectionInterface $con  (optional) The ConnectionInterface connection to use.
      * @return void
      * @throws PropelException - if this object is deleted, unsaved or doesn't have pk match in db
      */
@@ -494,7 +505,8 @@ abstract class UsersDomain implements ActiveRecordInterface
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $dataFetcher = ChildUsersDomainQuery::create(null, $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
+        $dataFetcher = ChildUsersDomainQuery::create(null,
+            $this->buildPkeyCriteria())->setFormatter(ModelCriteria::FORMAT_STATEMENT)->find($con);
         $row = $dataFetcher->fetch();
         $dataFetcher->close();
         if (!$row) {
@@ -652,16 +664,16 @@ abstract class UsersDomain implements ActiveRecordInterface
      */
     protected function doInsert(ConnectionInterface $con)
     {
-        $modifiedColumns = array();
+        $modifiedColumns = [];
         $index = 0;
 
 
-         // check the columns in natural order for more readable SQL queries
+        // check the columns in natural order for more readable SQL queries
         if ($this->isColumnModified(UsersDomainTableMap::COL_USER_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'user_id';
+            $modifiedColumns[':p' . $index++] = 'user_id';
         }
         if ($this->isColumnModified(UsersDomainTableMap::COL_DOMAIN_ID)) {
-            $modifiedColumns[':p' . $index++]  = 'domain_id';
+            $modifiedColumns[':p' . $index++] = 'domain_id';
         }
 
         $sql = sprintf(
@@ -712,9 +724,9 @@ abstract class UsersDomain implements ActiveRecordInterface
      *
      * @param      string $name name
      * @param      string $type The type of fieldname the $name is of:
-     *                     one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                     TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                     Defaults to TableMap::TYPE_PHPNAME.
+     *                          one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     *                          TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                          Defaults to TableMap::TYPE_PHPNAME.
      * @return mixed Value of field.
      */
     public function getByName($name, $type = TableMap::TYPE_PHPNAME)
@@ -753,27 +765,31 @@ abstract class UsersDomain implements ActiveRecordInterface
      * You can specify the key type of the array by passing one of the class
      * type constants.
      *
-     * @param     string  $keyType (optional) One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
-     *                    TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                    Defaults to TableMap::TYPE_PHPNAME.
+     * @param     string  $keyType                (optional) One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME,
+     *                                            TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                                            Defaults to TableMap::TYPE_PHPNAME.
      * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
-     * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
-     * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
+     * @param     array   $alreadyDumpedObjects   List of objects to skip to avoid recursion
+     * @param     boolean $includeForeignObjects  (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array an associative array containing the field names (as keys) and field values
      */
-    public function toArray($keyType = TableMap::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
-    {
+    public function toArray(
+        $keyType = TableMap::TYPE_PHPNAME,
+        $includeLazyLoadColumns = true,
+        $alreadyDumpedObjects = [],
+        $includeForeignObjects = false
+    ) {
 
         if (isset($alreadyDumpedObjects['UsersDomain'][$this->hashCode()])) {
             return '*RECURSION*';
         }
         $alreadyDumpedObjects['UsersDomain'][$this->hashCode()] = true;
         $keys = UsersDomainTableMap::getFieldNames($keyType);
-        $result = array(
+        $result = [
             $keys[0] => $this->getUserId(),
             $keys[1] => $this->getDomainId(),
-        );
+        ];
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
             $result[$key] = $virtualColumn;
@@ -793,7 +809,7 @@ abstract class UsersDomain implements ActiveRecordInterface
                         $key = 'User';
                 }
 
-                $result[$key] = $this->aUser->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aUser->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
             }
             if (null !== $this->aDomain) {
 
@@ -808,7 +824,7 @@ abstract class UsersDomain implements ActiveRecordInterface
                         $key = 'Domain';
                 }
 
-                $result[$key] = $this->aDomain->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+                $result[$key] = $this->aDomain->toArray($keyType, $includeLazyLoadColumns, $alreadyDumpedObjects, true);
             }
         }
 
@@ -820,10 +836,10 @@ abstract class UsersDomain implements ActiveRecordInterface
      *
      * @param  string $name
      * @param  mixed  $value field value
-     * @param  string $type The type of fieldname the $name is of:
-     *                one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
-     *                TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
-     *                Defaults to TableMap::TYPE_PHPNAME.
+     * @param  string $type  The type of fieldname the $name is of:
+     *                       one of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     *                       TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
+     *                       Defaults to TableMap::TYPE_PHPNAME.
      * @return $this|\Models\UsersDomain
      */
     public function setByName($name, $value, $type = TableMap::TYPE_PHPNAME)
@@ -837,7 +853,7 @@ abstract class UsersDomain implements ActiveRecordInterface
      * Sets a field from the object by Position as specified in the xml schema.
      * Zero-based.
      *
-     * @param  int $pos position in xml schema
+     * @param  int   $pos   position in xml schema
      * @param  mixed $value field value
      * @return $this|\Models\UsersDomain
      */
@@ -884,7 +900,7 @@ abstract class UsersDomain implements ActiveRecordInterface
         }
     }
 
-     /**
+    /**
      * Populate the current object from a string, using a given parser format
      * <code>
      * $book = new Book();
@@ -896,9 +912,9 @@ abstract class UsersDomain implements ActiveRecordInterface
      * TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      * The default key type is the column's TableMap::TYPE_PHPNAME.
      *
-     * @param mixed $parser A AbstractParser instance,
-     *                       or a format name ('XML', 'YAML', 'JSON', 'CSV')
-     * @param string $data The source data to import from
+     * @param mixed  $parser  A AbstractParser instance,
+     *                        or a format name ('XML', 'YAML', 'JSON', 'CSV')
+     * @param string $data    The source data to import from
      * @param string $keyType The type of keys the array uses.
      *
      * @return $this|\Models\UsersDomain The current object, for fluid interface
@@ -992,11 +1008,12 @@ abstract class UsersDomain implements ActiveRecordInterface
     /**
      * Returns the composite primary key for this object.
      * The array elements will be in same order as specified in XML.
+     *
      * @return array
      */
     public function getPrimaryKey()
     {
-        $pks = array();
+        $pks = [];
         $pks[0] = $this->getUserId();
         $pks[1] = $this->getDomainId();
 
@@ -1017,6 +1034,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Returns true if the primary key for this object is null.
+     *
      * @return boolean
      */
     public function isPrimaryKeyNull()
@@ -1030,9 +1048,9 @@ abstract class UsersDomain implements ActiveRecordInterface
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param      object $copyObj An object of \Models\UsersDomain (or compatible) type.
+     * @param      object  $copyObj  An object of \Models\UsersDomain (or compatible) type.
      * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
+     * @param      boolean $makeNew  Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
@@ -1076,7 +1094,7 @@ abstract class UsersDomain implements ActiveRecordInterface
     public function setUser(ChildUser $v = null)
     {
         if ($v === null) {
-            $this->setUserId(NULL);
+            $this->setUserId(null);
         } else {
             $this->setUserId($v->getId());
         }
@@ -1127,7 +1145,7 @@ abstract class UsersDomain implements ActiveRecordInterface
     public function setDomain(ChildDomain $v = null)
     {
         if ($v === null) {
-            $this->setDomainId(NULL);
+            $this->setDomainId(null);
         } else {
             $this->setDomainId($v->getId());
         }
@@ -1214,11 +1232,12 @@ abstract class UsersDomain implements ActiveRecordInterface
      */
     public function __toString()
     {
-        return (string) $this->exportTo(UsersDomainTableMap::DEFAULT_STRING_FORMAT);
+        return (string)$this->exportTo(UsersDomainTableMap::DEFAULT_STRING_FORMAT);
     }
 
     /**
      * Code to be run before persisting the object
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1229,6 +1248,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run after persisting the object
+     *
      * @param ConnectionInterface $con
      */
     public function postSave(ConnectionInterface $con = null)
@@ -1238,6 +1258,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run before inserting to database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1248,6 +1269,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run after inserting to database
+     *
      * @param ConnectionInterface $con
      */
     public function postInsert(ConnectionInterface $con = null)
@@ -1257,6 +1279,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run before updating the object in database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1267,6 +1290,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run after updating the object in database
+     *
      * @param ConnectionInterface $con
      */
     public function postUpdate(ConnectionInterface $con = null)
@@ -1276,6 +1300,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run before deleting the object in database
+     *
      * @param  ConnectionInterface $con
      * @return boolean
      */
@@ -1286,6 +1311,7 @@ abstract class UsersDomain implements ActiveRecordInterface
 
     /**
      * Code to be run after deleting the object in database
+     *
      * @param ConnectionInterface $con
      */
     public function postDelete(ConnectionInterface $con = null)

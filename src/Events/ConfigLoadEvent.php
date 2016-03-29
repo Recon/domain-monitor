@@ -17,6 +17,7 @@ class ConfigLoadEvent extends Event
 
     /**
      * ConfigLoadEvent constructor.
+     *
      * @param ConfigLoader $configLoader
      */
     public function __construct(ConfigLoader $configLoader)

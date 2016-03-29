@@ -14,6 +14,7 @@ class MailerFactory
 
     /**
      * MailerFactory constructor.
+     *
      * @param EngineInterface $templatingEngine
      */
     public function __construct(EngineInterface $templatingEngine)

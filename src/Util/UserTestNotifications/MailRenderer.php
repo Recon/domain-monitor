@@ -21,6 +21,7 @@ class MailRenderer
 
     /**
      * MailRenderer constructor.
+     *
      * @param EngineInterface $templatingEngine
      */
     public function __construct(EngineInterface $templatingEngine)
@@ -31,7 +32,7 @@ class MailRenderer
     public function render(UserInventory $inventory)
     {
         return $this->templatingEngine->render(static::TEMPLATE, [
-            'inventory' => $inventory
+            'inventory' => $inventory,
         ]);
     }
 
@@ -41,6 +42,7 @@ class MailRenderer
         $failures = count($inventory->getFailed());
         $succeeded = count($inventory->getSucceeded());
 
-        return sprintf("%s new test%s failures, %s new test%s succeeded", $failures, $failures != 1 ? 's' : '', $succeeded, $succeeded != 1 ? 's' : '');
+        return sprintf("%s new test%s failures, %s new test%s succeeded", $failures, $failures != 1 ? 's' : '',
+            $succeeded, $succeeded != 1 ? 's' : '');
     }
 }

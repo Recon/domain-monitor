@@ -2,9 +2,9 @@
 
 namespace Util;
 
-use \Symfony\Component\Templating\Loader\FilesystemLoader;
-use \Symfony\Component\Templating\PhpEngine;
-use \Symfony\Component\Templating\TemplateNameParser;
+use Symfony\Component\Templating\Loader\FilesystemLoader;
+use Symfony\Component\Templating\PhpEngine;
+use Symfony\Component\Templating\TemplateNameParser;
 
 class TemplatingFactory
 {

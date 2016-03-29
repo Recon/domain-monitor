@@ -106,7 +106,7 @@ $container->set('auth.encoder', new EncoderFactory([
 ]));
 
 $definition = new Definition(AuthenticationProviderManager::class, [
-    new Reference('auth.encoder')
+    new Reference('auth.encoder'),
 ]);
 $definition->setFactory([AuthenticationManagerFactory::class, 'create']);
 $container->setDefinition('auth.manager', $definition);
@@ -121,7 +121,8 @@ $container->setDefinition('auth.checker', $definition);
 $definition = new Definition(UserPermissionChecker::class);
 $definition->setSynthetic(true);
 $container->setDefinition('auth.permission_checker', $definition);
-$container->set('auth.permission_checker', new UserPermissionChecker($container->get('auth.checker'), $container->get('session')));
+$container->set('auth.permission_checker',
+    new UserPermissionChecker($container->get('auth.checker'), $container->get('session')));
 
 // Anonymous authentication
 if (!$token = $session->get('auth_token')) {
@@ -166,9 +167,10 @@ $container->register('config_loader', \Util\Config\ConfigLoader::class)
 
 try {
     $container->get('config_loader')->load();
-    $container->get('event_dispatcher')->dispatch(\Events\ConfigLoadEvent::NAME, new \Events\ConfigLoadEvent($container->get('config_loader')));
+    $container->get('event_dispatcher')->dispatch(\Events\ConfigLoadEvent::NAME,
+        new \Events\ConfigLoadEvent($container->get('config_loader')));
 } catch (\Exceptions\MissingConfigurationFileException $ex) {
-    
+
 }
 
 

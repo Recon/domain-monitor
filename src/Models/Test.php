@@ -2,10 +2,10 @@
 
 namespace Models;
 
-use \Models\Base\Test as BaseTest;
-use \ReflectionClass;
-use \Symfony\Component\Validator\Mapping\ClassMetadata;
-use \Validator\Constraints\DomainTestConstraint;
+use Models\Base\Test as BaseTest;
+use ReflectionClass;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Validator\Constraints\DomainTestConstraint;
 
 /**
  * Skeleton subclass for representing a row from the 'test' table.

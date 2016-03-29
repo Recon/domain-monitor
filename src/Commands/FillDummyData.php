@@ -2,13 +2,13 @@
 
 namespace Commands;
 
-use \Models\Account;
-use \Models\Domain;
-use \Models\User;
-use \Symfony\Component\Console\Command\Command;
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Models\Account;
+use Models\Domain;
+use Models\User;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 /**
  * Generates javascript files which contains various status codes used by the app
@@ -33,8 +33,7 @@ class FillDummyData extends Command
     {
         $this
             ->setName('app:fill_dummy_data')
-            ->setDescription('Fills the database with some dummy data')
-        ;
+            ->setDescription('Fills the database with some dummy data');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -51,8 +50,7 @@ class FillDummyData extends Command
             ->setPassword($this->encoderFactory->getEncoder($admin)->encodePassword('test', $admin->getSalt()))
             ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
             ->setAccount($account)
-            ->save()
-        ;
+            ->save();
 
         $user = new User();
         $user->setUsername('user@example.com')
@@ -61,8 +59,7 @@ class FillDummyData extends Command
             ->setPassword($this->encoderFactory->getEncoder($user)->encodePassword('test', $user->getSalt()))
             ->setRoles(['ROLE_USER'])
             ->setAccount($account)
-            ->save()
-        ;
+            ->save();
 
         foreach ($this->domains as $uri) {
             $domain = new Domain();

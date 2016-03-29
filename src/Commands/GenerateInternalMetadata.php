@@ -2,9 +2,9 @@
 
 namespace Commands;
 
-use \Symfony\Component\Console\Command\Command;
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Generates javascript files which contains various status codes used by the app
@@ -16,8 +16,7 @@ class GenerateInternalMetadata extends Command
     {
         $this
             ->setName('app:generate_metadata')
-            ->setDescription('Generates javascript files which contains various status codes used by the app')
-        ;
+            ->setDescription('Generates javascript files which contains various status codes used by the app');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -26,7 +25,8 @@ class GenerateInternalMetadata extends Command
 
         $content .= "monitorMetadata.domainStatuses = " . json_encode($this->getDomainRecordStatuses()) . ';' . PHP_EOL;
         $content .= "monitorMetadata.testTypes = " . json_encode($this->getTestTypes()) . ';' . PHP_EOL;
-        $content .= "monitorMetadata.testTypesNames = " . json_encode($this->getTestTypesNames(), JSON_FORCE_OBJECT) . ';' . PHP_EOL;
+        $content .= "monitorMetadata.testTypesNames = " . json_encode($this->getTestTypesNames(),
+                JSON_FORCE_OBJECT) . ';' . PHP_EOL;
 
         $file = new \SplFileObject($path = __DIR__ . '/../../public_html/js/monitor-metadata.js', 'w');
         $file->fwrite($content);
@@ -67,12 +67,12 @@ class GenerateInternalMetadata extends Command
     protected function getTestTypesNames()
     {
         $types = $this->getTestTypes();
-        array_walk($types, function(&$value) {
-            $value = (int) ($value);
+        array_walk($types, function (&$value) {
+            $value = (int)($value);
         });
 
         $types = array_flip($types);
-        array_walk($types, function(&$value) {
+        array_walk($types, function (&$value) {
             $value = str_replace('TYPE_', '', $value);
         });
 

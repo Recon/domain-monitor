@@ -2,16 +2,15 @@
 
 namespace Controllers;
 
-use \Controllers\AbstractController;
-use \Exceptions\HTTP\JSON\UnauthorizedException;
-use \Models\DomainQuery;
-use \Models\User;
-use \Models\UserQuery;
-use \Propel\Runtime\Map\TableMap;
-use \Propel\Runtime\Propel;
-use \Symfony\Component\HttpFoundation\JsonResponse;
-use \Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use \Symfony\Component\Validator\Validator\ValidatorInterface;
+use Exceptions\HTTP\JSON\UnauthorizedException;
+use Models\DomainQuery;
+use Models\User;
+use Models\UserQuery;
+use Propel\Runtime\Map\TableMap;
+use Propel\Runtime\Propel;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
@@ -35,13 +34,13 @@ class UserController extends AbstractController
             throw new UnauthorizedException();
         }
 
-        $user = UserQuery::create()->findOneById((int) $this->request->get('id'));
+        $user = UserQuery::create()->findOneById((int)$this->request->get('id'));
 
         if (!$user) {
             return new JsonResponse([
                 'success' => false,
-                'message' => 'User not found'
-                ], 404);
+                'message' => 'User not found',
+            ], 404);
         }
 
         $user->eraseCredentials();
@@ -82,16 +81,16 @@ class UserController extends AbstractController
         if (count($messages)) {
             $connection->rollBack();
             return new JsonResponse([
-                'success' => false,
-                'messages' => $messages
-                ], 400);
+                'success'  => false,
+                'messages' => $messages,
+            ], 400);
         }
 
         $user->save(); // Save after validation due to unique keys
         $connection->commit();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -106,12 +105,12 @@ class UserController extends AbstractController
         $messages = [];
         $connection = Propel::getConnection();
 
-        $user = UserQuery::create()->findOneById((int) $this->request->get('id'));
+        $user = UserQuery::create()->findOneById((int)$this->request->get('id'));
         if (!$user) {
             return new JsonResponse([
-                'success' => false,
-                'messages' => ['The user was not found']
-                ], 404);
+                'success'  => false,
+                'messages' => ['The user was not found'],
+            ], 404);
         }
 
         $connection->beginTransaction();
@@ -120,7 +119,8 @@ class UserController extends AbstractController
         $user->setUsername($this->request->get('email'));
         if ($this->request->get('password')) {
             if ($this->request->get('password') == $this->request->get('password2')) {
-                $user->setPassword($encoderFactory->getEncoder($user)->encodePassword($this->request->get('password'), $user->getSalt()));
+                $user->setPassword($encoderFactory->getEncoder($user)->encodePassword($this->request->get('password'),
+                    $user->getSalt()));
             } else {
                 $messages[] = 'The passwords do not match';
             }
@@ -134,16 +134,16 @@ class UserController extends AbstractController
         if (count($messages)) {
             $connection->rollBack();
             return new JsonResponse([
-                'success' => false,
-                'messages' => $messages
-                ], 400);
+                'success'  => false,
+                'messages' => $messages,
+            ], 400);
         }
 
         $user->save();
         $connection->commit();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -153,12 +153,12 @@ class UserController extends AbstractController
             throw new UnauthorizedException();
         }
 
-        $user = UserQuery::create()->findOneById((int) $this->request->get('id'));
+        $user = UserQuery::create()->findOneById((int)$this->request->get('id'));
         if (!$user) {
             return new JsonResponse([
-                'success' => false,
-                'messages' => ['The user was not found']
-                ], 404);
+                'success'  => false,
+                'messages' => ['The user was not found'],
+            ], 404);
         }
 
         if ($this->getLoggedInUser()->getAccount()->getId() != $user->getAccount()->getId()) {
@@ -167,15 +167,15 @@ class UserController extends AbstractController
 
         if ($this->getLoggedInUser()->getId() == $user->getId()) {
             return new JsonResponse([
-                'success' => false,
-                'messages' => ['You can\'t remove our own account']
-                ], 400);
+                'success'  => false,
+                'messages' => ['You can\'t remove our own account'],
+            ], 400);
         }
 
         $user->delete();
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -184,7 +184,7 @@ class UserController extends AbstractController
         $domainCollection = new \Propel\Runtime\Collection\Collection();
 
         foreach ($domains As $domainData) {
-            $domain = DomainQuery::create()->findOneById((int) $domainData['id']);
+            $domain = DomainQuery::create()->findOneById((int)$domainData['id']);
             if ($domain && $domain->getAccount()->getId() == $user->getAccount()->getId()) {
                 $domainCollection->push($domain);
             }

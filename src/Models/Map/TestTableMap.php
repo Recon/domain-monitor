@@ -107,13 +107,19 @@ class TestTableMap extends TableMap
      * first dimension keys are the type constants
      * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
      */
-    protected static $fieldNames = array (
-        self::TYPE_PHPNAME       => array('Id', 'DomainId', 'TestType', 'Status', 'LastChecked', ),
-        self::TYPE_CAMELNAME     => array('id', 'domainId', 'testType', 'status', 'lastChecked', ),
-        self::TYPE_COLNAME       => array(TestTableMap::COL_ID, TestTableMap::COL_DOMAIN_ID, TestTableMap::COL_TEST_TYPE, TestTableMap::COL_STATUS, TestTableMap::COL_LAST_CHECKED, ),
-        self::TYPE_FIELDNAME     => array('id', 'domain_id', 'test_type', 'status', 'last_checked', ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
-    );
+    protected static $fieldNames = [
+        self::TYPE_PHPNAME   => ['Id', 'DomainId', 'TestType', 'Status', 'LastChecked',],
+        self::TYPE_CAMELNAME => ['id', 'domainId', 'testType', 'status', 'lastChecked',],
+        self::TYPE_COLNAME   => [
+            TestTableMap::COL_ID,
+            TestTableMap::COL_DOMAIN_ID,
+            TestTableMap::COL_TEST_TYPE,
+            TestTableMap::COL_STATUS,
+            TestTableMap::COL_LAST_CHECKED,
+        ],
+        self::TYPE_FIELDNAME => ['id', 'domain_id', 'test_type', 'status', 'last_checked',],
+        self::TYPE_NUM       => [0, 1, 2, 3, 4,],
+    ];
 
     /**
      * holds an array of keys for quick access to the fieldnames array
@@ -121,13 +127,19 @@ class TestTableMap extends TableMap
      * first dimension keys are the type constants
      * e.g. self::$fieldKeys[self::TYPE_PHPNAME]['Id'] = 0
      */
-    protected static $fieldKeys = array (
-        self::TYPE_PHPNAME       => array('Id' => 0, 'DomainId' => 1, 'TestType' => 2, 'Status' => 3, 'LastChecked' => 4, ),
-        self::TYPE_CAMELNAME     => array('id' => 0, 'domainId' => 1, 'testType' => 2, 'status' => 3, 'lastChecked' => 4, ),
-        self::TYPE_COLNAME       => array(TestTableMap::COL_ID => 0, TestTableMap::COL_DOMAIN_ID => 1, TestTableMap::COL_TEST_TYPE => 2, TestTableMap::COL_STATUS => 3, TestTableMap::COL_LAST_CHECKED => 4, ),
-        self::TYPE_FIELDNAME     => array('id' => 0, 'domain_id' => 1, 'test_type' => 2, 'status' => 3, 'last_checked' => 4, ),
-        self::TYPE_NUM           => array(0, 1, 2, 3, 4, )
-    );
+    protected static $fieldKeys = [
+        self::TYPE_PHPNAME   => ['Id' => 0, 'DomainId' => 1, 'TestType' => 2, 'Status' => 3, 'LastChecked' => 4,],
+        self::TYPE_CAMELNAME => ['id' => 0, 'domainId' => 1, 'testType' => 2, 'status' => 3, 'lastChecked' => 4,],
+        self::TYPE_COLNAME   => [
+            TestTableMap::COL_ID           => 0,
+            TestTableMap::COL_DOMAIN_ID    => 1,
+            TestTableMap::COL_TEST_TYPE    => 2,
+            TestTableMap::COL_STATUS       => 3,
+            TestTableMap::COL_LAST_CHECKED => 4,
+        ],
+        self::TYPE_FIELDNAME => ['id' => 0, 'domain_id' => 1, 'test_type' => 2, 'status' => 3, 'last_checked' => 4,],
+        self::TYPE_NUM       => [0, 1, 2, 3, 4,],
+    ];
 
     /**
      * Initialize the table attributes and columns
@@ -158,21 +170,22 @@ class TestTableMap extends TableMap
      */
     public function buildRelations()
     {
-        $this->addRelation('Domain', '\\Models\\Domain', RelationMap::MANY_TO_ONE, array (
-  0 =>
-  array (
-    0 => ':domain_id',
-    1 => ':id',
-  ),
-), 'CASCADE', 'CASCADE', null, false);
-        $this->addRelation('StatusChange', '\\Models\\StatusChange', RelationMap::ONE_TO_MANY, array (
-  0 =>
-  array (
-    0 => ':test_id',
-    1 => ':id',
-  ),
-), 'CASCADE', 'CASCADE', 'StatusChanges', false);
+        $this->addRelation('Domain', '\\Models\\Domain', RelationMap::MANY_TO_ONE, [
+            0 =>
+                [
+                    0 => ':domain_id',
+                    1 => ':id',
+                ],
+        ], 'CASCADE', 'CASCADE', null, false);
+        $this->addRelation('StatusChange', '\\Models\\StatusChange', RelationMap::ONE_TO_MANY, [
+            0 =>
+                [
+                    0 => ':test_id',
+                    1 => ':id',
+                ],
+        ], 'CASCADE', 'CASCADE', 'StatusChanges', false);
     } // buildRelations()
+
     /**
      * Method to invalidate the instance pool of all tables related to test     * by a foreign key with ON DELETE CASCADE
      */
@@ -189,9 +202,9 @@ class TestTableMap extends TableMap
      * For tables with a single-column primary key, that simple pkey value will be returned.  For tables with
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
-     * @param array  $row       resultset row.
-     * @param int    $offset    The 0-based offset for reading from the resultset row.
-     * @param string $indexType One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array  $row        resultset row.
+     * @param int    $offset     The 0-based offset for reading from the resultset row.
+     * @param string $indexType  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                           TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM
      *
      * @return string The primary key hash of the row
@@ -199,11 +212,23 @@ class TestTableMap extends TableMap
     public static function getPrimaryKeyHashFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
         // If the PK cannot be derived from the row, return NULL.
-        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] === null) {
+        if ($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+                TableMap::TYPE_PHPNAME, $indexType)] === null
+        ) {
             return null;
         }
 
-        return null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)], '__toString']) ? (string) $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
+        return null === $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME,
+            $indexType)] || is_scalar($row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME, $indexType)]) || is_callable([
+            $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+                TableMap::TYPE_PHPNAME, $indexType)],
+            '__toString',
+        ]) ? (string)$row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME,
+            $indexType)] : $row[TableMap::TYPE_NUM == $indexType ? 0 + $offset : static::translateFieldName('Id',
+            TableMap::TYPE_PHPNAME, $indexType)];
     }
 
     /**
@@ -211,20 +236,18 @@ class TestTableMap extends TableMap
      * For tables with a single-column primary key, that simple pkey value will be returned.  For tables with
      * a multi-column primary key, an array of the primary key columns will be returned.
      *
-     * @param array  $row       resultset row.
-     * @param int    $offset    The 0-based offset for reading from the resultset row.
-     * @param string $indexType One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array  $row        resultset row.
+     * @param int    $offset     The 0-based offset for reading from the resultset row.
+     * @param string $indexType  One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                           TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM
      *
      * @return mixed The primary key of the row
      */
     public static function getPrimaryKeyFromRow($row, $offset = 0, $indexType = TableMap::TYPE_NUM)
     {
-        return (int) $row[
-            $indexType == TableMap::TYPE_NUM
-                ? 0 + $offset
-                : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)
-        ];
+        return (int)$row[$indexType == TableMap::TYPE_NUM
+            ? 0 + $offset
+            : self::translateFieldName('Id', TableMap::TYPE_PHPNAME, $indexType)];
     }
 
     /**
@@ -246,10 +269,10 @@ class TestTableMap extends TableMap
     /**
      * Populates an object of the default type or an object that inherit from the default.
      *
-     * @param array  $row       row returned by DataFetcher->fetch().
-     * @param int    $offset    The 0-based offset for reading from the resultset row.
-     * @param string $indexType The index type of $row. Mostly DataFetcher->getIndexType().
-                                 One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
+     * @param array  $row        row returned by DataFetcher->fetch().
+     * @param int    $offset     The 0-based offset for reading from the resultset row.
+     * @param string $indexType  The index type of $row. Mostly DataFetcher->getIndexType().
+     *                           One of the class type constants TableMap::TYPE_PHPNAME, TableMap::TYPE_CAMELNAME
      *                           TableMap::TYPE_COLNAME, TableMap::TYPE_FIELDNAME, TableMap::TYPE_NUM.
      *
      * @throws PropelException Any exceptions caught during processing will be
@@ -272,7 +295,7 @@ class TestTableMap extends TableMap
             TestTableMap::addInstanceToPool($obj, $key);
         }
 
-        return array($obj, $col);
+        return [$obj, $col];
     }
 
     /**
@@ -286,7 +309,7 @@ class TestTableMap extends TableMap
      */
     public static function populateObjects(DataFetcherInterface $dataFetcher)
     {
-        $results = array();
+        $results = [];
 
         // set the class once to avoid overhead in the loop
         $cls = static::getOMClass(false);
@@ -309,6 +332,7 @@ class TestTableMap extends TableMap
 
         return $results;
     }
+
     /**
      * Add all the columns needed to create a new object.
      *
@@ -319,7 +343,7 @@ class TestTableMap extends TableMap
      * @param Criteria $criteria object containing the columns to add.
      * @param string   $alias    optional table alias
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                           rethrown wrapped into a PropelException.
      */
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
@@ -341,6 +365,7 @@ class TestTableMap extends TableMap
     /**
      * Returns the TableMap related to this object.
      * This method is not needed for general use but a specific application could have a need.
+     *
      * @return TableMap
      * @throws PropelException Any exceptions caught during processing will be
      *                         rethrown wrapped into a PropelException.
@@ -364,16 +389,16 @@ class TestTableMap extends TableMap
     /**
      * Performs a DELETE on the database, given a Test or Criteria object OR a primary key value.
      *
-     * @param mixed               $values Criteria or Test object or primary key or array of primary keys
-     *              which is used to create the DELETE statement
-     * @param  ConnectionInterface $con the connection to use
+     * @param mixed                $values Criteria or Test object or primary key or array of primary keys
+     *                                     which is used to create the DELETE statement
+     * @param  ConnectionInterface $con    the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
-     *                         if supported by native driver or if emulated using Propel.
+     *                                     if supported by native driver or if emulated using Propel.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                     rethrown wrapped into a PropelException.
      */
-     public static function doDelete($values, ConnectionInterface $con = null)
-     {
+    public static function doDelete($values, ConnectionInterface $con = null)
+    {
         if (null === $con) {
             $con = Propel::getServiceContainer()->getWriteConnection(TestTableMap::DATABASE_NAME);
         }
@@ -386,7 +411,7 @@ class TestTableMap extends TableMap
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
             $criteria = new Criteria(TestTableMap::DATABASE_NAME);
-            $criteria->add(TestTableMap::COL_ID, (array) $values, Criteria::IN);
+            $criteria->add(TestTableMap::COL_ID, (array)$values, Criteria::IN);
         }
 
         $query = TestQuery::create()->mergeWith($criteria);
@@ -394,7 +419,7 @@ class TestTableMap extends TableMap
         if ($values instanceof Criteria) {
             TestTableMap::clearInstancePool();
         } elseif (!is_object($values)) { // it's a primary key, or an array of pks
-            foreach ((array) $values as $singleval) {
+            foreach ((array)$values as $singleval) {
                 TestTableMap::removeInstanceFromPool($singleval);
             }
         }
@@ -417,10 +442,10 @@ class TestTableMap extends TableMap
      * Performs an INSERT on the database, given a Test or Criteria object.
      *
      * @param mixed               $criteria Criteria or Test object containing data that is used to create the INSERT statement.
-     * @param ConnectionInterface $con the ConnectionInterface connection to use
+     * @param ConnectionInterface $con      the ConnectionInterface connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
-     *                         rethrown wrapped into a PropelException.
+     *                                      rethrown wrapped into a PropelException.
      */
     public static function doInsert($criteria, ConnectionInterface $con = null)
     {
@@ -434,8 +459,8 @@ class TestTableMap extends TableMap
             $criteria = $criteria->buildCriteria(); // build Criteria from Test object
         }
 
-        if ($criteria->containsKey(TestTableMap::COL_ID) && $criteria->keyContainsValue(TestTableMap::COL_ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.TestTableMap::COL_ID.')');
+        if ($criteria->containsKey(TestTableMap::COL_ID) && $criteria->keyContainsValue(TestTableMap::COL_ID)) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . TestTableMap::COL_ID . ')');
         }
 
 

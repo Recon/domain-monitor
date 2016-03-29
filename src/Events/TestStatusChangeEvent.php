@@ -18,6 +18,7 @@ class TestStatusChangeEvent extends Event
 
     /**
      * TestStatusChangeEvent constructor.
+     *
      * @param Test $test
      */
     public function __construct(Test $test)

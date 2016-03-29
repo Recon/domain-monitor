@@ -3,7 +3,6 @@
 namespace Subscribers\ConfigLoad;
 
 use Events\ConfigLoadEvent;
-use Models\DomainQuery;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class PropelConfiguratorSubscriber implements EventSubscriberInterface
@@ -22,6 +21,7 @@ class PropelConfiguratorSubscriber implements EventSubscriberInterface
 
     /**
      * Creates a Propel Connection
+     *
      * @param ConfigLoadEvent $event
      */
     public function load(ConfigLoadEvent $event)
@@ -33,7 +33,8 @@ class PropelConfiguratorSubscriber implements EventSubscriberInterface
         $serviceContainer->setAdapterClass('default', 'mysql');
         $manager = new \Propel\Runtime\Connection\ConnectionManagerSingle();
         $manager->setConfiguration([
-            'dsn'       => sprintf('mysql:host=%s;port=%s;dbname=%s', $config->get('db_host'), $config->get('db_port'), $config->get('db_name')),
+            'dsn'       => sprintf('mysql:host=%s;port=%s;dbname=%s', $config->get('db_host'), $config->get('db_port'),
+                $config->get('db_name')),
             'user'      => $config->get('db_user'),
             'password'  => $config->get('db_pass'),
             'settings'  =>

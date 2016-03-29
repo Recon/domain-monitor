@@ -2,22 +2,22 @@
 
 namespace Commands;
 
-use \DateTime;
+use DateTime;
 use Events\TestSessionFinishedEvent;
-use \Models\Domain;
-use \Models\DomainQuery;
-use \Models\Test;
-use \Propel\Runtime\ActiveQuery\Criteria;
-use \Propel\Runtime\Collection\Collection;
-use \Symfony\Component\Console\Command\Command;
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\DependencyInjection\Container;
+use Models\Domain;
+use Models\DomainQuery;
+use Models\Test;
+use Propel\Runtime\ActiveQuery\Criteria;
+use Propel\Runtime\Collection\Collection;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use \Util\TestEvaluators\AbstractCurlDomainResponseEvaluator;
-use \Util\Tests\AbstractCurlBatch;
-use \Util\Tests\HttpBatch;
-use \Util\Tests\HttpsBatch;
+use Util\TestEvaluators\AbstractCurlDomainResponseEvaluator;
+use Util\Tests\AbstractCurlBatch;
+use Util\Tests\HttpBatch;
+use Util\Tests\HttpsBatch;
 
 class DomainTestsExecution extends Command
 {
@@ -34,6 +34,7 @@ class DomainTestsExecution extends Command
 
     /**
      * The time when this testing session has been initiated
+     *
      * @var DateTime
      */
     private $time;
@@ -66,10 +67,12 @@ class DomainTestsExecution extends Command
 
         $output->writeln(sprintf("<info>Found %s domains</info>", $domains->count()));
         $output->writeln("<info>Executing HTTP tests...</info>");
-        $this->performCurlConnectivityTests($this->container->get('evaluator.http'), new HttpBatch(), $domains, Test::TYPE_HTTP);
+        $this->performCurlConnectivityTests($this->container->get('evaluator.http'), new HttpBatch(), $domains,
+            Test::TYPE_HTTP);
 
         $output->writeln("<info>Executing HTTPS tests...</info>");
-        $this->performCurlConnectivityTests($this->container->get('evaluator.https'), new HttpsBatch(), $domains, Test::TYPE_HTTPS);
+        $this->performCurlConnectivityTests($this->container->get('evaluator.https'), new HttpsBatch(), $domains,
+            Test::TYPE_HTTPS);
 
         $this->dispatcher->dispatch(TestSessionFinishedEvent::NAME, new TestSessionFinishedEvent());
     }
@@ -77,11 +80,15 @@ class DomainTestsExecution extends Command
     /**
      *
      * @param AbstractCurlDomainResponseEvaluator $evaluator
-     * @param Collection $domains
-     * @param string $type Test type
+     * @param Collection                          $domains
+     * @param string                              $type Test type
      */
-    protected function performCurlConnectivityTests(AbstractCurlDomainResponseEvaluator $evaluator, AbstractCurlBatch $tester, Collection $domains, $type)
-    {
+    protected function performCurlConnectivityTests(
+        AbstractCurlDomainResponseEvaluator $evaluator,
+        AbstractCurlBatch $tester,
+        Collection $domains,
+        $type
+    ) {
 
         /* @var $test Test */
         /* @var $domain Domain */

@@ -2,8 +2,8 @@
 
 namespace Util;
 
-use \Swift_Message;
-use \Symfony\Component\Templating\EngineInterface;
+use Swift_Message;
+use Symfony\Component\Templating\EngineInterface;
 
 class Mailer
 {
@@ -20,7 +20,8 @@ class Mailer
 
     /**
      * Mailer constructor.
-     * @param Swift_Message $message
+     *
+     * @param Swift_Message   $message
      * @param EngineInterface $templatingEngine
      */
     public function __construct(Swift_Message $message, EngineInterface $templatingEngine)
@@ -40,7 +41,7 @@ class Mailer
     }
 
     /**
-     * @param $template
+     * @param       $template
      * @param array $data
      */
     public function renderMessageBody($template, array $data = [])

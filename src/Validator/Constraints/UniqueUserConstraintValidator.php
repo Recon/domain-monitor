@@ -2,9 +2,8 @@
 
 namespace Validator\Constraints;
 
-use \Models\Test;
-use \Symfony\Component\Validator\Constraint;
-use \Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueUserConstraintValidator extends ConstraintValidator
 {
@@ -13,8 +12,9 @@ class UniqueUserConstraintValidator extends ConstraintValidator
     {
         $user = \Models\UserQuery::create()->findOneByEmail($value);
 
-        if (!$user)
+        if (!$user) {
             return;
+        }
 
         if ($user->getId() != $this->context->getObject()->getId()) {
             $this->context->buildViolation($constraint->message)
