@@ -10,9 +10,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
-/**
- * Generates javascript files which contains various status codes used by the app
- */
 class FillDummyData extends Command
 {
 
@@ -73,16 +70,6 @@ class FillDummyData extends Command
             $admin->addDomain($domain)->save();
         }
         $output->writeln("<info>Done!</info>");
-    }
-
-    protected function fillAccounts()
-    {
-
-    }
-
-    protected function fillUsers()
-    {
-
     }
 
 }
