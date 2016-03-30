@@ -19,6 +19,11 @@ class Mailer
     private $message;
 
     /**
+     * @var \Swift_Transport
+     */
+    private $transport;
+
+    /**
      * Mailer constructor.
      *
      * @param Swift_Message   $message
@@ -29,7 +34,7 @@ class Mailer
         $this->message = $message;
         $this->templatingEngine = $templatingEngine;
 
-        $this->message->setFrom('websitemonitor@localhost');
+        $this->message->setFrom('websitemonitor@' . gethostname());
     }
 
     /**
@@ -51,14 +56,13 @@ class Mailer
 
     public function send()
     {
-        /**
-         * @todo Split, factory, configuration, multiple mechanism
-         */
-        $transport = \Swift_SmtpTransport::newInstance('mailtrap.io', '2525');
-        $transport->setUsername('449623fa3e18dcea5');
-        $transport->setPassword('870b7f224f2c9f');
-        $mailer = \Swift_Mailer::newInstance($transport);
+        $mailer = \Swift_Mailer::newInstance($this->transport);
         $mailer->send($this->getMessage());
+    }
+
+    public function setTransport(\Swift_Transport $transport)
+    {
+        $this->transport = $transport;
     }
 
 }

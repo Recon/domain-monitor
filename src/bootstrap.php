@@ -39,6 +39,12 @@ $definition->setSynthetic(true);
 $container->setDefinition('session', $definition);
 $container->set('session', $session);
 
+/**
+ * Validator
+ */
+$definition = new Definition(Validation::class);
+$definition->setFactory([ValidatorFactory::class, 'create']);
+$container->setDefinition('validator', $definition);
 
 /**
  * Templating
@@ -47,13 +53,43 @@ $definition = new Definition(EngineInterface::class);
 $definition->setFactory([TemplatingFactory::class, 'create']);
 $container->setDefinition('template_engine', $definition);
 
+/**
+ * Event system
+ */
+$definition = new Definition(EventDispatcher::class);
+$dispatcher = new EventDispatcher();
+$definition->setSynthetic(true);
+$container->setDefinition('dispatcher', $definition);
+$container->set('event_dispatcher', $dispatcher);
+$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\PropelConfiguratorSubscriber());
+$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\MailerConfiguratorSubscriber());
+
+/**
+ * Config
+ */
+$container->register('config_writer', \Util\Config\Install\ConfigFileWriter::class)
+    ->addArgument(__DIR__ . '/Config');
+$container->register('config_loader', \Util\Config\ConfigLoader::class)
+    ->addArgument(__DIR__ . '/Config');
+
+/**
+ * Load configuration
+ */
+try {
+    $container->get('config_loader')->load();
+    $container->get('event_dispatcher')->dispatch(
+        \Events\ConfigLoadEvent::NAME,
+        new \Events\ConfigLoadEvent($container->get('config_loader')));
+} catch (\Exceptions\MissingConfigurationFileException $ex) {
+
+}
 
 /**
  * Mailer
  */
-
 $container->register('mailer_factory', \Util\MailerFactory::class)
-    ->addArgument($container->get('template_engine'));
+    ->addArgument($container->get('template_engine'))
+    ->addArgument($container->get('config_loader'));
 
 $definition = new Definition(Mailer::class, [new Reference('template_engine')]);
 $definition->setFactory([\Util\MailerFactory::class, 'factory']);
@@ -72,14 +108,8 @@ $container->setDefinition('test_session_time_provider', $definition);
 
 
 /**
- * Event system
+ * Configure Event System Subscribers
  */
-$definition = new Definition(EventDispatcher::class);
-$dispatcher = new EventDispatcher();
-$definition->setSynthetic(true);
-$container->setDefinition('dispatcher', $definition);
-$container->set('event_dispatcher', $dispatcher);
-// Add subscribers to dispatcher
 $dispatcher->addSubscriber(new Subscribers\DomainTestExecutionSubscriber($dispatcher));
 $dispatcher->addSubscriber(new Subscribers\TestStatusChangeSubscriber($container->get('test_session_time_provider')));
 $dispatcher->addSubscriber(new Subscribers\StatusChangeNotificationEmailsSubscriber(
@@ -87,8 +117,6 @@ $dispatcher->addSubscriber(new Subscribers\StatusChangeNotificationEmailsSubscri
         $container->get('mailer_factory'),
         $container->get('mailer.test_change_notificaion_renderer'))
 );
-$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\PropelConfiguratorSubscriber());
-$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\MailerConfiguratorSubscriber());
 
 
 /**
@@ -133,14 +161,6 @@ $container->get('auth.token_storage')->setToken($token);
 
 
 /**
- * Validator
- */
-$definition = new Definition(Validation::class);
-$definition->setFactory([ValidatorFactory::class, 'create']);
-$container->setDefinition('validator', $definition);
-
-
-/**
  * Tester/probes
  */
 $definition = new Definition(Util\TestEvaluators\HttpEvaluator::class, [
@@ -149,28 +169,9 @@ $definition = new Definition(Util\TestEvaluators\HttpEvaluator::class, [
 $definition->setFactory([Util\TestEvaluators\HttpEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.http', $definition);
 
-
 $definition = new Definition(Util\TestEvaluators\HttpsEvaluator::class, [
     new Reference('event_dispatcher'),
 ]);
 $definition->setFactory([Util\TestEvaluators\HttpsEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.https', $definition);
-
-
-/**
- * Config
- */
-$container->register('config_writer', \Util\Config\Install\ConfigFileWriter::class)
-    ->addArgument(__DIR__ . '/Config');
-$container->register('config_loader', \Util\Config\ConfigLoader::class)
-    ->addArgument(__DIR__ . '/Config');
-
-try {
-    $container->get('config_loader')->load();
-    $container->get('event_dispatcher')->dispatch(\Events\ConfigLoadEvent::NAME,
-        new \Events\ConfigLoadEvent($container->get('config_loader')));
-} catch (\Exceptions\MissingConfigurationFileException $ex) {
-
-}
-
 
