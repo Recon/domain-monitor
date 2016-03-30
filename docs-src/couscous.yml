@@ -1,0 +1,19 @@
+template:
+  directory: ./template
+title: Website Monitor Documentation
+subTitle: null
+baseUrl: /docs/
+menu:
+  sections:
+    introduction:
+      name: <i class='fa fa-book'></i> User's Manual
+      items:
+        in_home:
+          text: Introduction
+          relativeUrl: index.html
+    thirdparty:
+      name: <i class='fa fa-gears'></i> Third Party
+      items:
+        external_packages:
+          text: Packages and Libraries
+          relativeUrl: external-packages.html
