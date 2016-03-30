@@ -23,9 +23,17 @@
         "paragonie/random_compat": "^1.2",
         "symfony/event-dispatcher": "^3.0"
     },
+    "require-dev":{
+        "phpunit/phpunit": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests\\"
         }
     }
 }

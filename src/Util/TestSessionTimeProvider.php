@@ -18,6 +18,9 @@ class TestSessionTimeProvider
      */
     protected $time;
 
+    /**
+     * @var TestSessionTimeProvider
+     */
     protected static $instance;
 
     private function __construct()
@@ -25,6 +28,9 @@ class TestSessionTimeProvider
         $this->time = new DateTime();
     }
 
+    /**
+     * @return TestSessionTimeProvider
+     */
     public static function instance()
     {
         if (is_null(static::$instance)) {

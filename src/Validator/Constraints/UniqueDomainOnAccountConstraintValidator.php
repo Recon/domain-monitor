@@ -20,17 +20,25 @@ class UniqueDomainOnAccountConstraintValidator extends ConstraintValidator
             return;
         }
 
-        $hasDuplicate = (bool)DomainQuery::create()
-            ->filterByUri($domain->getUri())
-            ->filterByAccount($domain->getAccount())
-            ->filterById($domain->getId(), Criteria::NOT_EQUAL)
-            ->count();
-
-        if ($hasDuplicate) {
+        if ($this->exists($domain)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%domain%', $domain->getUri())
                 ->addViolation();
         }
+    }
+
+    /**
+     * @param Domain $domain
+     * @return bool
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    protected function exists(Domain $domain)
+    {
+        return (bool)DomainQuery::create()
+            ->filterByUri($domain->getUri())
+            ->filterByAccount($domain->getAccount())
+            ->filterById($domain->getId(), Criteria::NOT_EQUAL)
+            ->count();
     }
 
 }

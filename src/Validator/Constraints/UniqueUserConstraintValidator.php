@@ -2,25 +2,33 @@
 
 namespace Validator\Constraints;
 
+use Models\UserQuery;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueUserConstraintValidator extends ConstraintValidator
 {
 
-    public function validate($value, Constraint $constraint)
+    public function validate($email, Constraint $constraint)
     {
-        $user = \Models\UserQuery::create()->findOneByEmail($value);
-
-        if (!$user) {
+        if (!$user = $this->getUserByEmail($email)) {
             return;
         }
 
         if ($user->getId() != $this->context->getObject()->getId()) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('%email%', $value)
+                ->setParameter('%email%', $email)
                 ->addViolation();
         }
+    }
+
+    /**
+     * @param  string $email
+     * @return \Models\User
+     */
+    protected function getUserByEmail($email)
+    {
+        return UserQuery::create()->findOneByEmail($email);
     }
 
 }

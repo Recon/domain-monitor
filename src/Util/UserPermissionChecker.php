@@ -5,6 +5,7 @@ namespace Util;
 use Models\Account;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserPermissionChecker
 {
@@ -19,7 +20,7 @@ class UserPermissionChecker
      */
     protected $authorizationChecker;
 
-    public function __construct(AuthorizationChecker $authorizationChecker, Session $session)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker, Session $session)
     {
         $this->authorizationChecker = $authorizationChecker;
         $this->session = $session;
@@ -41,7 +42,7 @@ class UserPermissionChecker
             return false;
         }
 
-        if ($account->getId() != $this->session->get('auth_token')->getAccount()->getId()) {
+        if ($account->getId() != $this->session->get('auth_token')->getUser()->getAccount()->getId()) {
             return false;
         }
 

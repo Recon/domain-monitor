@@ -51,7 +51,7 @@ class MailerFactory
     /**
      * @return Swift_Transport
      */
-    protected function getTransport()
+    public function getTransport()
     {
         if (!empty($this->transport)) {
             return $this->transport;
