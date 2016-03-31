@@ -3,10 +3,24 @@
 namespace Subscribers\ConfigLoad;
 
 use Events\ConfigLoadEvent;
+use Propel\Runtime\Connection\ConnectionManagerSingle;
+use Propel\Runtime\Propel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Util\PropelConnectionConfigFactory;
 
 class PropelConfiguratorSubscriber implements EventSubscriberInterface
 {
+
+    /**
+     * @var PropelConnectionConfigFactory
+     */
+    private $propelConnectionConfig;
+
+    public function __construct(PropelConnectionConfigFactory $propelConnectionConfig)
+    {
+        $this->propelConnectionConfig = $propelConnectionConfig;
+    }
+
     /**
      * @return array
      */
@@ -26,26 +40,14 @@ class PropelConfiguratorSubscriber implements EventSubscriberInterface
      */
     public function load(ConfigLoadEvent $event)
     {
-        $config = $event->getConfigLoader();
-
-        $serviceContainer = \Propel\Runtime\Propel::getServiceContainer();
+        $serviceContainer = Propel::getServiceContainer();
         $serviceContainer->checkVersion('2.0.0-dev');
         $serviceContainer->setAdapterClass('default', 'mysql');
-        $manager = new \Propel\Runtime\Connection\ConnectionManagerSingle();
-        $manager->setConfiguration([
-            'dsn'       => sprintf('mysql:host=%s;port=%s;dbname=%s', $config->get('db_host'), $config->get('db_port'),
-                $config->get('db_name')),
-            'user'      => $config->get('db_user'),
-            'password'  => $config->get('db_pass'),
-            'settings'  =>
-                [
-                    'charset' => 'utf8',
-                    'queries' => [],
-                ],
-            'classname' => '\\Propel\\Runtime\\Connection\\ConnectionWrapper',
-        ]);
+        $manager = new ConnectionManagerSingle();
+        $manager->setConfiguration($this->propelConnectionConfig->create());
         $manager->setName('default');
         $serviceContainer->setConnectionManager('default', $manager);
         $serviceContainer->setDefaultDatasource('default');
     }
+
 }

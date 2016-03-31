@@ -51,6 +51,11 @@
                                         Requirements
                                     </a>
                                 </li>
+                                                            <li class="navitems">
+                                    <a href="/docs/upgrading.html">
+                                        Upgrading
+                                    </a>
+                                </li>
                                                     </ul>
                                             <p class="menu-section">
                             <i class='fa fa-gears'></i> Third Party
@@ -83,9 +88,15 @@
 <p>The application is designed to run on a typical web server using common extension which are already enabled on most of the systems.</p>
 <h3 id="php">PHP</h3>
 <ul>
-<li>At least <strong>PHP 5.5</strong></li>
+<li>Minimum <strong>PHP 5.5</strong></li>
 <li><strong>CURL</strong> extension (<a href="http://php.net/manual/en/curl.installation.php">Installation</a>)</li>
+<li><strong>LibXML</strong> extension (enabled by default)(<a href="http://php.net/manual/en/libxml.installation.php">Installation</a>)</li>
 <li><strong>PDO</strong> extension with <strong>MySQL driver</strong> (enabled by default)</li>
+<li><strong>SPL components</strong> (enabled by default)</li>
+</ul>
+<h3 id="mysql">MySQL</h3>
+<ul>
+<li>MySQL database with usual operation privileges (CREATE, UPDATE, DELETE, INSERT, ALTER, REFERENCES)</li>
 </ul>
 <h3 id="web-server">Web Server</h3>
 <ul>

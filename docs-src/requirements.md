@@ -9,9 +9,16 @@ The application is designed to run on a typical web server using common extensio
 
 ### PHP
 
-* At least **PHP 5.5**
+* Minimum **PHP 5.5**
 * **CURL** extension ([Installation](http://php.net/manual/en/curl.installation.php))
+* **LibXML** extension (enabled by default)([Installation](http://php.net/manual/en/libxml.installation.php))
 * **PDO** extension with **MySQL driver** (enabled by default)
+* **SPL components** (enabled by default)
+
+
+### MySQL
+
+* MySQL database with usual operation privileges (CREATE, UPDATE, DELETE, INSERT, ALTER, REFERENCES)
 
 
 ### Web Server

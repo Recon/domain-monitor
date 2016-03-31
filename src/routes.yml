@@ -55,3 +55,6 @@ user_add:
 user_delete:
     path:     /user/delete
     defaults: { _controller: 'Controllers\UserController::deleteUser' }
+migrate:
+    path:     /migrate
+    defaults: { _controller: 'Controllers\MigrationController::migrate' }

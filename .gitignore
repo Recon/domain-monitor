@@ -3,6 +3,9 @@
 propel.yml
 public_html/docs
 
+propel.yml
+propel.yml.dist
+
 /nbproject
 .idea/
 

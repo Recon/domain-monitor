@@ -21,7 +21,10 @@ use Util\TemplatingFactory;
 use Util\UserPermissionChecker;
 use Util\ValidatorFactory;
 
-//require 'authentication.php';
+
+define('APP_VERSION', '0.1.0');
+define('APP_DIR', realpath(__DIR__ . '/..'));
+
 require __DIR__ . "/../vendor/autoload.php";
 require __DIR__ . "/functions.php";
 
@@ -39,6 +42,7 @@ $definition->setSynthetic(true);
 $container->setDefinition('session', $definition);
 $container->set('session', $session);
 
+
 /**
  * Validator
  */
@@ -46,12 +50,14 @@ $definition = new Definition(Validation::class);
 $definition->setFactory([ValidatorFactory::class, 'create']);
 $container->setDefinition('validator', $definition);
 
+
 /**
  * Templating
  */
 $definition = new Definition(EngineInterface::class);
 $definition->setFactory([TemplatingFactory::class, 'create']);
 $container->setDefinition('template_engine', $definition);
+
 
 /**
  * Event system
@@ -61,8 +67,7 @@ $dispatcher = new EventDispatcher();
 $definition->setSynthetic(true);
 $container->setDefinition('dispatcher', $definition);
 $container->set('event_dispatcher', $dispatcher);
-$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\PropelConfiguratorSubscriber());
-$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\MailerConfiguratorSubscriber());
+
 
 /**
  * Config
@@ -71,6 +76,17 @@ $container->register('config_writer', \Util\Config\Install\ConfigFileWriter::cla
     ->addArgument(__DIR__ . '/Config');
 $container->register('config_loader', \Util\Config\ConfigLoader::class)
     ->addArgument(__DIR__ . '/Config');
+$container->register('propel_connection_config_factory', \Util\PropelConnectionConfigFactory::class)
+    ->addArgument($container->get('config_loader'));
+
+$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\PropelConfiguratorSubscriber(
+    $container->get('propel_connection_config_factory')
+));
+$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\MailerConfiguratorSubscriber());
+$dispatcher->addSubscriber(new \Subscribers\Versioning\VersionChangeSubscriber(
+    $container->get('propel_connection_config_factory')
+));
+
 
 /**
  * Load configuration
@@ -79,7 +95,8 @@ try {
     $container->get('config_loader')->load();
     $container->get('event_dispatcher')->dispatch(
         \Events\ConfigLoadEvent::NAME,
-        new \Events\ConfigLoadEvent($container->get('config_loader')));
+        new \Events\ConfigLoadEvent($container->get('config_loader'))
+    );
 } catch (\Exceptions\MissingConfigurationFileException $ex) {
 
 }

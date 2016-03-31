@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Events\VersionChangeEvent;
 use Exceptions\HTTP\Error404;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -93,6 +94,9 @@ class InstallController extends AbstractController
     {
         unset($data['admin_email'], $data['admin_pass'], $data['admin_pass_repeat']);
         $this->configWriter->writeData($data);
+
+        $event = new VersionChangeEvent();
+        $this->container->get('event_dispatcher')->dispatch(VersionChangeEvent::NAME, $event);
     }
 
     protected function denyRequestOnExistingFile()
