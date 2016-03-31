@@ -8,9 +8,12 @@ menu:
     introduction:
       name: <i class='fa fa-book'></i> User's Manual
       items:
-        in_home:
+        home:
           text: Introduction
           relativeUrl: index.html
+        requirements:
+          text: Requirements
+          relativeUrl: requirements.html
     thirdparty:
       name: <i class='fa fa-gears'></i> Third Party
       items:

@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Util\Config\ConfigLoader;
 use Util\Config\Install\ConfigFileWriter;
 use Util\Config\Install\InstallConfiguration;
+use Util\EnvironmentCheck;
 
 class InstallController extends AbstractController
 {
@@ -36,8 +37,9 @@ class InstallController extends AbstractController
         $this->denyRequestOnExistingFile();
 
         $body = $this->templateEngine->render('install', [
-            'data'        => $this->session->get('install_config') ?: new InstallConfiguration(),
-            'form_errors' => $this->session->get('install_form_errors', []),
+            'data'               => $this->session->get('install_config') ?: new InstallConfiguration(),
+            'form_errors'        => $this->session->get('install_form_errors', []),
+            'environment_checks' => new EnvironmentCheck(),
         ]);
 
         $this->session->remove('install_form_errors');
