@@ -58,7 +58,7 @@
                             </a>
                             <a class="btn btn-sm btn-danger"
                                ng-if="user.info.roles.indexOf('ROLE_ADMIN') > -1"
-                               ng-click="delete($index)">
+                               ng-click="delete($index, $event)">
                                 <i class="fa fa-remove"></i>
                                 Delete
                             </a>

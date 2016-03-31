@@ -33,10 +33,11 @@ currentMenu: external_packages
 | ** [Angular-Loading-Bar](https://github.com/chieffancypants/angular-loading-bar) **          | Loading bar / progress bar                                         | [MIT](https://github.com/chieffancypants/angular-loading-bar/blob/master/LICENSE) |
 | ** [Angular-Route](https://github.com/angular/bower-angular-route) **                        | Deep-linking URLs to controllers and views in Angular applications | [MIT](https://github.com/angular/bower-angular-route#license)         |
 | ** [MomentJS](https://github.com/moment/moment/) **                                          | Parse, validate, manipulate, and display dates in javascript       | [MIT](https://github.com/moment/moment/blob/develop/LICENSE)          |
+| ** [Bootstrap-Confirmation](http://mistic100.github.io/Bootstrap-Confirmation/) **           | Confirmation dialog boxes                                          | [Apache2](http://mistic100.github.io/Bootstrap-Confirmation)          |
 
 ###Other
 | Package/Library                                                                              | Description                                                        | License                                                               |
 | ---                                                                                          | ---                                                                | ---                                                                   |
 | ** [Twitter Bootstrap](https://github.com/twbs/bootstrap) **                                 | HTML, CSS, and JavaScript framework                                | [MIT](https://github.com/twbs/bootstrap/blob/master/LICENSE)          |
 | ** [Font Awesome](https://github.com/FortAwesome/Font-Awesome) **                            | Pictographic icons for easy scalable vector graphics               | [SIL OFL 1.1, MIT](http://fontawesome.io/license/)                    |
-| ** [Template-ReadTheDocs](https://github.com/CouscousPHP/Template-ReadTheDocs) **            | Couscous template based on readthedocs.org Sphinx theme            | [MIT](https://github.com/CouscousPHP/Template-ReadTheDocs/blob/master/LICENSE)                    |
+| ** [Template-ReadTheDocs](https://github.com/CouscousPHP/Template-ReadTheDocs) **            | Couscous template based on readthedocs.org Sphinx theme            | [MIT](https://github.com/CouscousPHP/Template-ReadTheDocs/blob/master/LICENSE) |

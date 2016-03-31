@@ -18,7 +18,27 @@
                 });
             };
 
-            $scope.delete = function (user) {
+            $scope.delete = function (user, $event) {
+                if($($event.target).attr('disabled')){
+                    return;
+                }
+                $($event.target).confirmation({
+                    placement: 'left',
+                    btnOkIcon: 'fa fa-check',
+                    btnCancelIcon: 'fa fa-times',
+                    onConfirm: function(){
+                        self.delete(user);
+                        $($event.target).confirmation('destroy');
+                    },
+                    onCancel: function(){
+                        $($event.target).confirmation('destroy');
+                    }
+                });
+
+                $($event.target).confirmation('show');
+            };
+
+            self.delete = function(){
                 $http.post('user/delete', user).then(function (response) {
                     if (response.data.success === true) {
                         $scope.messages['removed'] = true;
@@ -33,7 +53,7 @@
                         $scope.messages.errors = response.data.messages
                     }
                 });
-            }
+            };
 
             this.init();
         }]);

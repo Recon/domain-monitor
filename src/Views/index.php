@@ -48,6 +48,7 @@
 <script src="bower/moment/moment.js"></script>
 <script src="bower/angular-loading-bar/build/loading-bar.js"></script>
 <script src="bower/angular-route/angular-route.js"></script>
+<script src="bower/bootstrap-confirmation2/bootstrap-confirmation.js"></script>
 
 <script src="js/monitor-metadata.js"></script>
 <script src="angular/app.js"></script>

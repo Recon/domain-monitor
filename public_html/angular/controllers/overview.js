@@ -17,16 +17,21 @@
                 $scope.domains = domains;
             });
 
-            $scope.delete = function (index) {
-                $http.get('domains/delete', {
-                    params: {
-                        id: $scope.domains[index].id
-                    }
-                }).then(function (response) {
-                    if (response.data.success == true) {
-                        $scope.domains.splice(index, 1);
+            $scope.delete = function (index, $event) {
+                $($event.target).confirmation({
+                    placement: 'left',
+                    btnOkIcon: 'fa fa-check',
+                    btnCancelIcon: 'fa fa-times',
+                    onConfirm: function(){
+                        self.delete(index);
+                        $($event.target).confirmation('destroy');
+                    },
+                    onCancel: function(){
+                        $($event.target).confirmation('destroy');
                     }
                 });
+
+                $($event.target).confirmation('show');
             };
 
             $scope.setEnabled = function (item, status) {
@@ -48,6 +53,18 @@
                 }
 
                 return count;
+            };
+
+            self.delete= function(index){
+                $http.get('domains/delete', {
+                    params: {
+                        id: $scope.domains[index].id
+                    }
+                }).then(function (response) {
+                    if (response.data.success == true) {
+                        $scope.domains.splice(index, 1);
+                    }
+                });
             }
         }]);
 })(window.angular, window.jQuery, monitorMetadata);
