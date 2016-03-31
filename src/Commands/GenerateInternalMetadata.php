@@ -2,6 +2,9 @@
 
 namespace Commands;
 
+use Models\Domain;
+use Models\Test;
+use ReflectionClass;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,6 +22,10 @@ class GenerateInternalMetadata extends Command
             ->setDescription('Generates javascript files which contains various status codes used by the app');
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $content = 'var monitorMetadata = {};' . PHP_EOL;
@@ -34,9 +41,12 @@ class GenerateInternalMetadata extends Command
         $output->writeln(sprintf("<info>A new file has been generated at %s</info>", realpath($path)));
     }
 
+    /**
+     * @return array
+     */
     protected function getDomainRecordStatuses()
     {
-        $reflection = new \ReflectionClass(\Models\Domain::class);
+        $reflection = new ReflectionClass(Domain::class);
 
         $statuses = $reflection->getConstants();
 
@@ -51,7 +61,7 @@ class GenerateInternalMetadata extends Command
 
     protected function getTestTypes()
     {
-        $reflection = new \ReflectionClass(\Models\Test::class);
+        $reflection = new ReflectionClass(Test::class);
 
         $types = $reflection->getConstants();
 

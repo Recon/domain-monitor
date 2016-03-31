@@ -82,9 +82,7 @@ class InstallController extends AbstractController
 
     public function submitInstallCompletePage()
     {
-        $body = $this->templateEngine->render('install_done', [
-
-        ]);
+        $body = $this->templateEngine->render('install_done');
 
         return new Response($body);
     }

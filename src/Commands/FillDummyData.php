@@ -19,6 +19,11 @@ class FillDummyData extends Command
     private $encoderFactory;
     private $domains = ['example.com', 'google.com', 'reddit.com'];
 
+    /**
+     * FillDummyData constructor.
+     *
+     * @param EncoderFactory $encoderFactory
+     */
     public function __construct(EncoderFactory $encoderFactory)
     {
         parent::__construct();
@@ -33,6 +38,11 @@ class FillDummyData extends Command
             ->setDescription('Fills the database with some dummy data');
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 

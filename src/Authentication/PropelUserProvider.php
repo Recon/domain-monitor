@@ -36,5 +36,4 @@ class PropelUserProvider implements UserProviderInterface
         return $class === User::class;
     }
 
-//put your code here
 }

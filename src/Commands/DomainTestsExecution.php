@@ -39,6 +39,11 @@ class DomainTestsExecution extends Command
      */
     private $time;
 
+    /**
+     * DomainTestsExecution constructor.
+     *
+     * @param Container $container
+     */
     public function __construct(Container $container)
     {
         $this->container = $container;

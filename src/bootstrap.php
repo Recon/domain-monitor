@@ -82,7 +82,6 @@ $container->register('propel_connection_config_factory', \Util\PropelConnectionC
 $dispatcher->addSubscriber(new \Subscribers\ConfigLoad\PropelConfiguratorSubscriber(
     $container->get('propel_connection_config_factory')
 ));
-$dispatcher->addSubscriber(new \Subscribers\ConfigLoad\MailerConfiguratorSubscriber());
 $dispatcher->addSubscriber(new \Subscribers\Versioning\VersionChangeSubscriber(
     $container->get('propel_connection_config_factory')
 ));
