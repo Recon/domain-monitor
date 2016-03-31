@@ -100,6 +100,7 @@ class DomainsController extends AbstractController
         $domain = new Domain();
         $domain->setUri($this->request->get('uri'));
         $domain->setAccount($this->getLoggedInUser()->getAccount());
+        $domain->setIsEnabled(true);
 
         $messages = array_merge($messages, $this->getErrorMessages($domain));
 

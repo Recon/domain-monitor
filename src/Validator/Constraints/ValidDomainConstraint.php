@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 class ValidDomainConstraint extends Constraint
 {
 
-    public $message = 'The "%domain%" does not appear to be valid or accessible';
+    public $message = 'The "%domain%" domain does not appear to be valid or accessible';
 
     public function validatedBy()
     {

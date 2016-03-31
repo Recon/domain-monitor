@@ -1,0 +1,19 @@
+body {
+    padding-top: 70px;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th {
+    vertical-align: middle;
+}
+
+.table-domains .test-label {
+    cursor: default;
+}
+
+.table-domains .test-label + .test-label {
+    margin-left: 1px;
+}
+
+
+

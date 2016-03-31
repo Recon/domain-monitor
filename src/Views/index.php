@@ -13,17 +13,7 @@
     <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="bower/angular-loading-bar/build/loading-bar.css" rel="stylesheet">
     <link href="bower/font-awesome/css/font-awesome.css" rel="stylesheet">
-
-    <style>
-        body {
-            padding-top: 70px;
-        }
-
-        .table > tbody > tr > td,
-        .table > tbody > tr > th {
-            vertical-align: middle;
-        }
-    </style>
+    <link href="css/app.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
