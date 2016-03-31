@@ -7,16 +7,18 @@
         this.info = {is_authenticated: false};
 
         this.refresh = function () {
-            $http.get('user/info_authenticated.json').then(function (response) {
-                if (response.data.id) {
-                    self.info = response.data;
-                    self.info.is_authenticated = true;
-                } else {
-                    self.info = {is_authenticated: false};
-                }
-            });
-
-            $rootScope.$emit('user.info.loaded');
+            $http.get('user/info_authenticated.json')
+                .then(function (response) {
+                    if (response.data.id) {
+                        self.info = response.data;
+                        self.info.is_authenticated = true;
+                    } else {
+                        self.info = {is_authenticated: false};
+                    }
+                })
+                .finally(function () {
+                    $rootScope.$emit('user.info.loaded');
+                });
         };
 
         this.refresh();

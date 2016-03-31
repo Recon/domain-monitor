@@ -1,18 +1,28 @@
 (function (angular, $) {
     'use strict';
 
+    var pathWhitelist = [
+        // Whitelist paths which can be accessed without logging in
+        '/',
+        '/login',
+        '/reset-password/:token'
+    ]
+
     var app = angular.module('app', ['ngRoute', 'angular-loading-bar']);
 
     app.run(function ($rootScope, $location, $timeout, userService) {
 
+        var authLoaded = false;
+
         // Redirect if not logged in
         $rootScope.$on('$routeChangeSuccess', function (event, next) {
-            if (!userService.info.is_authenticated && [
-                    // Whitelist paths which can be accessed without logging in
-                    '/',
-                    '/login',
-                    '/reset-password/:token'
-                ].indexOf(next.originalPath) == -1) {
+            if (!userService.info.is_authenticated && authLoaded && pathWhitelist.indexOf(next.originalPath) == -1) {
+                $location.path("/login");
+            }
+        });
+        $rootScope.$on('user.info.loaded', function (event) {
+            authLoaded = true;
+            if (!userService.info.is_authenticated && authLoaded && pathWhitelist.indexOf($location.path()) == -1) {
                 $location.path("/login");
             }
         });
