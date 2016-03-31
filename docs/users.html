@@ -46,12 +46,12 @@
                                         Introduction
                                     </a>
                                 </li>
-                                                            <li class="navitems active">
+                                                            <li class="navitems">
                                     <a href="/docs/requirements.html">
                                         Requirements
                                     </a>
                                 </li>
-                                                            <li class="navitems">
+                                                            <li class="navitems active">
                                     <a href="/docs/users.html">
                                         Users and roles
                                     </a>
@@ -89,33 +89,29 @@
             <div class="wy-nav-content">
                 <div class="rst-content">
                     <div role="main" class="document">
-                        <h1 id="requirements">Requirements</h1>
-<p>The application is designed to run on a typical web server using common extension which are already enabled on most of the systems.</p>
-<h3 id="php">PHP</h3>
+                        <h1 id="users-and-roles">Users and roles</h1>
+<blockquote>
+<p><strong>Note:</strong> During the installation, you will be asked to create an account, which will have administrative roles</p>
+</blockquote>
+<p>There are two types of user:</p>
+<h5 id="administrator">Administrator</h5>
 <ul>
-<li>Minimum <strong>PHP 5.5</strong></li>
-<li><strong>CURL</strong> extension (<a href="http://php.net/manual/en/curl.installation.php">Installation</a>)</li>
-<li><strong>LibXML</strong> extension (enabled by default)(<a href="http://php.net/manual/en/libxml.installation.php">Installation</a>)</li>
-<li><strong>PDO</strong> extension with <strong>MySQL driver</strong> (enabled by default)</li>
-<li><strong>SPL components</strong> (enabled by default)</li>
+<li>Can create and update other users (normal or administrators)</li>
+<li>Can remove other users (except his own account)</li>
+<li>Can add new domains and tests</li>
+<li>Will be automatically assigned to all the domains created</li>
 </ul>
-<h3 id="mysql">MySQL</h3>
+<h5 id="normal-user">Normal user</h5>
 <ul>
-<li>MySQL database with usual operation privileges (CREATE, UPDATE, DELETE, INSERT, ALTER, REFERENCES)</li>
+<li>Can't see, edit or remove other users </li>
+<li>Can update his own profile </li>
+<li>Cannot add new domains or test</li>
+<li>Will only see the domains an which an administrator assigned</li>
 </ul>
-<h3 id="web-server">Web Server</h3>
-<ul>
-<li><strong>Apache 2</strong> (with <strong>mod_rewrite</strong>) or <strong>NginX</strong></li>
-</ul>
-<h3 id="browsers">Browsers</h3>
-<ul>
-<li>Firefox 40+</li>
-<li>Chrome 43+</li>
-<li>IE9+</li>
-<li>Safari 9+</li>
-<li>Opera 12.1+</li>
-<li>Android 4.0+</li>
-</ul>
+<hr />
+<h4 id="registration">Registration</h4>
+<p>Since this application is designed to provide a self-hosted monitoring solution for internal use, the registration of
+new users can only be performed by an administrator.</p>
                     </div>
 
                     <hr/>
