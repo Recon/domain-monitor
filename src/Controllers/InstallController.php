@@ -8,6 +8,7 @@ use Exceptions\HTTP\Error404;
 use Models\AccountQuery;
 use Models\User;
 use Models\UserQuery;
+use PDO;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -69,6 +70,11 @@ class InstallController extends AbstractController
             foreach ($violations as $violation) {
                 $errors[] = $violation->getMessage();
             }
+        }
+
+        $pdoStatus = $this->probePdoConnection($config);
+        if ($pdoStatus !== true) {
+            $errors[] = 'SQL connection error: ' . $pdoStatus;
         }
 
         if (count($errors)) {
@@ -133,10 +139,26 @@ class InstallController extends AbstractController
 
     }
 
+    /**
+     * @param InstallConfiguration $config
+     * @return mixed Boolean true is successful, or the error message otherwise
+     */
+    private function probePdoConnection(InstallConfiguration $config)
+    {
+        $dsn = 'mysql:host=' . $config->db_host . ';dbname=' . $config->db_name . ';port=' . $config->db_port;
+        try {
+            $connection = new PDO($dsn, $config->db_user, $config->db_pass);
+            return true;
+        } catch (\PDOException $ex) {
+            return $ex->getMessage();
+        }
+    }
+
     protected function denyRequestOnExistingFile()
     {
         if (static::ALLOW_WRITE_ONLY_WHEN_MISSING && $this->configLoader->isLoaded()) {
             throw new Error404();
         }
     }
+
 }
