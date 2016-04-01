@@ -34,6 +34,7 @@ currentMenu: external_packages
 | ** [Angular-Route](https://github.com/angular/bower-angular-route) **                        | Deep-linking URLs to controllers and views in Angular applications | [MIT](https://github.com/angular/bower-angular-route#license)         |
 | ** [MomentJS](https://github.com/moment/moment/) **                                          | Parse, validate, manipulate, and display dates in javascript       | [MIT](https://github.com/moment/moment/blob/develop/LICENSE)          |
 | ** [Bootstrap-Confirmation](http://mistic100.github.io/Bootstrap-Confirmation/) **           | Confirmation dialog boxes                                          | [Apache2](http://mistic100.github.io/Bootstrap-Confirmation)          |
+| ** [Angular-MultiSelect](https://github.com/amitava82/angular-multiselect) **                | Multi-select UI control                                            | [MIT](https://github.com/amitava82/angular-multiselect/blob/master/LICENSE) |
 
 ###Other
 | Package/Library                                                                              | Description                                                        | License                                                               |
