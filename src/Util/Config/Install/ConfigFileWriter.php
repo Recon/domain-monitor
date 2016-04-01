@@ -30,6 +30,7 @@ class ConfigFileWriter extends AbstractConfig
         $yaml = $dumper->dump($data, 1);
 
         file_put_contents($this->filepath, $yaml);
+        @chmod($this->filepath, 0640);
     }
 
 }
