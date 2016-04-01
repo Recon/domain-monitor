@@ -13,6 +13,7 @@
     <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="bower/angular-loading-bar/build/loading-bar.css" rel="stylesheet">
     <link href="bower/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="bower/amitava82-angular-multiselect/dist/multiselect.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,6 +40,7 @@
 <script src="bower/angular-loading-bar/build/loading-bar.js"></script>
 <script src="bower/angular-route/angular-route.js"></script>
 <script src="bower/bootstrap-confirmation2/bootstrap-confirmation.js"></script>
+<script src="bower/amitava82-angular-multiselect/dist/multiselect-tpls.js"></script>
 
 <script src="js/monitor-metadata.js"></script>
 <script src="angular/app.js"></script>

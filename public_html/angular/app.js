@@ -8,7 +8,7 @@
         '/reset-password/:token'
     ]
 
-    var app = angular.module('app', ['ngRoute', 'angular-loading-bar']);
+    var app = angular.module('app', ['ngRoute', 'angular-loading-bar', 'am.multiselect']);
 
     app.run(function ($rootScope, $location, $timeout, userService) {
 

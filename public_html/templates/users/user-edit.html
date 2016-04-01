@@ -63,11 +63,21 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Assigned Domains</label>
                     <div class="col-sm-10">
-                        <select class="form-control"
-                                multiple="true"
-                                ng-model="user.domains"
-                                ng-options="domain.uri for domain in domains track by domain.id">
-                        </select>
+                        <am-multiselect class="input-lg am-multiselect"
+                                        ng-if="user.roles.indexOf('ROLE_ADMIN') == -1"
+                                        multiple="true"
+                                        ng-model="user.domains"
+                                        ms-header="Select some domains"
+                                        options="domain.uri for domain in domains"
+                                        change="selected()">
+                        </am-multiselect>
+                        <div class="control-label text-left"
+                             ng-if="user.roles.indexOf('ROLE_ADMIN') > -1">
+                            <em class="text-info">
+                                <i class="fa fa-info-circle"></i>
+                                <strong>Note:</strong> An administrator is automatically assigned to all the domains
+                            </em>
+                        </div>
                     </div>
                 </div>
 

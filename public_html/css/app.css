@@ -15,5 +15,17 @@ body {
     margin-left: 1px;
 }
 
+.am-multiselect {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.am-multiselect .btn-link {
+    padding-left: 10px;
+}
 
 
+
+.form-horizontal div.control-label.text-left{
+    text-align: left;
+}
