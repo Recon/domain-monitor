@@ -13,7 +13,6 @@ use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Validator\Validation;
 use Util\Mailer;
@@ -149,7 +148,7 @@ $definition = new Definition(EncoderFactory::class);
 $definition->setSynthetic(true);
 $container->setDefinition('auth.encoder', $definition);
 $container->set('auth.encoder', new EncoderFactory([
-    'Models\User' => new PlaintextPasswordEncoder(),
+    'Models\User' => new \Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder(10),
 ]));
 
 $definition = new Definition(AuthenticationProviderManager::class, [
