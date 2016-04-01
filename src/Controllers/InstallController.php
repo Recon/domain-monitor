@@ -5,6 +5,9 @@ namespace Controllers;
 use Events\ConfigLoadEvent;
 use Events\VersionChangeEvent;
 use Exceptions\HTTP\Error404;
+use Models\AccountQuery;
+use Models\User;
+use Models\UserQuery;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -76,6 +79,7 @@ class InstallController extends AbstractController
             return new RedirectResponse('install');
         } else {
             $this->performConfigurationUpdate($data);
+            $this->createAdministrator($data);
 
             return new RedirectResponse('install/done');
         }
@@ -98,6 +102,36 @@ class InstallController extends AbstractController
         $configLoader->load();
         $this->container->get('event_dispatcher')->dispatch(ConfigLoadEvent::NAME, new ConfigLoadEvent($configLoader));
         $this->container->get('event_dispatcher')->dispatch(VersionChangeEvent::NAME, new VersionChangeEvent());
+    }
+
+    protected function createAdministrator($data)
+    {
+
+        $encoderFactory = $this->container->get('auth.encoder');
+
+        /**
+         * At this moment there will be only one unique account
+         * Maybe in the future the application will support multi-accounts
+         */
+        $account = AccountQuery::create()
+            ->findOneOrCreate();
+        $account->setName("Domain Monitor")
+            ->save();
+
+        $user = $user = UserQuery::create()
+            ->filterByEmail($data['admin_email'])
+            ->findOneOrCreate();
+        $user->setUsername($data['admin_email'])
+            ->setEmail($data['admin_email'])
+            ->setSalt(random_str(mt_rand(20, 38)))
+            ->setPassword($encoderFactory->getEncoder($user)->encodePassword($data['admin_pass'], $user->getSalt()))
+            ->setRoles([
+                User::ROLE_USER,
+                User::ROLE_ADMIN,
+            ])
+            ->setAccount($account)
+            ->save();
+
     }
 
     protected function denyRequestOnExistingFile()
