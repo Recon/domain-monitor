@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Util\Config\ConfigLoader;
 use Util\Config\Install\ConfigFileWriter;
 use Util\Config\Install\InstallConfiguration;
-use Util\EnvironmentCheck;
 
 class InstallController extends AbstractController
 {
@@ -44,7 +43,7 @@ class InstallController extends AbstractController
         $body = $this->templateEngine->render('install', [
             'data'               => $this->session->get('install_config') ?: new InstallConfiguration(),
             'form_errors'        => $this->session->get('install_form_errors', []),
-            'environment_checks' => new EnvironmentCheck(),
+            'environment_checks' => $this->container->get('environment_check'),
         ]);
 
         $this->session->remove('install_form_errors');

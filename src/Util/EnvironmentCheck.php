@@ -6,6 +6,7 @@ namespace Util;
 
 use ArrayIterator;
 use IteratorAggregate;
+use Util\Config\Install\ConfigFileWriter;
 
 class EnvironmentCheck implements IteratorAggregate
 {
@@ -15,11 +16,24 @@ class EnvironmentCheck implements IteratorAggregate
      */
     protected $checks = [];
 
-    public function __construct()
+    /**
+     * @var ConfigFileWriter
+     */
+    protected $configFileWriter;
+
+    /**
+     * EnvironmentCheck constructor.
+     *
+     * @param ConfigFileWriter $configFileWrister
+     */
+    public function __construct(ConfigFileWriter $configFileWrister)
     {
+        $this->configFileWriter = $configFileWrister;
+
         $this->checkPhpVersion();
         $this->checkCurl();
         $this->checkPdo();
+        $this->checkWritableConfigDirectory();
     }
 
 
@@ -50,6 +64,15 @@ class EnvironmentCheck implements IteratorAggregate
         ];
     }
 
+    protected function checkWritableConfigDirectory()
+    {
+        $this->checks['config_writable'] = [
+            'message'  => sprintf("Writable config directory: <code>%s</code>", APP_DIR . DIRECTORY_SEPARATOR . 'config'),
+            'passes'   => $this->configFileWriter->canWrite(),
+            'required' => true,
+        ];
+    }
+
     /**
      * @return ArrayIterator
      */
@@ -68,4 +91,5 @@ class EnvironmentCheck implements IteratorAggregate
 
         return false;
     }
+
 }

@@ -191,3 +191,9 @@ $definition = new Definition(Util\TestEvaluators\HttpsEvaluator::class, [
 $definition->setFactory([Util\TestEvaluators\HttpsEvaluator::class, 'factory']);
 $container->setDefinition('evaluator.https', $definition);
 
+
+/**
+ *
+ */
+$container->register('environment_check', \Util\EnvironmentCheck::class)
+    ->addArgument($container->get('config_writer'));
