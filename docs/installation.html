@@ -51,12 +51,12 @@
                                         Requirements
                                     </a>
                                 </li>
-                                                            <li class="navitems">
+                                                            <li class="navitems active">
                                     <a href="./installation.html">
                                         Installation
                                     </a>
                                 </li>
-                                                            <li class="navitems active">
+                                                            <li class="navitems">
                                     <a href="./upgrading.html">
                                         Upgrading
                                     </a>
@@ -100,12 +100,44 @@
             <div class="wy-nav-content">
                 <div class="rst-content">
                     <div role="main" class="document">
-                        <h1 id="upgrading">Upgrading</h1>
+                        <h1 id="requirements">Requirements</h1>
+<blockquote>
+<p>Before installing, consult the <a href="requirements.html">requirements page</a> </p>
+</blockquote>
+<ul>
+<li>The directory you'll be uploading the files to will be referred as <code>/full/path/to/install-directory</code></li>
+<li>The (sub)domain you'll be using will be referred here as <code>monitor.example.com</code> </li>
+</ul>
+<hr />
 <ol>
-<li>Visit <code>my.domain.com/#/login</code> and log in using an administrator account</li>
-<li>Extract the zip containing the new version in your application root directory, overwriting the old files (or, upload via FTP)</li>
-<li>Visit <code>my.domain.com/migrate</code> to trigger any additional tasks (database schema migration, configuration, etc)</li>
+<li>
+<p>Upload the files to your <code>/full/path/to/install-directory</code>.  </p>
+</li>
+<li>
+<p>Configure the document root of your virtual host to point to the <code>public_html</code> directory (<code>/full/path/to/install-directory/public_html</code>)</p>
+<ul>
+<li><strong>Apache</strong> users, <a href="#">see here</a></li>
+<li><strong>NginX</strong> users, <a href="#">see here</a></li>
+</ul>
+</li>
+<li>
+<p>If you're using an <strong>Apache</strong> server, copy the <code>public_html/.htaccess.example</code> to <code>public_html/.htaccess</code>. A .htaccess file
+is not provided directly so any custom rules you might need to add won't be accidentally overwritten when performing an upgrade.</p>
+</li>
+<li>
+<p>At this point, visiting <code>monitor.example.com</code> will redirect you to the install page.</p>
+</li>
+<li>
+<p>If the install page lists any issues with the requirements, please correct them and refresh the page.</p>
+</li>
+<li>
+<p>When all the requirements have been fullfilled, the install page will display a form which will ask for MySQL details, default user and mail settings</p>
+</li>
+<li>After installation, you can login at <code>monitor.example.com/#/login</code></li>
 </ol>
+<hr />
+<h5 id="apache-virtual-hosts">Apache Virtual Hosts</h5>
+<h5 id="nginx-virtual-hosts">NginX Virtual Hosts</h5>
                     </div>
 
                     <hr/>

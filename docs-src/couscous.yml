@@ -14,12 +14,18 @@ menu:
         requirements:
           text: Requirements
           relativeUrl: requirements.html
-        users:
-          text: Users and roles
-          relativeUrl: users.html
+        installation:
+          text: Installation
+          relativeUrl: installation.html
         upgrading:
           text: Upgrading
           relativeUrl: upgrading.html
+    info:
+      name: <i class='fa fa-info-circle'></i> Usage
+      items:
+        users:
+          text: Users and roles
+          relativeUrl: users.html
     thirdparty:
       name: <i class='fa fa-gears'></i> Third Party
       items:

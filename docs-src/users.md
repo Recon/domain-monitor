@@ -21,7 +21,7 @@ There are two types of user:
 - Can't see, edit or remove other users 
 - Can update his own profile 
 - Cannot add new domains or test
-- Will only see the domains an which an administrator assigned
+- Will only see the domains assigned by an administrator
 
 
 ------
