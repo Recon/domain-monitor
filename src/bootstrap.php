@@ -99,6 +99,10 @@ try {
         new \Events\ConfigLoadEvent($container->get('config_loader'))
     );
 } catch (\Exceptions\MissingConfigurationFileException $ex) {
+    if (!filter_input(INPUT_GET, 'redirect', FILTER_VALIDATE_BOOLEAN)) {
+        header("Location: install?redirect=1");
+        exit;
+    }
 
 }
 

@@ -7,7 +7,7 @@
 
     <ul class="environment-checks list-unstyled">
         <?php foreach ($environment_checks as $check) : ?>
-            <li class="alert <?php echo $check['passes'] ? 'bg-success text-success' : 'bg-success text-danger' ?>">
+            <li class="alert <?php echo $check['passes'] ? 'bg-success text-success' : 'bg-danger text-danger' ?>">
                 <i class="fa fa-<?php echo $check['passes'] ? 'check' : 'times' ?>"></i>
                 <?php echo $check['message'] ?>
             </li>
