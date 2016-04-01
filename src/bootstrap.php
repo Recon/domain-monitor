@@ -25,6 +25,9 @@ use Util\ValidatorFactory;
 define('APP_VERSION', '0.1.0');
 define('APP_DIR', realpath(__DIR__ . '/..'));
 
+// Using UTC throughout the entire application and convert to local time zone in browser
+date_default_timezone_set('UTC');
+
 require __DIR__ . "/../vendor/autoload.php";
 require __DIR__ . "/functions.php";
 
