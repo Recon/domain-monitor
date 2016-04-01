@@ -14,7 +14,7 @@ audio, canvas, video {
     *zoom: 1
 }
 
-audio:not ([controls] ){
+audio:not ([controls] ) {
     display: none
 }
 
@@ -131,7 +131,7 @@ img {
     max-width: 100%
 }
 
-svg:not (:root ){
+svg:not (:root ) {
     overflow: hidden
 }
 
@@ -283,50 +283,60 @@ big, small {
     html, body, section {
         background: none !important
     }
+
     * {
         box-shadow: none !important;
         text-shadow: none !important;
         filter: none !important;
         -ms-filter: none !important
     }
+
     a, a:visited {
         text-decoration: underline
     }
+
     .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
         content: ""
     }
+
     pre, blockquote {
         page-break-inside: avoid
     }
+
     thead {
         display: table-header-group
     }
+
     tr, img {
         page-break-inside: avoid
     }
+
     img {
         max-width: 100% !important
     }
+
     @page {
         margin: 0.5cm
     }
+
     p, h2, h3 {
         orphans: 3;
         widows: 3
     }
+
     h2, h3 {
         page-break-after: avoid
     }
 }
 
 .fa:before, .rst-content .admonition-title:before, .rst-content h1 .headerlink:before, .rst-content h2 .headerlink:before, .rst-content h3 .headerlink:before, .rst-content h4 .headerlink:before,
-    .rst-content h5 .headerlink:before, .rst-content h6 .headerlink:before, .rst-content dl dt .headerlink:before, .icon:before, .wy-dropdown .caret:before, .wy-inline-validate.wy-inline-validate-success .wy-input-context:before,
-    .wy-inline-validate.wy-inline-validate-danger .wy-input-context:before, .wy-inline-validate.wy-inline-validate-warning .wy-input-context:before, .wy-inline-validate.wy-inline-validate-info .wy-input-context:before,
-    .wy-alert, .rst-content .note, .rst-content .attention, .rst-content .caution, .rst-content .danger, .rst-content .error, .rst-content .hint, .rst-content .important,
-    .rst-content .tip, .rst-content .warning, .rst-content .seealso, .rst-content .admonition-todo, .btn, input[type="text"], input[type="password"], input[type="email"], input[type="url"],
-    input[type="date"], input[type="month"], input[type="time"], input[type="datetime"], input[type="datetime-local"], input[type="week"], input[type="number"], input[type="search"],
-    input[type="tel"], input[type="color"], select, textarea, .wy-menu-vertical li.on a, .wy-menu-vertical li.current>a, .wy-side-nav-search>a, .wy-side-nav-search .wy-dropdown>a,
-    .wy-nav-top a {
+.rst-content h5 .headerlink:before, .rst-content h6 .headerlink:before, .rst-content dl dt .headerlink:before, .icon:before, .wy-dropdown .caret:before, .wy-inline-validate.wy-inline-validate-success .wy-input-context:before,
+.wy-inline-validate.wy-inline-validate-danger .wy-input-context:before, .wy-inline-validate.wy-inline-validate-warning .wy-input-context:before, .wy-inline-validate.wy-inline-validate-info .wy-input-context:before,
+.wy-alert, .rst-content .note, .rst-content .attention, .rst-content .caution, .rst-content .danger, .rst-content .error, .rst-content .hint, .rst-content .important,
+.rst-content .tip, .rst-content .warning, .rst-content .seealso, .rst-content .admonition-todo, .btn, input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+input[type="date"], input[type="month"], input[type="time"], input[type="datetime"], input[type="datetime-local"], input[type="week"], input[type="number"], input[type="search"],
+input[type="tel"], input[type="color"], select, textarea, .wy-menu-vertical li.on a, .wy-menu-vertical li.current > a, .wy-side-nav-search > a, .wy-side-nav-search .wy-dropdown > a,
+.wy-nav-top a {
     -webkit-font-smoothing: antialiased
 }
 
@@ -341,21 +351,23 @@ big, small {
 
 .clearfix:after {
     clear: both
-} /*!
- *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
- *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
- */
+}
+
+/*!
+*  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
+*  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
+*/
 @font-face {
     font-family: 'FontAwesome';
     src: url("../fonts/fontawesome-webfont.eot?v=4.1.0");
     src: url("../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0") format("embedded-opentype"), url("../fonts/fontawesome-webfont.woff?v=4.1.0") format("woff"),
-        url("../fonts/fontawesome-webfont.ttf?v=4.1.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular") format("svg");
+    url("../fonts/fontawesome-webfont.ttf?v=4.1.0") format("truetype"), url("../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular") format("svg");
     font-weight: normal;
     font-style: normal
 }
 
 .fa, .rst-content .admonition-title, .rst-content h1 .headerlink, .rst-content h2 .headerlink, .rst-content h3 .headerlink, .rst-content h4 .headerlink, .rst-content h5 .headerlink,
-    .rst-content h6 .headerlink, .rst-content dl dt .headerlink, .icon {
+.rst-content h6 .headerlink, .rst-content dl dt .headerlink, .icon {
     display: inline-block;
     font-family: FontAwesome;
     font-style: normal;
@@ -398,7 +410,7 @@ big, small {
     list-style-type: none
 }
 
-.fa-ul>li {
+.fa-ul > li {
     position: relative
 }
 
@@ -429,13 +441,12 @@ big, small {
 }
 
 .fa.pull-left, .rst-content .pull-left.admonition-title, .rst-content h1 .pull-left.headerlink, .rst-content h2 .pull-left.headerlink, .rst-content h3 .pull-left.headerlink,
-    .rst-content h4 .pull-left.headerlink, .rst-content h5 .pull-left.headerlink, .rst-content h6 .pull-left.headerlink, .rst-content dl dt .pull-left.headerlink, .pull-left.icon {
+.rst-content h4 .pull-left.headerlink, .rst-content h5 .pull-left.headerlink, .rst-content h6 .pull-left.headerlink, .rst-content dl dt .pull-left.headerlink, .pull-left.icon {
     margin-right: .3em
 }
 
 .fa.pull-right, .rst-content .pull-right.admonition-title, .rst-content h1 .pull-right.headerlink, .rst-content h2 .pull-right.headerlink, .rst-content h3 .pull-right.headerlink,
-    .rst-content h4 .pull-right.headerlink, .rst-content h5 .pull-right.headerlink, .rst-content h6 .pull-right.headerlink, .rst-content dl dt .pull-right.headerlink, .pull-right.icon
-    {
+.rst-content h4 .pull-right.headerlink, .rst-content h5 .pull-right.headerlink, .rst-content h6 .pull-right.headerlink, .rst-content dl dt .pull-right.headerlink, .pull-right.icon {
     margin-left: .3em
 }
 
@@ -446,49 +457,48 @@ big, small {
     animation: spin 2s infinite linear
 }
 
-@
--moz-keyframes spin { 0%{
-    -moz-transform: rotate(0deg)
+@-moz-keyframes spin {
+    0% {
+        -moz-transform: rotate(0deg)
+    }
+
+    100% {
+        -moz-transform: rotate(359deg)
+    }
 }
 
-100%{
--moz-transform
-:rotate(359deg)
-}
-}
-@
--webkit-keyframes spin { 0%{
-    -webkit-transform: rotate(0deg)
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg)
+    }
 }
 
-100%{
--webkit-transform
-:rotate(359deg)
-}
-}
-@
--o-keyframes spin { 0%{
-    -o-transform: rotate(0deg)
+@-o-keyframes spin {
+    0% {
+        -o-transform: rotate(0deg)
+    }
+
+    100% {
+        -o-transform: rotate(359deg)
+    }
 }
 
-100%{
--o-transform
-:rotate(359deg)
-}
-}
-@
-keyframes spin { 0%{
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg)
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
 }
 
-100%{
--webkit-transform
-:rotate(359deg)
-;transform
-:rotate(359deg)
-}
-}
 .fa-rotate-90 {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
     -webkit-transform: rotate(90deg);
@@ -963,7 +973,7 @@ keyframes spin { 0%{
 }
 
 .fa-exclamation-circle:before, .wy-inline-validate.wy-inline-validate-warning .wy-input-context:before, .wy-inline-validate.wy-inline-validate-info .wy-input-context:before,
-    .rst-content .admonition-title:before {
+.rst-content .admonition-title:before {
     content: ""
 }
 
@@ -2320,15 +2330,14 @@ keyframes spin { 0%{
 }
 
 .fa, .rst-content .admonition-title, .rst-content h1 .headerlink, .rst-content h2 .headerlink, .rst-content h3 .headerlink, .rst-content h4 .headerlink, .rst-content h5 .headerlink,
-    .rst-content h6 .headerlink, .rst-content dl dt .headerlink, .icon, .wy-dropdown .caret, .wy-inline-validate.wy-inline-validate-success .wy-input-context, .wy-inline-validate.wy-inline-validate-danger .wy-input-context,
-    .wy-inline-validate.wy-inline-validate-warning .wy-input-context, .wy-inline-validate.wy-inline-validate-info .wy-input-context {
+.rst-content h6 .headerlink, .rst-content dl dt .headerlink, .icon, .wy-dropdown .caret, .wy-inline-validate.wy-inline-validate-success .wy-input-context, .wy-inline-validate.wy-inline-validate-danger .wy-input-context,
+.wy-inline-validate.wy-inline-validate-warning .wy-input-context, .wy-inline-validate.wy-inline-validate-info .wy-input-context {
     font-family: inherit
 }
 
 .fa:before, .rst-content .admonition-title:before, .rst-content h1 .headerlink:before, .rst-content h2 .headerlink:before, .rst-content h3 .headerlink:before, .rst-content h4 .headerlink:before,
-    .rst-content h5 .headerlink:before, .rst-content h6 .headerlink:before, .rst-content dl dt .headerlink:before, .icon:before, .wy-dropdown .caret:before, .wy-inline-validate.wy-inline-validate-success .wy-input-context:before,
-    .wy-inline-validate.wy-inline-validate-danger .wy-input-context:before, .wy-inline-validate.wy-inline-validate-warning .wy-input-context:before, .wy-inline-validate.wy-inline-validate-info .wy-input-context:before
-    {
+.rst-content h5 .headerlink:before, .rst-content h6 .headerlink:before, .rst-content dl dt .headerlink:before, .icon:before, .wy-dropdown .caret:before, .wy-inline-validate.wy-inline-validate-success .wy-input-context:before,
+.wy-inline-validate.wy-inline-validate-danger .wy-input-context:before, .wy-inline-validate.wy-inline-validate-warning .wy-input-context:before, .wy-inline-validate.wy-inline-validate-info .wy-input-context:before {
     font-family: "FontAwesome";
     display: inline-block;
     font-style: normal;
@@ -2338,47 +2347,46 @@ keyframes spin { 0%{
 }
 
 a .fa, a .rst-content .admonition-title, .rst-content a .admonition-title, a .rst-content h1 .headerlink, .rst-content h1 a .headerlink, a .rst-content h2 .headerlink, .rst-content h2 a .headerlink,
-    a .rst-content h3 .headerlink, .rst-content h3 a .headerlink, a .rst-content h4 .headerlink, .rst-content h4 a .headerlink, a .rst-content h5 .headerlink, .rst-content h5 a .headerlink,
-    a .rst-content h6 .headerlink, .rst-content h6 a .headerlink, a .rst-content dl dt .headerlink, .rst-content dl dt a .headerlink, a .icon {
+a .rst-content h3 .headerlink, .rst-content h3 a .headerlink, a .rst-content h4 .headerlink, .rst-content h4 a .headerlink, a .rst-content h5 .headerlink, .rst-content h5 a .headerlink,
+a .rst-content h6 .headerlink, .rst-content h6 a .headerlink, a .rst-content dl dt .headerlink, .rst-content dl dt a .headerlink, a .icon {
     display: inline-block;
     text-decoration: inherit
 }
 
 .btn .fa, .btn .rst-content .admonition-title, .rst-content .btn .admonition-title, .btn .rst-content h1 .headerlink, .rst-content h1 .btn .headerlink, .btn .rst-content h2 .headerlink,
-    .rst-content h2 .btn .headerlink, .btn .rst-content h3 .headerlink, .rst-content h3 .btn .headerlink, .btn .rst-content h4 .headerlink, .rst-content h4 .btn .headerlink, .btn .rst-content h5 .headerlink,
-    .rst-content h5 .btn .headerlink, .btn .rst-content h6 .headerlink, .rst-content h6 .btn .headerlink, .btn .rst-content dl dt .headerlink, .rst-content dl dt .btn .headerlink,
-    .btn .icon, .nav .fa, .nav .rst-content .admonition-title, .rst-content .nav .admonition-title, .nav .rst-content h1 .headerlink, .rst-content h1 .nav .headerlink, .nav .rst-content h2 .headerlink,
-    .rst-content h2 .nav .headerlink, .nav .rst-content h3 .headerlink, .rst-content h3 .nav .headerlink, .nav .rst-content h4 .headerlink, .rst-content h4 .nav .headerlink, .nav .rst-content h5 .headerlink,
-    .rst-content h5 .nav .headerlink, .nav .rst-content h6 .headerlink, .rst-content h6 .nav .headerlink, .nav .rst-content dl dt .headerlink, .rst-content dl dt .nav .headerlink,
-    .nav .icon {
+.rst-content h2 .btn .headerlink, .btn .rst-content h3 .headerlink, .rst-content h3 .btn .headerlink, .btn .rst-content h4 .headerlink, .rst-content h4 .btn .headerlink, .btn .rst-content h5 .headerlink,
+.rst-content h5 .btn .headerlink, .btn .rst-content h6 .headerlink, .rst-content h6 .btn .headerlink, .btn .rst-content dl dt .headerlink, .rst-content dl dt .btn .headerlink,
+.btn .icon, .nav .fa, .nav .rst-content .admonition-title, .rst-content .nav .admonition-title, .nav .rst-content h1 .headerlink, .rst-content h1 .nav .headerlink, .nav .rst-content h2 .headerlink,
+.rst-content h2 .nav .headerlink, .nav .rst-content h3 .headerlink, .rst-content h3 .nav .headerlink, .nav .rst-content h4 .headerlink, .rst-content h4 .nav .headerlink, .nav .rst-content h5 .headerlink,
+.rst-content h5 .nav .headerlink, .nav .rst-content h6 .headerlink, .rst-content h6 .nav .headerlink, .nav .rst-content dl dt .headerlink, .rst-content dl dt .nav .headerlink,
+.nav .icon {
     display: inline
 }
 
 .btn .fa.fa-large, .btn .rst-content .fa-large.admonition-title, .rst-content .btn .fa-large.admonition-title, .btn .rst-content h1 .fa-large.headerlink, .rst-content h1 .btn .fa-large.headerlink,
-    .btn .rst-content h2 .fa-large.headerlink, .rst-content h2 .btn .fa-large.headerlink, .btn .rst-content h3 .fa-large.headerlink, .rst-content h3 .btn .fa-large.headerlink, .btn .rst-content h4 .fa-large.headerlink,
-    .rst-content h4 .btn .fa-large.headerlink, .btn .rst-content h5 .fa-large.headerlink, .rst-content h5 .btn .fa-large.headerlink, .btn .rst-content h6 .fa-large.headerlink,
-    .rst-content h6 .btn .fa-large.headerlink, .btn .rst-content dl dt .fa-large.headerlink, .rst-content dl dt .btn .fa-large.headerlink, .btn .fa-large.icon, .nav .fa.fa-large,
-    .nav .rst-content .fa-large.admonition-title, .rst-content .nav .fa-large.admonition-title, .nav .rst-content h1 .fa-large.headerlink, .rst-content h1 .nav .fa-large.headerlink,
-    .nav .rst-content h2 .fa-large.headerlink, .rst-content h2 .nav .fa-large.headerlink, .nav .rst-content h3 .fa-large.headerlink, .rst-content h3 .nav .fa-large.headerlink, .nav .rst-content h4 .fa-large.headerlink,
-    .rst-content h4 .nav .fa-large.headerlink, .nav .rst-content h5 .fa-large.headerlink, .rst-content h5 .nav .fa-large.headerlink, .nav .rst-content h6 .fa-large.headerlink,
-    .rst-content h6 .nav .fa-large.headerlink, .nav .rst-content dl dt .fa-large.headerlink, .rst-content dl dt .nav .fa-large.headerlink, .nav .fa-large.icon {
+.btn .rst-content h2 .fa-large.headerlink, .rst-content h2 .btn .fa-large.headerlink, .btn .rst-content h3 .fa-large.headerlink, .rst-content h3 .btn .fa-large.headerlink, .btn .rst-content h4 .fa-large.headerlink,
+.rst-content h4 .btn .fa-large.headerlink, .btn .rst-content h5 .fa-large.headerlink, .rst-content h5 .btn .fa-large.headerlink, .btn .rst-content h6 .fa-large.headerlink,
+.rst-content h6 .btn .fa-large.headerlink, .btn .rst-content dl dt .fa-large.headerlink, .rst-content dl dt .btn .fa-large.headerlink, .btn .fa-large.icon, .nav .fa.fa-large,
+.nav .rst-content .fa-large.admonition-title, .rst-content .nav .fa-large.admonition-title, .nav .rst-content h1 .fa-large.headerlink, .rst-content h1 .nav .fa-large.headerlink,
+.nav .rst-content h2 .fa-large.headerlink, .rst-content h2 .nav .fa-large.headerlink, .nav .rst-content h3 .fa-large.headerlink, .rst-content h3 .nav .fa-large.headerlink, .nav .rst-content h4 .fa-large.headerlink,
+.rst-content h4 .nav .fa-large.headerlink, .nav .rst-content h5 .fa-large.headerlink, .rst-content h5 .nav .fa-large.headerlink, .nav .rst-content h6 .fa-large.headerlink,
+.rst-content h6 .nav .fa-large.headerlink, .nav .rst-content dl dt .fa-large.headerlink, .rst-content dl dt .nav .fa-large.headerlink, .nav .fa-large.icon {
     line-height: 0.9em
 }
 
 .btn .fa.fa-spin, .btn .rst-content .fa-spin.admonition-title, .rst-content .btn .fa-spin.admonition-title, .btn .rst-content h1 .fa-spin.headerlink, .rst-content h1 .btn .fa-spin.headerlink,
-    .btn .rst-content h2 .fa-spin.headerlink, .rst-content h2 .btn .fa-spin.headerlink, .btn .rst-content h3 .fa-spin.headerlink, .rst-content h3 .btn .fa-spin.headerlink, .btn .rst-content h4 .fa-spin.headerlink,
-    .rst-content h4 .btn .fa-spin.headerlink, .btn .rst-content h5 .fa-spin.headerlink, .rst-content h5 .btn .fa-spin.headerlink, .btn .rst-content h6 .fa-spin.headerlink,
-    .rst-content h6 .btn .fa-spin.headerlink, .btn .rst-content dl dt .fa-spin.headerlink, .rst-content dl dt .btn .fa-spin.headerlink, .btn .fa-spin.icon, .nav .fa.fa-spin, .nav .rst-content .fa-spin.admonition-title,
-    .rst-content .nav .fa-spin.admonition-title, .nav .rst-content h1 .fa-spin.headerlink, .rst-content h1 .nav .fa-spin.headerlink, .nav .rst-content h2 .fa-spin.headerlink,
-    .rst-content h2 .nav .fa-spin.headerlink, .nav .rst-content h3 .fa-spin.headerlink, .rst-content h3 .nav .fa-spin.headerlink, .nav .rst-content h4 .fa-spin.headerlink,
-    .rst-content h4 .nav .fa-spin.headerlink, .nav .rst-content h5 .fa-spin.headerlink, .rst-content h5 .nav .fa-spin.headerlink, .nav .rst-content h6 .fa-spin.headerlink,
-    .rst-content h6 .nav .fa-spin.headerlink, .nav .rst-content dl dt .fa-spin.headerlink, .rst-content dl dt .nav .fa-spin.headerlink, .nav .fa-spin.icon {
+.btn .rst-content h2 .fa-spin.headerlink, .rst-content h2 .btn .fa-spin.headerlink, .btn .rst-content h3 .fa-spin.headerlink, .rst-content h3 .btn .fa-spin.headerlink, .btn .rst-content h4 .fa-spin.headerlink,
+.rst-content h4 .btn .fa-spin.headerlink, .btn .rst-content h5 .fa-spin.headerlink, .rst-content h5 .btn .fa-spin.headerlink, .btn .rst-content h6 .fa-spin.headerlink,
+.rst-content h6 .btn .fa-spin.headerlink, .btn .rst-content dl dt .fa-spin.headerlink, .rst-content dl dt .btn .fa-spin.headerlink, .btn .fa-spin.icon, .nav .fa.fa-spin, .nav .rst-content .fa-spin.admonition-title,
+.rst-content .nav .fa-spin.admonition-title, .nav .rst-content h1 .fa-spin.headerlink, .rst-content h1 .nav .fa-spin.headerlink, .nav .rst-content h2 .fa-spin.headerlink,
+.rst-content h2 .nav .fa-spin.headerlink, .nav .rst-content h3 .fa-spin.headerlink, .rst-content h3 .nav .fa-spin.headerlink, .nav .rst-content h4 .fa-spin.headerlink,
+.rst-content h4 .nav .fa-spin.headerlink, .nav .rst-content h5 .fa-spin.headerlink, .rst-content h5 .nav .fa-spin.headerlink, .nav .rst-content h6 .fa-spin.headerlink,
+.rst-content h6 .nav .fa-spin.headerlink, .nav .rst-content dl dt .fa-spin.headerlink, .rst-content dl dt .nav .fa-spin.headerlink, .nav .fa-spin.icon {
     display: inline-block
 }
 
 .btn.fa:before, .rst-content .btn.admonition-title:before, .rst-content h1 .btn.headerlink:before, .rst-content h2 .btn.headerlink:before, .rst-content h3 .btn.headerlink:before,
-    .rst-content h4 .btn.headerlink:before, .rst-content h5 .btn.headerlink:before, .rst-content h6 .btn.headerlink:before, .rst-content dl dt .btn.headerlink:before, .btn.icon:before
-    {
+.rst-content h4 .btn.headerlink:before, .rst-content h5 .btn.headerlink:before, .rst-content h6 .btn.headerlink:before, .rst-content dl dt .btn.headerlink:before, .btn.icon:before {
     opacity: 0.5;
     -webkit-transition: opacity 0.05s ease-in;
     -moz-transition: opacity 0.05s ease-in;
@@ -2386,22 +2394,22 @@ a .fa, a .rst-content .admonition-title, .rst-content a .admonition-title, a .rs
 }
 
 .btn.fa:hover:before, .rst-content .btn.admonition-title:hover:before, .rst-content h1 .btn.headerlink:hover:before, .rst-content h2 .btn.headerlink:hover:before, .rst-content h3 .btn.headerlink:hover:before,
-    .rst-content h4 .btn.headerlink:hover:before, .rst-content h5 .btn.headerlink:hover:before, .rst-content h6 .btn.headerlink:hover:before, .rst-content dl dt .btn.headerlink:hover:before,
-    .btn.icon:hover:before {
+.rst-content h4 .btn.headerlink:hover:before, .rst-content h5 .btn.headerlink:hover:before, .rst-content h6 .btn.headerlink:hover:before, .rst-content dl dt .btn.headerlink:hover:before,
+.btn.icon:hover:before {
     opacity: 1
 }
 
 .btn-mini .fa:before, .btn-mini .rst-content .admonition-title:before, .rst-content .btn-mini .admonition-title:before, .btn-mini .rst-content h1 .headerlink:before, .rst-content h1 .btn-mini .headerlink:before,
-    .btn-mini .rst-content h2 .headerlink:before, .rst-content h2 .btn-mini .headerlink:before, .btn-mini .rst-content h3 .headerlink:before, .rst-content h3 .btn-mini .headerlink:before,
-    .btn-mini .rst-content h4 .headerlink:before, .rst-content h4 .btn-mini .headerlink:before, .btn-mini .rst-content h5 .headerlink:before, .rst-content h5 .btn-mini .headerlink:before,
-    .btn-mini .rst-content h6 .headerlink:before, .rst-content h6 .btn-mini .headerlink:before, .btn-mini .rst-content dl dt .headerlink:before, .rst-content dl dt .btn-mini .headerlink:before,
-    .btn-mini .icon:before {
+.btn-mini .rst-content h2 .headerlink:before, .rst-content h2 .btn-mini .headerlink:before, .btn-mini .rst-content h3 .headerlink:before, .rst-content h3 .btn-mini .headerlink:before,
+.btn-mini .rst-content h4 .headerlink:before, .rst-content h4 .btn-mini .headerlink:before, .btn-mini .rst-content h5 .headerlink:before, .rst-content h5 .btn-mini .headerlink:before,
+.btn-mini .rst-content h6 .headerlink:before, .rst-content h6 .btn-mini .headerlink:before, .btn-mini .rst-content dl dt .headerlink:before, .rst-content dl dt .btn-mini .headerlink:before,
+.btn-mini .icon:before {
     font-size: 14px;
     vertical-align: -15%
 }
 
 .wy-alert, .rst-content .note, .rst-content .attention, .rst-content .caution, .rst-content .danger, .rst-content .error, .rst-content .hint, .rst-content .important, .rst-content .tip,
-    .rst-content .warning, .rst-content .seealso, .rst-content .admonition-todo {
+.rst-content .warning, .rst-content .seealso, .rst-content .admonition-todo {
     padding: 12px;
     line-height: 24px;
     margin-bottom: 24px;
@@ -2420,98 +2428,96 @@ a .fa, a .rst-content .admonition-title, .rst-content a .admonition-title, a .rs
 }
 
 .wy-alert.wy-alert-danger, .rst-content .wy-alert-danger.note, .rst-content .wy-alert-danger.attention, .rst-content .wy-alert-danger.caution, .rst-content .danger, .rst-content .error,
-    .rst-content .wy-alert-danger.hint, .rst-content .wy-alert-danger.important, .rst-content .wy-alert-danger.tip, .rst-content .wy-alert-danger.warning, .rst-content .wy-alert-danger.seealso,
-    .rst-content .wy-alert-danger.admonition-todo {
+.rst-content .wy-alert-danger.hint, .rst-content .wy-alert-danger.important, .rst-content .wy-alert-danger.tip, .rst-content .wy-alert-danger.warning, .rst-content .wy-alert-danger.seealso,
+.rst-content .wy-alert-danger.admonition-todo {
     background: #fdf3f2
 }
 
 .wy-alert.wy-alert-danger .wy-alert-title, .rst-content .wy-alert-danger.note .wy-alert-title, .rst-content .wy-alert-danger.attention .wy-alert-title, .rst-content .wy-alert-danger.caution .wy-alert-title,
-    .rst-content .danger .wy-alert-title, .rst-content .error .wy-alert-title, .rst-content .wy-alert-danger.hint .wy-alert-title, .rst-content .wy-alert-danger.important .wy-alert-title,
-    .rst-content .wy-alert-danger.tip .wy-alert-title, .rst-content .wy-alert-danger.warning .wy-alert-title, .rst-content .wy-alert-danger.seealso .wy-alert-title, .rst-content .wy-alert-danger.admonition-todo .wy-alert-title,
-    .wy-alert.wy-alert-danger .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-danger .admonition-title, .rst-content .wy-alert-danger.note .admonition-title,
-    .rst-content .wy-alert-danger.attention .admonition-title, .rst-content .wy-alert-danger.caution .admonition-title, .rst-content .danger .admonition-title, .rst-content .error .admonition-title,
-    .rst-content .wy-alert-danger.hint .admonition-title, .rst-content .wy-alert-danger.important .admonition-title, .rst-content .wy-alert-danger.tip .admonition-title,
-    .rst-content .wy-alert-danger.warning .admonition-title, .rst-content .wy-alert-danger.seealso .admonition-title, .rst-content .wy-alert-danger.admonition-todo .admonition-title
-    {
+.rst-content .danger .wy-alert-title, .rst-content .error .wy-alert-title, .rst-content .wy-alert-danger.hint .wy-alert-title, .rst-content .wy-alert-danger.important .wy-alert-title,
+.rst-content .wy-alert-danger.tip .wy-alert-title, .rst-content .wy-alert-danger.warning .wy-alert-title, .rst-content .wy-alert-danger.seealso .wy-alert-title, .rst-content .wy-alert-danger.admonition-todo .wy-alert-title,
+.wy-alert.wy-alert-danger .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-danger .admonition-title, .rst-content .wy-alert-danger.note .admonition-title,
+.rst-content .wy-alert-danger.attention .admonition-title, .rst-content .wy-alert-danger.caution .admonition-title, .rst-content .danger .admonition-title, .rst-content .error .admonition-title,
+.rst-content .wy-alert-danger.hint .admonition-title, .rst-content .wy-alert-danger.important .admonition-title, .rst-content .wy-alert-danger.tip .admonition-title,
+.rst-content .wy-alert-danger.warning .admonition-title, .rst-content .wy-alert-danger.seealso .admonition-title, .rst-content .wy-alert-danger.admonition-todo .admonition-title {
     background: #f29f97
 }
 
 .wy-alert.wy-alert-warning, .rst-content .wy-alert-warning.note, .rst-content .attention, .rst-content .caution, .rst-content .wy-alert-warning.danger, .rst-content .wy-alert-warning.error,
-    .rst-content .wy-alert-warning.hint, .rst-content .wy-alert-warning.important, .rst-content .wy-alert-warning.tip, .rst-content .warning, .rst-content .wy-alert-warning.seealso,
-    .rst-content .admonition-todo {
+.rst-content .wy-alert-warning.hint, .rst-content .wy-alert-warning.important, .rst-content .wy-alert-warning.tip, .rst-content .warning, .rst-content .wy-alert-warning.seealso,
+.rst-content .admonition-todo {
     background: #ffedcc
 }
 
 .wy-alert.wy-alert-warning .wy-alert-title, .rst-content .wy-alert-warning.note .wy-alert-title, .rst-content .attention .wy-alert-title, .rst-content .caution .wy-alert-title,
-    .rst-content .wy-alert-warning.danger .wy-alert-title, .rst-content .wy-alert-warning.error .wy-alert-title, .rst-content .wy-alert-warning.hint .wy-alert-title, .rst-content .wy-alert-warning.important .wy-alert-title,
-    .rst-content .wy-alert-warning.tip .wy-alert-title, .rst-content .warning .wy-alert-title, .rst-content .wy-alert-warning.seealso .wy-alert-title, .rst-content .admonition-todo .wy-alert-title,
-    .wy-alert.wy-alert-warning .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-warning .admonition-title, .rst-content .wy-alert-warning.note .admonition-title,
-    .rst-content .attention .admonition-title, .rst-content .caution .admonition-title, .rst-content .wy-alert-warning.danger .admonition-title, .rst-content .wy-alert-warning.error .admonition-title,
-    .rst-content .wy-alert-warning.hint .admonition-title, .rst-content .wy-alert-warning.important .admonition-title, .rst-content .wy-alert-warning.tip .admonition-title,
-    .rst-content .warning .admonition-title, .rst-content .wy-alert-warning.seealso .admonition-title, .rst-content .admonition-todo .admonition-title {
+.rst-content .wy-alert-warning.danger .wy-alert-title, .rst-content .wy-alert-warning.error .wy-alert-title, .rst-content .wy-alert-warning.hint .wy-alert-title, .rst-content .wy-alert-warning.important .wy-alert-title,
+.rst-content .wy-alert-warning.tip .wy-alert-title, .rst-content .warning .wy-alert-title, .rst-content .wy-alert-warning.seealso .wy-alert-title, .rst-content .admonition-todo .wy-alert-title,
+.wy-alert.wy-alert-warning .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-warning .admonition-title, .rst-content .wy-alert-warning.note .admonition-title,
+.rst-content .attention .admonition-title, .rst-content .caution .admonition-title, .rst-content .wy-alert-warning.danger .admonition-title, .rst-content .wy-alert-warning.error .admonition-title,
+.rst-content .wy-alert-warning.hint .admonition-title, .rst-content .wy-alert-warning.important .admonition-title, .rst-content .wy-alert-warning.tip .admonition-title,
+.rst-content .warning .admonition-title, .rst-content .wy-alert-warning.seealso .admonition-title, .rst-content .admonition-todo .admonition-title {
     background: #f0b37e
 }
 
 .wy-alert.wy-alert-info, .rst-content .note, .rst-content .wy-alert-info.attention, .rst-content .wy-alert-info.caution, .rst-content .wy-alert-info.danger, .rst-content .wy-alert-info.error,
-    .rst-content .wy-alert-info.hint, .rst-content .wy-alert-info.important, .rst-content .wy-alert-info.tip, .rst-content .wy-alert-info.warning, .rst-content .seealso,
-    .rst-content .wy-alert-info.admonition-todo {
+.rst-content .wy-alert-info.hint, .rst-content .wy-alert-info.important, .rst-content .wy-alert-info.tip, .rst-content .wy-alert-info.warning, .rst-content .seealso,
+.rst-content .wy-alert-info.admonition-todo {
     background: #e7f2fa
 }
 
 .wy-alert.wy-alert-info .wy-alert-title, .rst-content .note .wy-alert-title, .rst-content .wy-alert-info.attention .wy-alert-title, .rst-content .wy-alert-info.caution .wy-alert-title,
-    .rst-content .wy-alert-info.danger .wy-alert-title, .rst-content .wy-alert-info.error .wy-alert-title, .rst-content .wy-alert-info.hint .wy-alert-title, .rst-content .wy-alert-info.important .wy-alert-title,
-    .rst-content .wy-alert-info.tip .wy-alert-title, .rst-content .wy-alert-info.warning .wy-alert-title, .rst-content .seealso .wy-alert-title, .rst-content .wy-alert-info.admonition-todo .wy-alert-title,
-    .wy-alert.wy-alert-info .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-info .admonition-title, .rst-content .note .admonition-title, .rst-content .wy-alert-info.attention .admonition-title,
-    .rst-content .wy-alert-info.caution .admonition-title, .rst-content .wy-alert-info.danger .admonition-title, .rst-content .wy-alert-info.error .admonition-title, .rst-content .wy-alert-info.hint .admonition-title,
-    .rst-content .wy-alert-info.important .admonition-title, .rst-content .wy-alert-info.tip .admonition-title, .rst-content .wy-alert-info.warning .admonition-title, .rst-content .seealso .admonition-title,
-    .rst-content .wy-alert-info.admonition-todo .admonition-title {
+.rst-content .wy-alert-info.danger .wy-alert-title, .rst-content .wy-alert-info.error .wy-alert-title, .rst-content .wy-alert-info.hint .wy-alert-title, .rst-content .wy-alert-info.important .wy-alert-title,
+.rst-content .wy-alert-info.tip .wy-alert-title, .rst-content .wy-alert-info.warning .wy-alert-title, .rst-content .seealso .wy-alert-title, .rst-content .wy-alert-info.admonition-todo .wy-alert-title,
+.wy-alert.wy-alert-info .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-info .admonition-title, .rst-content .note .admonition-title, .rst-content .wy-alert-info.attention .admonition-title,
+.rst-content .wy-alert-info.caution .admonition-title, .rst-content .wy-alert-info.danger .admonition-title, .rst-content .wy-alert-info.error .admonition-title, .rst-content .wy-alert-info.hint .admonition-title,
+.rst-content .wy-alert-info.important .admonition-title, .rst-content .wy-alert-info.tip .admonition-title, .rst-content .wy-alert-info.warning .admonition-title, .rst-content .seealso .admonition-title,
+.rst-content .wy-alert-info.admonition-todo .admonition-title {
     background: #6ab0de
 }
 
 .wy-alert.wy-alert-success, .rst-content .wy-alert-success.note, .rst-content .wy-alert-success.attention, .rst-content .wy-alert-success.caution, .rst-content .wy-alert-success.danger,
-    .rst-content .wy-alert-success.error, .rst-content .hint, .rst-content .important, .rst-content .tip, .rst-content .wy-alert-success.warning, .rst-content .wy-alert-success.seealso,
-    .rst-content .wy-alert-success.admonition-todo {
+.rst-content .wy-alert-success.error, .rst-content .hint, .rst-content .important, .rst-content .tip, .rst-content .wy-alert-success.warning, .rst-content .wy-alert-success.seealso,
+.rst-content .wy-alert-success.admonition-todo {
     background: #dbfaf4
 }
 
 .wy-alert.wy-alert-success .wy-alert-title, .rst-content .wy-alert-success.note .wy-alert-title, .rst-content .wy-alert-success.attention .wy-alert-title, .rst-content .wy-alert-success.caution .wy-alert-title,
-    .rst-content .wy-alert-success.danger .wy-alert-title, .rst-content .wy-alert-success.error .wy-alert-title, .rst-content .hint .wy-alert-title, .rst-content .important .wy-alert-title,
-    .rst-content .tip .wy-alert-title, .rst-content .wy-alert-success.warning .wy-alert-title, .rst-content .wy-alert-success.seealso .wy-alert-title, .rst-content .wy-alert-success.admonition-todo .wy-alert-title,
-    .wy-alert.wy-alert-success .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-success .admonition-title, .rst-content .wy-alert-success.note .admonition-title,
-    .rst-content .wy-alert-success.attention .admonition-title, .rst-content .wy-alert-success.caution .admonition-title, .rst-content .wy-alert-success.danger .admonition-title,
-    .rst-content .wy-alert-success.error .admonition-title, .rst-content .hint .admonition-title, .rst-content .important .admonition-title, .rst-content .tip .admonition-title,
-    .rst-content .wy-alert-success.warning .admonition-title, .rst-content .wy-alert-success.seealso .admonition-title, .rst-content .wy-alert-success.admonition-todo .admonition-title
-    {
+.rst-content .wy-alert-success.danger .wy-alert-title, .rst-content .wy-alert-success.error .wy-alert-title, .rst-content .hint .wy-alert-title, .rst-content .important .wy-alert-title,
+.rst-content .tip .wy-alert-title, .rst-content .wy-alert-success.warning .wy-alert-title, .rst-content .wy-alert-success.seealso .wy-alert-title, .rst-content .wy-alert-success.admonition-todo .wy-alert-title,
+.wy-alert.wy-alert-success .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-success .admonition-title, .rst-content .wy-alert-success.note .admonition-title,
+.rst-content .wy-alert-success.attention .admonition-title, .rst-content .wy-alert-success.caution .admonition-title, .rst-content .wy-alert-success.danger .admonition-title,
+.rst-content .wy-alert-success.error .admonition-title, .rst-content .hint .admonition-title, .rst-content .important .admonition-title, .rst-content .tip .admonition-title,
+.rst-content .wy-alert-success.warning .admonition-title, .rst-content .wy-alert-success.seealso .admonition-title, .rst-content .wy-alert-success.admonition-todo .admonition-title {
     background: #1abc9c
 }
 
 .wy-alert.wy-alert-neutral, .rst-content .wy-alert-neutral.note, .rst-content .wy-alert-neutral.attention, .rst-content .wy-alert-neutral.caution, .rst-content .wy-alert-neutral.danger,
-    .rst-content .wy-alert-neutral.error, .rst-content .wy-alert-neutral.hint, .rst-content .wy-alert-neutral.important, .rst-content .wy-alert-neutral.tip, .rst-content .wy-alert-neutral.warning,
-    .rst-content .wy-alert-neutral.seealso, .rst-content .wy-alert-neutral.admonition-todo {
+.rst-content .wy-alert-neutral.error, .rst-content .wy-alert-neutral.hint, .rst-content .wy-alert-neutral.important, .rst-content .wy-alert-neutral.tip, .rst-content .wy-alert-neutral.warning,
+.rst-content .wy-alert-neutral.seealso, .rst-content .wy-alert-neutral.admonition-todo {
     background: #f3f6f6
 }
 
 .wy-alert.wy-alert-neutral .wy-alert-title, .rst-content .wy-alert-neutral.note .wy-alert-title, .rst-content .wy-alert-neutral.attention .wy-alert-title, .rst-content .wy-alert-neutral.caution .wy-alert-title,
-    .rst-content .wy-alert-neutral.danger .wy-alert-title, .rst-content .wy-alert-neutral.error .wy-alert-title, .rst-content .wy-alert-neutral.hint .wy-alert-title, .rst-content .wy-alert-neutral.important .wy-alert-title,
-    .rst-content .wy-alert-neutral.tip .wy-alert-title, .rst-content .wy-alert-neutral.warning .wy-alert-title, .rst-content .wy-alert-neutral.seealso .wy-alert-title, .rst-content .wy-alert-neutral.admonition-todo .wy-alert-title,
-    .wy-alert.wy-alert-neutral .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-neutral .admonition-title, .rst-content .wy-alert-neutral.note .admonition-title,
-    .rst-content .wy-alert-neutral.attention .admonition-title, .rst-content .wy-alert-neutral.caution .admonition-title, .rst-content .wy-alert-neutral.danger .admonition-title,
-    .rst-content .wy-alert-neutral.error .admonition-title, .rst-content .wy-alert-neutral.hint .admonition-title, .rst-content .wy-alert-neutral.important .admonition-title,
-    .rst-content .wy-alert-neutral.tip .admonition-title, .rst-content .wy-alert-neutral.warning .admonition-title, .rst-content .wy-alert-neutral.seealso .admonition-title,
-    .rst-content .wy-alert-neutral.admonition-todo .admonition-title {
+.rst-content .wy-alert-neutral.danger .wy-alert-title, .rst-content .wy-alert-neutral.error .wy-alert-title, .rst-content .wy-alert-neutral.hint .wy-alert-title, .rst-content .wy-alert-neutral.important .wy-alert-title,
+.rst-content .wy-alert-neutral.tip .wy-alert-title, .rst-content .wy-alert-neutral.warning .wy-alert-title, .rst-content .wy-alert-neutral.seealso .wy-alert-title, .rst-content .wy-alert-neutral.admonition-todo .wy-alert-title,
+.wy-alert.wy-alert-neutral .rst-content .admonition-title, .rst-content .wy-alert.wy-alert-neutral .admonition-title, .rst-content .wy-alert-neutral.note .admonition-title,
+.rst-content .wy-alert-neutral.attention .admonition-title, .rst-content .wy-alert-neutral.caution .admonition-title, .rst-content .wy-alert-neutral.danger .admonition-title,
+.rst-content .wy-alert-neutral.error .admonition-title, .rst-content .wy-alert-neutral.hint .admonition-title, .rst-content .wy-alert-neutral.important .admonition-title,
+.rst-content .wy-alert-neutral.tip .admonition-title, .rst-content .wy-alert-neutral.warning .admonition-title, .rst-content .wy-alert-neutral.seealso .admonition-title,
+.rst-content .wy-alert-neutral.admonition-todo .admonition-title {
     color: #404040;
     background: #e1e4e5
 }
 
 .wy-alert.wy-alert-neutral a, .rst-content .wy-alert-neutral.note a, .rst-content .wy-alert-neutral.attention a, .rst-content .wy-alert-neutral.caution a, .rst-content .wy-alert-neutral.danger a,
-    .rst-content .wy-alert-neutral.error a, .rst-content .wy-alert-neutral.hint a, .rst-content .wy-alert-neutral.important a, .rst-content .wy-alert-neutral.tip a, .rst-content .wy-alert-neutral.warning a,
-    .rst-content .wy-alert-neutral.seealso a, .rst-content .wy-alert-neutral.admonition-todo a {
+.rst-content .wy-alert-neutral.error a, .rst-content .wy-alert-neutral.hint a, .rst-content .wy-alert-neutral.important a, .rst-content .wy-alert-neutral.tip a, .rst-content .wy-alert-neutral.warning a,
+.rst-content .wy-alert-neutral.seealso a, .rst-content .wy-alert-neutral.admonition-todo a {
     color: #2980B9
 }
 
 .wy-alert p:last-child, .rst-content .note p:last-child, .rst-content .attention p:last-child, .rst-content .caution p:last-child, .rst-content .danger p:last-child, .rst-content .error p:last-child,
-    .rst-content .hint p:last-child, .rst-content .important p:last-child, .rst-content .tip p:last-child, .rst-content .warning p:last-child, .rst-content .seealso p:last-child,
-    .rst-content .admonition-todo p:last-child {
+.rst-content .hint p:last-child, .rst-content .important p:last-child, .rst-content .tip p:last-child, .rst-content .warning p:last-child, .rst-content .seealso p:last-child,
+.rst-content .admonition-todo p:last-child {
     margin-bottom: 0
 }
 
@@ -2567,6 +2573,7 @@ a .fa, a .rst-content .admonition-title, .rst-content a .admonition-title, a .rs
         top: 0;
         width: 100%
     }
+
     .wy-tray-container li {
         width: 100%
     }
@@ -2648,8 +2655,8 @@ button[disabled] {
 
 .btn:disabled {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled= false);
-    filter: alpha(opacity = 40);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    filter: alpha(opacity=40);
     opacity: 0.4;
     cursor: not-allowed;
     box-shadow: none
@@ -2657,8 +2664,8 @@ button[disabled] {
 
 .btn-disabled {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled= false);
-    filter: alpha(opacity = 40);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    filter: alpha(opacity=40);
     opacity: 0.4;
     cursor: not-allowed;
     box-shadow: none
@@ -2666,8 +2673,8 @@ button[disabled] {
 
 .btn-disabled:hover, .btn-disabled:focus, .btn-disabled:active {
     background-image: none;
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled= false);
-    filter: alpha(opacity = 40);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    filter: alpha(opacity=40);
     opacity: 0.4;
     cursor: not-allowed;
     box-shadow: none
@@ -2800,7 +2807,7 @@ button[disabled] {
     padding: 12px
 }
 
-.wy-dropdown-menu>dd>a {
+.wy-dropdown-menu > dd > a {
     display: block;
     clear: both;
     color: #404040;
@@ -2810,36 +2817,36 @@ button[disabled] {
     cursor: pointer
 }
 
-.wy-dropdown-menu>dd>a:hover {
+.wy-dropdown-menu > dd > a:hover {
     background: #2980B9;
     color: #fff
 }
 
-.wy-dropdown-menu>dd.divider {
+.wy-dropdown-menu > dd.divider {
     border-top: solid 1px #cfd7dd;
     margin: 6px 0
 }
 
-.wy-dropdown-menu>dd.search {
+.wy-dropdown-menu > dd.search {
     padding-bottom: 12px
 }
 
-.wy-dropdown-menu>dd.search input[type="search"] {
+.wy-dropdown-menu > dd.search input[type="search"] {
     width: 100%
 }
 
-.wy-dropdown-menu>dd.call-to-action {
+.wy-dropdown-menu > dd.call-to-action {
     background: #e3e3e3;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 80%
 }
 
-.wy-dropdown-menu>dd.call-to-action:hover {
+.wy-dropdown-menu > dd.call-to-action:hover {
     background: #e3e3e3
 }
 
-.wy-dropdown-menu>dd.call-to-action .btn {
+.wy-dropdown-menu > dd.call-to-action .btn {
     color: #fff
 }
 
@@ -2896,7 +2903,7 @@ button[disabled] {
     vertical-align: middle
 }
 
-.wy-form-aligned .wy-control-group>label {
+.wy-form-aligned .wy-control-group > label {
     display: inline-block;
     vertical-align: middle;
     width: 10em;
@@ -2974,7 +2981,7 @@ input, select, textarea {
     clear: both
 }
 
-.wy-control-group.wy-control-group-required>label:after {
+.wy-control-group.wy-control-group-required > label:after {
     content: " *";
     color: #E74C3C
 }
@@ -2988,18 +2995,18 @@ input, select, textarea {
 }
 
 .wy-control-group .wy-form-full input[type="text"], .wy-control-group .wy-form-full input[type="password"], .wy-control-group .wy-form-full input[type="email"], .wy-control-group .wy-form-full input[type="url"],
-    .wy-control-group .wy-form-full input[type="date"], .wy-control-group .wy-form-full input[type="month"], .wy-control-group .wy-form-full input[type="time"], .wy-control-group .wy-form-full input[type="datetime"],
-    .wy-control-group .wy-form-full input[type="datetime-local"], .wy-control-group .wy-form-full input[type="week"], .wy-control-group .wy-form-full input[type="number"],
-    .wy-control-group .wy-form-full input[type="search"], .wy-control-group .wy-form-full input[type="tel"], .wy-control-group .wy-form-full input[type="color"], .wy-control-group .wy-form-halves input[type="text"],
-    .wy-control-group .wy-form-halves input[type="password"], .wy-control-group .wy-form-halves input[type="email"], .wy-control-group .wy-form-halves input[type="url"],
-    .wy-control-group .wy-form-halves input[type="date"], .wy-control-group .wy-form-halves input[type="month"], .wy-control-group .wy-form-halves input[type="time"],
-    .wy-control-group .wy-form-halves input[type="datetime"], .wy-control-group .wy-form-halves input[type="datetime-local"], .wy-control-group .wy-form-halves input[type="week"],
-    .wy-control-group .wy-form-halves input[type="number"], .wy-control-group .wy-form-halves input[type="search"], .wy-control-group .wy-form-halves input[type="tel"],
-    .wy-control-group .wy-form-halves input[type="color"], .wy-control-group .wy-form-thirds input[type="text"], .wy-control-group .wy-form-thirds input[type="password"],
-    .wy-control-group .wy-form-thirds input[type="email"], .wy-control-group .wy-form-thirds input[type="url"], .wy-control-group .wy-form-thirds input[type="date"],
-    .wy-control-group .wy-form-thirds input[type="month"], .wy-control-group .wy-form-thirds input[type="time"], .wy-control-group .wy-form-thirds input[type="datetime"],
-    .wy-control-group .wy-form-thirds input[type="datetime-local"], .wy-control-group .wy-form-thirds input[type="week"], .wy-control-group .wy-form-thirds input[type="number"],
-    .wy-control-group .wy-form-thirds input[type="search"], .wy-control-group .wy-form-thirds input[type="tel"], .wy-control-group .wy-form-thirds input[type="color"] {
+.wy-control-group .wy-form-full input[type="date"], .wy-control-group .wy-form-full input[type="month"], .wy-control-group .wy-form-full input[type="time"], .wy-control-group .wy-form-full input[type="datetime"],
+.wy-control-group .wy-form-full input[type="datetime-local"], .wy-control-group .wy-form-full input[type="week"], .wy-control-group .wy-form-full input[type="number"],
+.wy-control-group .wy-form-full input[type="search"], .wy-control-group .wy-form-full input[type="tel"], .wy-control-group .wy-form-full input[type="color"], .wy-control-group .wy-form-halves input[type="text"],
+.wy-control-group .wy-form-halves input[type="password"], .wy-control-group .wy-form-halves input[type="email"], .wy-control-group .wy-form-halves input[type="url"],
+.wy-control-group .wy-form-halves input[type="date"], .wy-control-group .wy-form-halves input[type="month"], .wy-control-group .wy-form-halves input[type="time"],
+.wy-control-group .wy-form-halves input[type="datetime"], .wy-control-group .wy-form-halves input[type="datetime-local"], .wy-control-group .wy-form-halves input[type="week"],
+.wy-control-group .wy-form-halves input[type="number"], .wy-control-group .wy-form-halves input[type="search"], .wy-control-group .wy-form-halves input[type="tel"],
+.wy-control-group .wy-form-halves input[type="color"], .wy-control-group .wy-form-thirds input[type="text"], .wy-control-group .wy-form-thirds input[type="password"],
+.wy-control-group .wy-form-thirds input[type="email"], .wy-control-group .wy-form-thirds input[type="url"], .wy-control-group .wy-form-thirds input[type="date"],
+.wy-control-group .wy-form-thirds input[type="month"], .wy-control-group .wy-form-thirds input[type="time"], .wy-control-group .wy-form-thirds input[type="datetime"],
+.wy-control-group .wy-form-thirds input[type="datetime-local"], .wy-control-group .wy-form-thirds input[type="week"], .wy-control-group .wy-form-thirds input[type="number"],
+.wy-control-group .wy-form-thirds input[type="search"], .wy-control-group .wy-form-thirds input[type="tel"], .wy-control-group .wy-form-thirds input[type="color"] {
     width: 100%
 }
 
@@ -3065,9 +3072,9 @@ input, select, textarea {
 }
 
 .wy-control-group.fluid-input input[type="text"], .wy-control-group.fluid-input input[type="password"], .wy-control-group.fluid-input input[type="email"], .wy-control-group.fluid-input input[type="url"],
-    .wy-control-group.fluid-input input[type="date"], .wy-control-group.fluid-input input[type="month"], .wy-control-group.fluid-input input[type="time"], .wy-control-group.fluid-input input[type="datetime"],
-    .wy-control-group.fluid-input input[type="datetime-local"], .wy-control-group.fluid-input input[type="week"], .wy-control-group.fluid-input input[type="number"],
-    .wy-control-group.fluid-input input[type="search"], .wy-control-group.fluid-input input[type="tel"], .wy-control-group.fluid-input input[type="color"] {
+.wy-control-group.fluid-input input[type="date"], .wy-control-group.fluid-input input[type="month"], .wy-control-group.fluid-input input[type="time"], .wy-control-group.fluid-input input[type="datetime"],
+.wy-control-group.fluid-input input[type="datetime-local"], .wy-control-group.fluid-input input[type="week"], .wy-control-group.fluid-input input[type="number"],
+.wy-control-group.fluid-input input[type="search"], .wy-control-group.fluid-input input[type="tel"], .wy-control-group.fluid-input input[type="color"] {
     width: 100%
 }
 
@@ -3099,7 +3106,7 @@ input[type="button"], input[type="reset"], input[type="submit"] {
 }
 
 input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="date"], input[type="month"], input[type="time"], input[type="datetime"], input[type="datetime-local"],
-    input[type="week"], input[type="number"], input[type="search"], input[type="tel"], input[type="color"] {
+input[type="week"], input[type="number"], input[type="search"], input[type="tel"], input[type="color"] {
     -webkit-appearance: none;
     padding: 6px;
     display: inline-block;
@@ -3142,8 +3149,8 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
 }
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus,
-    input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus,
-    input[type="color"]:focus {
+input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="search"]:focus, input[type="tel"]:focus,
+input[type="color"]:focus {
     outline: 0;
     outline: thin dotted \9;
     border-color: #333
@@ -3159,8 +3166,8 @@ input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focu
 }
 
 input[type="text"][disabled], input[type="password"][disabled], input[type="email"][disabled], input[type="url"][disabled], input[type="date"][disabled], input[type="month"][disabled],
-    input[type="time"][disabled], input[type="datetime"][disabled], input[type="datetime-local"][disabled], input[type="week"][disabled], input[type="number"][disabled], input[type="search"][disabled],
-    input[type="tel"][disabled], input[type="color"][disabled] {
+input[type="time"][disabled], input[type="datetime"][disabled], input[type="datetime-local"][disabled], input[type="week"][disabled], input[type="number"][disabled], input[type="search"][disabled],
+input[type="tel"][disabled], input[type="color"][disabled] {
     cursor: not-allowed;
     background-color: #f3f6f6;
     color: #cad2d3
@@ -3262,15 +3269,15 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
     border-right: 0
 }
 
-.wy-control-group.wy-control-group-error .wy-form-message, .wy-control-group.wy-control-group-error>label {
+.wy-control-group.wy-control-group-error .wy-form-message, .wy-control-group.wy-control-group-error > label {
     color: #E74C3C
 }
 
 .wy-control-group.wy-control-group-error input[type="text"], .wy-control-group.wy-control-group-error input[type="password"], .wy-control-group.wy-control-group-error input[type="email"],
-    .wy-control-group.wy-control-group-error input[type="url"], .wy-control-group.wy-control-group-error input[type="date"], .wy-control-group.wy-control-group-error input[type="month"],
-    .wy-control-group.wy-control-group-error input[type="time"], .wy-control-group.wy-control-group-error input[type="datetime"], .wy-control-group.wy-control-group-error input[type="datetime-local"],
-    .wy-control-group.wy-control-group-error input[type="week"], .wy-control-group.wy-control-group-error input[type="number"], .wy-control-group.wy-control-group-error input[type="search"],
-    .wy-control-group.wy-control-group-error input[type="tel"], .wy-control-group.wy-control-group-error input[type="color"] {
+.wy-control-group.wy-control-group-error input[type="url"], .wy-control-group.wy-control-group-error input[type="date"], .wy-control-group.wy-control-group-error input[type="month"],
+.wy-control-group.wy-control-group-error input[type="time"], .wy-control-group.wy-control-group-error input[type="datetime"], .wy-control-group.wy-control-group-error input[type="datetime-local"],
+.wy-control-group.wy-control-group-error input[type="week"], .wy-control-group.wy-control-group-error input[type="number"], .wy-control-group.wy-control-group-error input[type="search"],
+.wy-control-group.wy-control-group-error input[type="tel"], .wy-control-group.wy-control-group-error input[type="color"] {
     border: solid 1px #E74C3C
 }
 
@@ -3364,30 +3371,36 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
     .wy-form button[type="submit"] {
         margin: 0.7em 0 0
     }
+
     .wy-form input[type="text"], .wy-form input[type="password"], .wy-form input[type="email"], .wy-form input[type="url"], .wy-form input[type="date"], .wy-form input[type="month"],
-        .wy-form input[type="time"], .wy-form input[type="datetime"], .wy-form input[type="datetime-local"], .wy-form input[type="week"], .wy-form input[type="number"], .wy-form input[type="search"],
-        .wy-form input[type="tel"], .wy-form input[type="color"] {
+    .wy-form input[type="time"], .wy-form input[type="datetime"], .wy-form input[type="datetime-local"], .wy-form input[type="week"], .wy-form input[type="number"], .wy-form input[type="search"],
+    .wy-form input[type="tel"], .wy-form input[type="color"] {
         margin-bottom: 0.3em;
         display: block
     }
+
     .wy-form label {
         margin-bottom: 0.3em;
         display: block
     }
+
     .wy-form input[type="password"], .wy-form input[type="email"], .wy-form input[type="url"], .wy-form input[type="date"], .wy-form input[type="month"], .wy-form input[type="time"],
-        .wy-form input[type="datetime"], .wy-form input[type="datetime-local"], .wy-form input[type="week"], .wy-form input[type="number"], .wy-form input[type="search"], .wy-form input[type="tel"],
-        .wy-form input[type="color"] {
+    .wy-form input[type="datetime"], .wy-form input[type="datetime-local"], .wy-form input[type="week"], .wy-form input[type="number"], .wy-form input[type="search"], .wy-form input[type="tel"],
+    .wy-form input[type="color"] {
         margin-bottom: 0
     }
+
     .wy-form-aligned .wy-control-group label {
         margin-bottom: 0.3em;
         text-align: left;
         display: block;
         width: 100%
     }
+
     .wy-form-aligned .wy-control {
         margin: 1.5em 0 0 0
     }
+
     .wy-form .wy-help-inline, .wy-form-message-inline, .wy-form-message {
         display: block;
         font-size: 80%;
@@ -3441,7 +3454,7 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
 }
 
 .wy-table td:first-child, .rst-content table.docutils td:first-child, .rst-content table.field-list td:first-child, .wy-table th:first-child, .rst-content table.docutils th:first-child,
-    .rst-content table.field-list th:first-child {
+.rst-content table.field-list th:first-child {
     border-left-width: 0
 }
 
@@ -3476,8 +3489,7 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
 }
 
 .wy-table .wy-table-cell-min input[type=checkbox], .rst-content table.docutils .wy-table-cell-min input[type=checkbox], .rst-content table.field-list .wy-table-cell-min input[type=checkbox],
-    .wy-table .wy-table-cell-min input[type=checkbox], .rst-content table.docutils .wy-table-cell-min input[type=checkbox], .rst-content table.field-list .wy-table-cell-min input[type=checkbox]
-    {
+.wy-table .wy-table-cell-min input[type=checkbox], .rst-content table.docutils .wy-table-cell-min input[type=checkbox], .rst-content table.field-list .wy-table-cell-min input[type=checkbox] {
     margin: 0
 }
 
@@ -3508,7 +3520,7 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
     border-left: 1px solid #e1e4e5
 }
 
-.wy-table-bordered-all tbody>tr:last-child td, .rst-content table.docutils tbody>tr:last-child td {
+.wy-table-bordered-all tbody > tr:last-child td, .rst-content table.docutils tbody > tr:last-child td {
     border-bottom-width: 0
 }
 
@@ -3520,11 +3532,11 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
     border-bottom: 1px solid #e1e4e5
 }
 
-.wy-table-bordered-rows tbody>tr:last-child td {
+.wy-table-bordered-rows tbody > tr:last-child td {
     border-bottom-width: 0
 }
 
-.wy-table-horizontal tbody>tr:last-child td {
+.wy-table-horizontal tbody > tr:last-child td {
     border-bottom-width: 0
 }
 
@@ -3533,7 +3545,7 @@ select[disabled], textarea[disabled], input[readonly], select[readonly], textare
     border-bottom: 1px solid #e1e4e5
 }
 
-.wy-table-horizontal tbody>tr:last-child td {
+.wy-table-horizontal tbody > tr:last-child td {
     border-bottom-width: 0
 }
 
@@ -3702,8 +3714,8 @@ code, .rst-content tt {
     line-height: 1.1;
     padding: 3px 5px;
     border-radius: 2px;
-    font-family: "Lucida Sans Typewriter", "Lucida Console", Consolas, "Andale Mono WT", "Andale Mono", "DejaVu Sans Mono","Bitstream Vera Sans Mono", "Liberation Mono",
-        "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    font-family: "Lucida Sans Typewriter", "Lucida Console", Consolas, "Andale Mono WT", "Andale Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
+    "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
     color: #B70000;
     overflow-x: auto
 }
@@ -3799,8 +3811,7 @@ code.code-large, .rst-content tt.code-large {
     margin: 1px 0 24px 0
 }
 
-.codeblock div[class^='highlight'], pre.literal-block div[class^='highlight'], .rst-content .literal-block div[class^='highlight'], div[class^='highlight'] div[class^='highlight']
-    {
+.codeblock div[class^='highlight'], pre.literal-block div[class^='highlight'], .rst-content .literal-block div[class^='highlight'], div[class^='highlight'] div[class^='highlight'] {
     border: none;
     background: none;
     margin: 0
@@ -3815,7 +3826,7 @@ div[class^='highlight'] td.code {
     margin: 0;
     padding: 12px 12px;
     font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
-        "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
     font-size: 12px;
     line-height: 1.5;
     color: #d9d9d9
@@ -3826,7 +3837,7 @@ div[class^='highlight'] pre {
     margin: 0;
     padding: 12px 12px;
     font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono",
-        "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
     font-size: 12px;
     line-height: 1.5;
     display: block;
@@ -4140,6 +4151,7 @@ div[class^='highlight'] pre {
     .wy-breadcrumbs-extra {
         display: none
     }
+
     .wy-breadcrumbs li.wy-breadcrumbs-aside {
         display: none
     }
@@ -4235,7 +4247,7 @@ div[class^='highlight'] pre {
     background: #d6d6d6
 }
 
-.wy-menu-vertical li.on a, .wy-menu-vertical li.current>a {
+.wy-menu-vertical li.on a, .wy-menu-vertical li.current > a {
     color: #404040;
     padding: 0.4045em 1.618em;
     font-weight: bold;
@@ -4247,11 +4259,11 @@ div[class^='highlight'] pre {
     padding-left: 1.618em -4px
 }
 
-.wy-menu-vertical li.on a:hover, .wy-menu-vertical li.current>a:hover {
+.wy-menu-vertical li.on a:hover, .wy-menu-vertical li.current > a:hover {
     background: #fcfcfc
 }
 
-.wy-menu-vertical li.toctree-l2.current>a {
+.wy-menu-vertical li.toctree-l2.current > a {
     background: #c9c9c9;
     padding: 0.4045em 2.427em
 }
@@ -4323,7 +4335,7 @@ div[class^='highlight'] pre {
     border-radius: 100%
 }
 
-.wy-side-nav-search>a, .wy-side-nav-search .wy-dropdown>a {
+.wy-side-nav-search > a, .wy-side-nav-search .wy-dropdown > a {
     color: #fcfcfc;
     font-size: 100%;
     font-weight: bold;
@@ -4332,7 +4344,7 @@ div[class^='highlight'] pre {
     margin-bottom: 0.809em
 }
 
-.wy-side-nav-search>a:hover, .wy-side-nav-search .wy-dropdown>a:hover {
+.wy-side-nav-search > a:hover, .wy-side-nav-search .wy-dropdown > a:hover {
     background: rgba(255, 255, 255, 0.1)
 }
 
@@ -4379,8 +4391,7 @@ div[class^='highlight'] pre {
 
 .wy-body-for-nav {
     background: left repeat-y #fcfcfc;
-    background-image:
-        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxOERBMTRGRDBFMUUxMUUzODUwMkJCOThDMEVFNURFMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxOERBMTRGRTBFMUUxMUUzODUwMkJCOThDMEVFNURFMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjE4REExNEZCMEUxRTExRTM4NTAyQkI5OEMwRUU1REUwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjE4REExNEZDMEUxRTExRTM4NTAyQkI5OEMwRUU1REUwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+EwrlwAAAAA5JREFUeNpiMDU0BAgwAAE2AJgB9BnaAAAAAElFTkSuQmCC);
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxOERBMTRGRDBFMUUxMUUzODUwMkJCOThDMEVFNURFMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxOERBMTRGRTBFMUUxMUUzODUwMkJCOThDMEVFNURFMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjE4REExNEZCMEUxRTExRTM4NTAyQkI5OEMwRUU1REUwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjE4REExNEZDMEUxRTExRTM4NTAyQkI5OEMwRUU1REUwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+EwrlwAAAAA5JREFUeNpiMDU0BAgwAAE2AJgB9BnaAAAAAElFTkSuQmCC);
     background-size: 300px 1px
 }
 
@@ -4515,22 +4526,28 @@ footer p {
     .wy-body-for-nav {
         background: #fcfcfc
     }
+
     .wy-nav-top {
         display: block
     }
+
     .wy-nav-side {
         left: -300px
     }
+
     .wy-nav-side.shift {
         width: 85%;
         left: 0
     }
+
     .wy-nav-content-wrap {
         margin-left: 0
     }
+
     .wy-nav-content-wrap .wy-nav-content {
         padding: 1.618em
     }
+
     .wy-nav-content-wrap.shift {
         position: fixed;
         min-width: 100%;
@@ -4545,6 +4562,7 @@ footer p {
     .wy-nav-content-wrap {
         background: rgba(0, 0, 0, 0.05)
     }
+
     .wy-nav-content {
         margin: 0;
         background: #fcfcfc
@@ -4555,6 +4573,7 @@ footer p {
     .rst-versions, footer, .wy-nav-side {
         display: none
     }
+
     .wy-nav-content-wrap {
         margin-left: 0
     }
@@ -4607,11 +4626,11 @@ nav.stickynav {
 }
 
 .rst-versions .rst-current-version .fa, .rst-versions .rst-current-version .rst-content .admonition-title, .rst-content .rst-versions .rst-current-version .admonition-title,
-    .rst-versions .rst-current-version .rst-content h1 .headerlink, .rst-content h1 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h2 .headerlink,
-    .rst-content h2 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h3 .headerlink, .rst-content h3 .rst-versions .rst-current-version .headerlink,
-    .rst-versions .rst-current-version .rst-content h4 .headerlink, .rst-content h4 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h5 .headerlink,
-    .rst-content h5 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h6 .headerlink, .rst-content h6 .rst-versions .rst-current-version .headerlink,
-    .rst-versions .rst-current-version .rst-content dl dt .headerlink, .rst-content dl dt .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .icon {
+.rst-versions .rst-current-version .rst-content h1 .headerlink, .rst-content h1 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h2 .headerlink,
+.rst-content h2 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h3 .headerlink, .rst-content h3 .rst-versions .rst-current-version .headerlink,
+.rst-versions .rst-current-version .rst-content h4 .headerlink, .rst-content h4 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h5 .headerlink,
+.rst-content h5 .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .rst-content h6 .headerlink, .rst-content h6 .rst-versions .rst-current-version .headerlink,
+.rst-versions .rst-current-version .rst-content dl dt .headerlink, .rst-content dl dt .rst-versions .rst-current-version .headerlink, .rst-versions .rst-current-version .icon {
     color: #fcfcfc
 }
 
@@ -4707,9 +4726,11 @@ nav.stickynav {
         width: 85%;
         display: none
     }
+
     .rst-versions.shift {
         display: block
     }
+
     img {
         width: 100%;
         height: auto
@@ -4729,7 +4750,7 @@ nav.stickynav {
     text-align: center
 }
 
-.rst-content .section>img, .rst-content .section>a>img {
+.rst-content .section > img, .rst-content .section > a > img {
     margin-bottom: 24px
 }
 
@@ -4740,7 +4761,7 @@ nav.stickynav {
 }
 
 .rst-content .note .last, .rst-content .attention .last, .rst-content .caution .last, .rst-content .danger .last, .rst-content .error .last, .rst-content .hint .last, .rst-content .important .last,
-    .rst-content .tip .last, .rst-content .warning .last, .rst-content .seealso .last, .rst-content .admonition-todo .last {
+.rst-content .tip .last, .rst-content .warning .last, .rst-content .seealso .last, .rst-content .admonition-todo .last {
     margin-bottom: 0
 }
 
@@ -4798,14 +4819,14 @@ nav.stickynav {
 }
 
 .rst-content h1 .headerlink, .rst-content h2 .headerlink, .rst-content h3 .headerlink, .rst-content h4 .headerlink, .rst-content h5 .headerlink, .rst-content h6 .headerlink,
-    .rst-content dl dt .headerlink {
+.rst-content dl dt .headerlink {
     display: none;
     visibility: hidden;
     font-size: 14px
 }
 
 .rst-content h1 .headerlink:after, .rst-content h2 .headerlink:after, .rst-content h3 .headerlink:after, .rst-content h4 .headerlink:after, .rst-content h5 .headerlink:after,
-    .rst-content h6 .headerlink:after, .rst-content dl dt .headerlink:after {
+.rst-content h6 .headerlink:after, .rst-content dl dt .headerlink:after {
     visibility: visible;
     content: "";
     font-family: FontAwesome;
@@ -4813,7 +4834,7 @@ nav.stickynav {
 }
 
 .rst-content h1:hover .headerlink, .rst-content h2:hover .headerlink, .rst-content h3:hover .headerlink, .rst-content h4:hover .headerlink, .rst-content h5:hover .headerlink,
-    .rst-content h6:hover .headerlink, .rst-content dl dt:hover .headerlink {
+.rst-content h6:hover .headerlink, .rst-content dl dt:hover .headerlink {
     display: inline-block
 }
 
@@ -4885,7 +4906,7 @@ nav.stickynav {
     padding-top: 5px
 }
 
-.rst-content table.field-list td>strong {
+.rst-content table.field-list td > strong {
     display: inline-block;
     margin-top: 3px
 }
@@ -4934,7 +4955,7 @@ nav.stickynav {
     margin: 0 0 12px 24px
 }
 
-.rst-content dl:not (.docutils ){
+.rst-content dl:not (.docutils ) {
     margin-bottom: 24px
 }
 
@@ -5033,4 +5054,5 @@ span[id*='MathJax-Span'] {
 .math {
     text-align: center
 }
+
 /*# sourceMappingURL=theme.css.map */
