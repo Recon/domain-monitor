@@ -70,11 +70,13 @@ class UserController extends AbstractController
         $user->setUsername($this->request->get('email'));
         $user->setEmail($this->request->get('email'));
         $user->addRole(User::ROLE_USER);
+        if (filter_var($this->request->get('is_administrator'), FILTER_VALIDATE_BOOLEAN)) {
+            $user->addRole(User::ROLE_ADMIN);
+        }
         $user->setSalt($salt);
         $user->setPassword($encoderFactory->getEncoder($user)->encodePassword($this->request->get('password'), $salt));
 
         $this->setUserDomains($user, $this->request->get('domains', []));
-
 
         $messages = $this->getErrorMessages($user);
 
@@ -126,9 +128,18 @@ class UserController extends AbstractController
             }
         }
 
-        if ($this->permissionChecker->isAdmin() && !empty($this->request->get('domains'))) {
-            $this->setUserDomains($user, $this->request->get('domains', []));
+        if ($this->permissionChecker->isAdmin()) {
+            if (!empty($this->request->get('domains'))) {
+                $this->setUserDomains($user, $this->request->get('domains', []));
+            }
+
+            if (filter_var($this->request->get('is_administrator'), FILTER_VALIDATE_BOOLEAN)) {
+                $user->addRole(User::ROLE_ADMIN);
+            } else {
+                $user->removeRole(User::ROLE_ADMIN);
+            }
         }
+
 
         $messages = array_merge($messages, $this->getErrorMessages($user));
         if (count($messages)) {

@@ -5,6 +5,7 @@
 
             var self = this;
 
+            $scope.current_user = userService;
             $scope.user = {};
             $scope.domains = [];
 
