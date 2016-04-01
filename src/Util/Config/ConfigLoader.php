@@ -25,9 +25,9 @@ class ConfigLoader extends AbstractConfig
         }
 
         $yaml = file_get_contents($this->filepath);
-        $parser = new Parser();
 
-        $this->data = $parser->parse($yaml);
+        $parser = new Parser();
+        $this->data = (array)$parser->parse($yaml);
     }
 
     /**

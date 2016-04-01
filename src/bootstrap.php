@@ -73,9 +73,9 @@ $container->set('event_dispatcher', $dispatcher);
  * Config
  */
 $container->register('config_writer', \Util\Config\Install\ConfigFileWriter::class)
-    ->addArgument(__DIR__ . '/Config');
+    ->addArgument(realpath(__DIR__ . '/../config'));
 $container->register('config_loader', \Util\Config\ConfigLoader::class)
-    ->addArgument(__DIR__ . '/Config');
+    ->addArgument(realpath(__DIR__ . '/../config'));
 $container->register('propel_connection_config_factory', \Util\PropelConnectionConfigFactory::class)
     ->addArgument($container->get('config_loader'));
 

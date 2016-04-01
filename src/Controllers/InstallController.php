@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Events\ConfigLoadEvent;
 use Events\VersionChangeEvent;
 use Exceptions\HTTP\Error404;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -74,7 +75,7 @@ class InstallController extends AbstractController
 
             return new RedirectResponse('install');
         } else {
-            $this->saveConfiguration($data);
+            $this->performConfigurationUpdate($data);
 
             return new RedirectResponse('install/done');
         }
@@ -88,13 +89,15 @@ class InstallController extends AbstractController
     }
 
 
-    protected function saveConfiguration($data)
+    protected function performConfigurationUpdate($data)
     {
         unset($data['admin_email'], $data['admin_pass'], $data['admin_pass_repeat']);
         $this->configWriter->writeData($data);
 
-        $event = new VersionChangeEvent();
-        $this->container->get('event_dispatcher')->dispatch(VersionChangeEvent::NAME, $event);
+        $configLoader = $this->container->get('config_loader');
+        $configLoader->load();
+        $this->container->get('event_dispatcher')->dispatch(ConfigLoadEvent::NAME, new ConfigLoadEvent($configLoader));
+        $this->container->get('event_dispatcher')->dispatch(VersionChangeEvent::NAME, new VersionChangeEvent());
     }
 
     protected function denyRequestOnExistingFile()
