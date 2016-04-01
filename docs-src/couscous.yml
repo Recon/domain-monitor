@@ -2,7 +2,7 @@ template:
   directory: ./template
 title: Website Monitor Documentation
 subTitle: null
-baseUrl: /docs/
+baseUrl: "."
 menu:
   sections:
     introduction:

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Domain Monitor" default="build">
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+        <property file="build.properties"/>
+
+        <if>
+            <not>
+                <isset property="build_dir"/>
+            </not>
+            <then>
+                <fail msg="Missing build_dir variable"/>
+            </then>
+        </if>
+
+        <mkdir dir="${build_dir}"/>
+
+        <echo msg="Cleaning working space..."/>
+        <exec command="rm -rf ${build_dir}/*"/>
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build" depends="prepare">
+
+        <echo msg="Copying files to build directory..."/>
+
+        <echo msg="Copying files to ${build_dir} directory..."/>
+        <copy todir="${build_dir}/">
+            <fileset dir="./">
+                <include name="docs/**"></include>
+                <include name="generated-migrations/**"></include>
+                <include name="public_html/**"></include>
+                <exclude name="public_html/.htaccess"></exclude>
+                <exclude name="public_html/docs"></exclude>
+                <include name="src/**"></include>
+                <include name="cli"></include>
+                <include name="Gruntfile.js"></include>
+                <include name="package.json"></include>
+                <include name="readme.md"></include>
+                <include name="composer.json"></include>
+                <include name="composer.lock"></include>
+            </fileset>
+        </copy>
+        <mkdir dir="${build_dir}/config"/>
+
+        <phingcall target="build_composer"/>
+        <phingcall target="build_grunt"/>
+        <phingcall target="build_archive"/>
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- Target: build_composer                        -->
+    <!-- ============================================  -->
+    <target name="build_composer">
+        <echo msg="Running composer install..."/>
+
+        <exec logoutput="false"
+              command="composer install --no-dev --prefer-dist --optimize-autoloader --working-dir=${build_dir} 1> /dev/null"
+              passthru="true"
+        />
+        <exec logoutput="false"
+              command="composer dump-autoload --no-dev --working-dir=${build_dir} 1> /dev/null"
+              passthru="true"
+        />
+
+        <echo msg="Cleaning up composer files..."/>
+        <delete file="${build_dir}/composer.json"/>
+        <delete file="${build_dir}/composer.lock"/>
+        <delete>
+            <fileset dir="${build_dir}/vendor" casesensitive="false">
+                <include name="**/tests/**"/>
+                <include name="**/*phpunit*"/>
+                <include name="**/VERSION"/>
+                <include name="**/CHANGES"/>
+                <include name="**/CHANGELOG*"/>
+                <include name="**/.git*"/>
+                <include name="**/.gitignore"/>
+                <include name="**/.build.xml"/>
+                <include name="**/.travis*"/>
+            </fileset>
+        </delete>
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- Target: build_grunt                           -->
+    <!-- ============================================  -->
+    <target name="build_grunt">
+        <echo msg="Installing Node.js packages..."/>
+        <exec command="npm install 1> /dev/null"
+              dir="${build_dir}"
+              logoutput="false"
+              passthru="true"
+        />
+
+        <echo msg="Running grunt..."/>
+        <exec command="grunt 1> /dev/null"
+              dir="${build_dir}"
+              passthru="true"
+        />
+
+        <if>
+            <not>
+                <available file="${build_dir}/public_html/dist" type="dir"/>
+            </not>
+            <then>
+                <fail msg="Missing assets dist folder after running Grunt, indicating that Grunt ran with errors. Aborting"/>
+            </then>
+        </if>
+
+        <echo msg="Cleaning up assets and grunt files..."/>
+        <delete file="${build_dir}/Gruntfile.js"/>
+        <delete file="${build_dir}/package.json"/>
+        <delete dir="${build_dir}/node_modules"/>
+        <delete dir="${build_dir}/public_html/angular"/>
+        <delete dir="${build_dir}/public_html/bower"/>
+        <delete dir="${build_dir}/public_html/css"/>
+        <delete dir="${build_dir}/public_html/js"/>
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- Target: build_archive                         -->
+    <!-- ============================================  -->
+    <target name="build_archive">
+        <echo msg="Building archive..."/>
+
+        <tar destfile="${build_dir}/domain-monitor-${app_version}.tar.gz" compression="gzip">
+            <fileset refid="buildfiles"/>
+        </tar>
+    </target>
+
+
+    <!-- ============================================  -->
+    <!-- File Sets                                     -->
+    <!-- ============================================  -->
+    <fileset id="buildfiles" dir="${build_dir}">
+        <include name="*"/>
+        <exclude name="package.tar.gz"></exclude>
+    </fileset>
+</project>

@@ -10,9 +10,13 @@
     <title>Website Monitor</title>
     <base href="/">
 
+    <!-- build:css dist/css/style.min.css -->
     <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="bower/angular-loading-bar/build/loading-bar.css" rel="stylesheet">
     <link href="bower/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="bower/amitava82-angular-multiselect/dist/multiselect.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <!-- /build -->
 
     <style>
         body {

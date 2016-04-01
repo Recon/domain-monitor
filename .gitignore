@@ -1,7 +1,10 @@
 propel.yml
 public_html/docs
 public_html/.htaccess
+/node_modules
+/dist
 
+build.properties
 propel.yml
 propel.yml.dist
 
