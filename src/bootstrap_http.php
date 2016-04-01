@@ -22,8 +22,11 @@ $context->fromRequest(Request::createFromGlobals());
 $router = new Router(new YamlFileLoader($locator), 'routes.yml', ['cache_dir' => null], $context);
 $matcher = new UrlMatcher($router->getRouteCollection(), $context);
 
+$path = parse_url($_SERVER['REQUEST_URI'])['path'];
+$path = str_replace('/index.php', '', $path);
+
 try {
-    $parameters = $router->match(parse_url($_SERVER['REQUEST_URI'])['path']);
+    $parameters = $router->match($path);
 } catch (\Symfony\Component\Routing\Exception\ResourceNotFoundException $ex) {
     throw new \Exceptions\HTTP\Error404();
 }

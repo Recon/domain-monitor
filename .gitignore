@@ -1,5 +1,6 @@
 propel.yml
 public_html/docs
+public_html/.htaccess
 
 propel.yml
 propel.yml.dist

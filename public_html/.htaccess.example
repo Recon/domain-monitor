@@ -1,0 +1,57 @@
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+
+    <IfModule mod_headers.c>
+        Header unset X-Powered-By
+        Header set X-Frame-Options SAMEORIGIN;
+        Header set X-UA-Compatible "IE=edge"
+    </IfModule>
+
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+
+    # Apache 2.2
+    <IfModule !mod_authz_core.c>
+        <FilesMatch "\.yml$">
+            Order allow,deny
+            Deny from All
+        </FilesMatch>
+    </IfModule>
+
+    # Apache 2.4
+    <IfModule mod_authz_core.c>
+        <FilesMatch "\.yml$">
+            Require all denied
+        </FilesMatch>
+    </IfModule>
+
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+#   Redirect to HTTPS - uncomment if you plan to use HTTPS
+#    <IfModule mod_rewrite.c>
+#        RewriteEngine On
+#        RewriteCond %{HTTPS} off
+#        RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+#    </IfModule>
+
+
+#    Enable HSTS - uncomment if you plan to use HTTPS
+#    <IfModule mod_headers.c>
+#        Header always set Strict-Transport-Security "max-age=63072000; preload"
+#    </IfModule>
+
+
+#   Pass all requests through index.php
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
