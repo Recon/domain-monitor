@@ -18,14 +18,10 @@
     <link href="css/app.css" rel="stylesheet">
     <!-- /build -->
 
-    <style>
-        body {
-            padding-top: 20px;
-        }
-    </style>
-
+    <!-- build:js dist/js/vendor.min.js -->
     <script src="bower/jquery/dist/jquery.js"></script>
     <script src="bower/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- /build -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,7 +30,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body class="simple">
 
 <div class="container">
     <div class="row">

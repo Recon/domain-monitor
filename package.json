@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "grunt-banner": "^0.6.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",

@@ -49,9 +49,9 @@ module.exports = function (grunt) {
             options: {
                 mangle: false,
                 drop_console: true,
-                preserveComments: 'some'
+                preserveComments: false,
             },
-            dist_js: {
+            dist_vendor: {
                 files: {
                     'public_html/dist/js/vendor.min.js': ['public_html/dist/js/vendor.min.js'],
                     'public_html/dist/js/app.min.js': ['public_html/dist/js/app.min.js']
@@ -60,7 +60,8 @@ module.exports = function (grunt) {
         },
         cssmin: {
             options: {
-                keepSpecialComments: true
+                keepSpecialComments: false,
+                keepBreaks: true
             },
             'default': {
                 files: {
@@ -70,6 +71,22 @@ module.exports = function (grunt) {
                         "public_html/bower/font-awesome/css/font-awesome.css",
                         "public_html/bower/amitava82-angular-multiselect/dist/multiselect.css",
                         "public_html/css/app.css",
+                    ]
+                }
+            }
+        },
+        usebanner: {
+            dist_licenses: {
+                options: {
+                    position: 'top',
+                    banner: '// Complete list of open source libraries and their licenses is available in docs/external-packages.html \n' +
+                    '// Generated: <%= grunt.template.today("dd-mm-yyyy") %>',
+                    linebreak: true
+                },
+                files: {
+                    src: [
+                        'public_html/dist/css/style.min.css',
+                        'public_html/dist/js/vendor.min.js'
                     ]
                 }
             }
@@ -91,5 +108,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-processhtml');
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'processhtml']);
+    grunt.loadNpmTasks('grunt-banner');
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml']);
 };

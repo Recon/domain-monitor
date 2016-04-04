@@ -1,6 +1,9 @@
 body {
     padding-top: 70px;
 }
+body.simple{
+    padding-top: 20px;
+}
 
 .table > tbody > tr > td,
 .table > tbody > tr > th {
