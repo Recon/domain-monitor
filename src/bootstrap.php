@@ -99,7 +99,15 @@ try {
         new \Events\ConfigLoadEvent($container->get('config_loader'))
     );
 } catch (\Exceptions\MissingConfigurationFileException $ex) {
-    if (!filter_input(INPUT_GET, 'redirect', FILTER_VALIDATE_BOOLEAN)) {
+
+    if (php_sapi_name() == 'cli') {
+        print_r(PHP_EOL . 'Could not load config file!' . PHP_EOL);
+        exit(1);
+    }
+
+    if (!filter_input(INPUT_GET, 'redirect',
+            FILTER_VALIDATE_BOOLEAN) && stripos(parse_url($_SERVER['REQUEST_URI'])['path'], '/install') === false
+    ) {
         header("Location: install?redirect=1");
         exit;
     }
