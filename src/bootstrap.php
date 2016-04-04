@@ -141,6 +141,7 @@ $container->setDefinition('test_session_time_provider', $definition);
  * Configure Event System Subscribers
  */
 $dispatcher->addSubscriber(new Subscribers\DomainTestExecutionSubscriber($dispatcher));
+$dispatcher->addSubscriber(new Subscribers\UserDomainConsistencySubscriber());
 $dispatcher->addSubscriber(new Subscribers\TestStatusChangeSubscriber($container->get('test_session_time_provider')));
 $dispatcher->addSubscriber(new Subscribers\StatusChangeNotificationEmailsSubscriber(
         $container->get('test_session_time_provider'),

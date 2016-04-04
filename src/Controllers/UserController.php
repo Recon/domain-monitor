@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Events\UserEvent;
 use Exceptions\HTTP\JSON\UnauthorizedException;
 use Models\DomainQuery;
 use Models\User;
@@ -91,6 +92,8 @@ class UserController extends AbstractController
         $user->save(); // Save after validation due to unique keys
         $connection->commit();
 
+        $this->container->get('event_dispatcher')->dispatch(UserEvent::NAME_ADDED, new UserEvent($user));
+
         return new JsonResponse([
             'success' => true,
         ]);
@@ -152,6 +155,8 @@ class UserController extends AbstractController
 
         $user->save();
         $connection->commit();
+
+        $this->container->get('event_dispatcher')->dispatch(UserEvent::NAME_UPDATED, new UserEvent($user));
 
         return new JsonResponse([
             'success' => true,

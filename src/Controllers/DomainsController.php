@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Events\DomainEvent;
 use Exceptions\HTTP\JSON\ResourceNotFoundException;
 use Exceptions\HTTP\JSON\UnauthorizedException;
 use Models\Domain;
@@ -128,6 +129,8 @@ class DomainsController extends AbstractController
         $user->save();
         $connection->commit();
 
+        $this->container->get('event_dispatcher')->dispatch(DomainEvent::NAME_ADDED, new DomainEvent($domain));
+
         return new JsonResponse([
             'success' => true,
         ]);
@@ -197,6 +200,8 @@ class DomainsController extends AbstractController
         }
 
         $connection->commit();
+
+        $this->container->get('event_dispatcher')->dispatch(DomainEvent::NAME_ADDED, new DomainEvent($domain));
 
         return new JsonResponse([
             'success' => true,

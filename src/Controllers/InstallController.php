@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Events\ConfigLoadEvent;
+use Events\UserEvent;
 use Events\VersionChangeEvent;
 use Exceptions\HTTP\Error404;
 use Models\AccountQuery;
@@ -137,6 +138,7 @@ class InstallController extends AbstractController
             ->setAccount($account)
             ->save();
 
+        $this->container->get('event_dispatcher')->dispatch(UserEvent::NAME_ADDED, new UserEvent($user));
     }
 
     /**
