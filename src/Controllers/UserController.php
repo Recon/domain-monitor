@@ -135,14 +135,16 @@ class UserController extends AbstractController
             if (!empty($this->request->get('domains'))) {
                 $this->setUserDomains($user, $this->request->get('domains', []));
             }
+        }
 
+        // Only allow permission changes for other users
+        if ($this->getLoggedInUser()->getId() != $user->getId() && $this->permissionChecker->isAdmin()) {
             if (filter_var($this->request->get('is_administrator'), FILTER_VALIDATE_BOOLEAN)) {
                 $user->addRole(User::ROLE_ADMIN);
             } else {
                 $user->removeRole(User::ROLE_ADMIN);
             }
         }
-
 
         $messages = array_merge($messages, $this->getErrorMessages($user));
         if (count($messages)) {
