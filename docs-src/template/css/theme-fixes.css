@@ -251,3 +251,10 @@ td, th {
     margin: 0;
 }
 
+.wy-side-nav-search.version{
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    background: #1f1d1d;
+    font-size: 14px;
+    margin-top: -0.85em;
+}

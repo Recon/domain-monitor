@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Monitor Documentation</title>
+    <title>Domain Monitor Documentation</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
@@ -20,23 +20,13 @@
 
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
-                <a href="./"><i class="fa fa-home"></i> Website Monitor Documentation</a>
+                <a href="./"><i class="fa fa-home"></i> Domain Monitor Documentation</a>
+            </div>
+            <div class="wy-side-nav-search version">
+                Version: 0.1
             </div>
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                
-                <!--
-                <form action="./search.html">
-                <input type="text" name="q" id="tipue_search_input"  list="search" placeholder="Search the docs" required>
-                <datalist id="search">
-                <option>Installation</option>
-                <option>User's Manual</option>
-                <option>Common Issues</option>
-                <option>Getting Help</option>
-                </datalist>
-                </form>
-                -->
-
-                                            <p class="menu-section">
+                                                            <p class="menu-section">
                             <i class='fa fa-book'></i> User's Manual
                         </p>
 
@@ -89,10 +79,9 @@
         </nav>
 
         <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
                         <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
                 <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-                <a href="./">Website Monitor Documentation</a>
+                <a href="./">Domain Monitor Documentation</a>
             </nav>
 
 
@@ -125,18 +114,26 @@
 is not provided directly so any custom rules you might need to add won't be accidentally overwritten when performing an upgrade.</p>
 </li>
 <li>
-<p>At this point, visiting <code>monitor.example.com</code> will redirect you to the install page.</p>
-</li>
-<li>
+<p>Visit <code>monitor.example.com</code> - at this point it should redirect you to the install page, which will display a form which asking
+for the MySQL credentials, default user and mail settings</p>
+<blockquote>
 <p>If the install page lists any issues with the requirements, please correct them and refresh the page.</p>
+</blockquote>
 </li>
-<li>
-<p>When all the requirements have been fullfilled, the install page will display a form which will ask for MySQL details, default user and mail settings</p>
-</li>
-<li>After installation, you can login at <code>monitor.example.com/#/login</code></li>
+<li>To trigger the update, you will need to setup a cron job every <strong>x</strong> minutes (recomended: every two minutes) calling the
+<code>cli</code> script from the install directory with the <code>check</code> command:</li>
 </ol>
+<pre><code>*/2 * * * *  /usr/bin/php /full/path/to/install-directory/cli check</code></pre>
+<blockquote>
+<p>After installation, you can login at <code>monitor.example.com/#/login</code></p>
+</blockquote>
 <hr />
 <h5 id="apache-virtual-hosts">Apache Virtual Hosts</h5>
+<p>Locate the virtual host config file (usually in <code>/etc/apache2/sites-available</code>) and make sure that the <code>DocumentRoot</code> entry points to the
+<code>public_html</code> directory: <code>/full/path/to/install-directory/public_html</code></p>
+<blockquote>
+<p>Make sure you have copied <code>public_html/.htaccess.example</code> to <code>public_html/.htaccess</code></p>
+</blockquote>
 <h5 id="nginx-virtual-hosts">NginX Virtual Hosts</h5>
                     </div>
 

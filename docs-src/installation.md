@@ -21,16 +21,26 @@ currentMenu: installation
 3. If you're using an **Apache** server, copy the `public_html/.htaccess.example` to `public_html/.htaccess`. A .htaccess file 
 is not provided directly so any custom rules you might need to add won't be accidentally overwritten when performing an upgrade.
 
-4. At this point, visiting `monitor.example.com` will redirect you to the install page.
+4. Visit `monitor.example.com` - at this point it should redirect you to the install page, which will display a form which asking 
+for the MySQL credentials, default user and mail settings
+> If the install page lists any issues with the requirements, please correct them and refresh the page.
 
-5. If the install page lists any issues with the requirements, please correct them and refresh the page.
+5. To trigger the update, you will need to setup a cron job every **x** minutes (recomended: every two minutes) calling the 
+`cli` script from the install directory with the `check` command:
 
-6. When all the requirements have been fullfilled, the install page will display a form which will ask for MySQL details, default user and mail settings
- 
-7. After installation, you can login at `monitor.example.com/#/login`
+``` 
+*/2 * * * *  /usr/bin/php /full/path/to/install-directory/cli check
+```
+
+> After installation, you can login at `monitor.example.com/#/login`
 
 -----
 
 ##### Apache Virtual Hosts
+
+Locate the virtual host config file (usually in `/etc/apache2/sites-available`) and make sure that the `DocumentRoot` entry points to the 
+`public_html` directory: `/full/path/to/install-directory/public_html`
+
+> Make sure you have copied `public_html/.htaccess.example` to `public_html/.htaccess`
 
 ##### NginX Virtual Hosts

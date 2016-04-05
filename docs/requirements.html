@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Monitor Documentation</title>
+    <title>Domain Monitor Documentation</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
@@ -20,23 +20,13 @@
 
         <nav data-toggle="wy-nav-shift" class="wy-nav-side">
             <div class="wy-side-nav-search">
-                <a href="./"><i class="fa fa-home"></i> Website Monitor Documentation</a>
+                <a href="./"><i class="fa fa-home"></i> Domain Monitor Documentation</a>
+            </div>
+            <div class="wy-side-nav-search version">
+                Version: 0.1
             </div>
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                
-                <!--
-                <form action="./search.html">
-                <input type="text" name="q" id="tipue_search_input"  list="search" placeholder="Search the docs" required>
-                <datalist id="search">
-                <option>Installation</option>
-                <option>User's Manual</option>
-                <option>Common Issues</option>
-                <option>Getting Help</option>
-                </datalist>
-                </form>
-                -->
-
-                                            <p class="menu-section">
+                                                            <p class="menu-section">
                             <i class='fa fa-book'></i> User's Manual
                         </p>
 
@@ -89,10 +79,9 @@
         </nav>
 
         <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
                         <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
                 <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-                <a href="./">Website Monitor Documentation</a>
+                <a href="./">Domain Monitor Documentation</a>
             </nav>
 
 
@@ -102,12 +91,14 @@
                     <div role="main" class="document">
                         <h1 id="requirements">Requirements</h1>
 <p>The application is designed to run on a typical web server using common extension which are already enabled on most of the systems.</p>
+<p>Also, it is designed to run on it's own virtual host</p>
 <h3 id="php">PHP</h3>
 <ul>
-<li>Minimum <strong>PHP 5.5</strong></li>
+<li>Minimum <strong>PHP 5.5</strong> (includidng <strong>7.0</strong>)</li>
 <li><strong>CURL</strong> extension (<a href="http://php.net/manual/en/curl.installation.php">Installation</a>)</li>
 <li><strong>LibXML</strong> extension (enabled by default)(<a href="http://php.net/manual/en/libxml.installation.php">Installation</a>)</li>
 <li><strong>PDO</strong> extension with <strong>MySQL driver</strong> (enabled by default)</li>
+<li><strong>JSON</strong> extension (enabled by default on most OSes)(<a href="http://php.net/manual/en/json.installation.php">Installation</a>)</li>
 <li><strong>SPL components</strong> (enabled by default)</li>
 </ul>
 <h3 id="mysql">MySQL</h3>

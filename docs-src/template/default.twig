@@ -22,21 +22,11 @@
             <div class="wy-side-nav-search">
                 <a href="{{ baseUrl }}/"><i class="fa fa-home"></i> {{ title|default('The title') }}</a>
             </div>
+            <div class="wy-side-nav-search version">
+                Version: {{ version }}
+            </div>
             <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 {% if menu is defined %}
-
-                <!--
-                <form action="{{ baseUrl }}/search.html">
-                <input type="text" name="q" id="tipue_search_input"  list="search" placeholder="Search the docs" required>
-                <datalist id="search">
-                <option>Installation</option>
-                <option>User's Manual</option>
-                <option>Common Issues</option>
-                <option>Getting Help</option>
-                </datalist>
-                </form>
-                -->
-
                     {% for section in menu.sections %}
                         <p class="menu-section">
                             {{ section.name|raw }}
@@ -58,7 +48,6 @@
         </nav>
 
         <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
             {# MOBILE NAV, TRIGGLES SIDE NAV ON TOGGLE #}
             <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
                 <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
