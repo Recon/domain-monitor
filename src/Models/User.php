@@ -3,6 +3,7 @@
 namespace Models;
 
 use Models\Base\User as BaseUser;
+use Propel\Runtime\Connection\PropelPDO;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,6 +32,20 @@ class User extends BaseUser implements UserInterface, EquatableInterface
         $this->setPassword('');
         $this->setSalt('');
     }
+
+    /**
+     * Fixes a bug where an update might occur after eraseCredential() has been called, leaving those fields empty
+     * @return bool
+     */
+    public function preUpdate()
+    {
+        if (!$this->getPassword() || !$this->getSalt()) {
+            return false;
+        }
+
+        return true;
+    }
+
 
     public function isEqualTo(UserInterface $user)
     {

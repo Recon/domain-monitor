@@ -25,6 +25,7 @@ class UserController extends AbstractController
         $username = $this->session->get('auth_token')->getUsername();
 
         $user = UserQuery::create()->findOneByEmail($username);
+        $user->eraseCredentials();
 
         return new JsonResponse($user->toArray(TableMap::TYPE_FIELDNAME));
     }
