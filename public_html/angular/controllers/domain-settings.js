@@ -40,6 +40,11 @@
 
             };
 
+            $scope.removeTest = function (test) {
+                var index = $scope.domain.tests.indexOf(test);
+                $scope.domain.tests.splice(index, 1);
+            };
+
             $scope.save = function () {
                 $scope.messages.errors = [];
                 $scope.messages.added = false;

@@ -10,7 +10,8 @@
             </div>
             <div class="alert alert-danger" ng-show="messages.errors.length > 0">
                 <p>
-                    <i class="fa fa-exclamation-triangle"> <strong>There are some problems with your request</strong></i>
+                    <i class="fa fa-exclamation-triangle"> <strong>There are some problems with your
+                        request</strong></i>
                 </p>
 
                 <ul>
@@ -46,6 +47,13 @@
                                     ng-required="true">
                             </select>
                             <span class="text-info">{{getTestHelpText(test.type)}}</span>
+
+                            <button role="button"
+                                    title="Remove this test"
+                                    class="btn btn-sm pull-right text-danger"
+                                    ng-click="removeTest(test)">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </div>
 
                         <div class="text-right">
@@ -55,13 +63,6 @@
                         </div>
                     </div>
                 </div>
-                <!--
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Check me out
-                    </label>
-                </div>
-                -->
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default">
