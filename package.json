@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "dependencies": {
     "grunt-banner": "^0.6.0",
     "grunt-contrib-clean": "^1.0.0",

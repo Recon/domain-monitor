@@ -10,18 +10,9 @@
     <title>Domain Monitor</title>
     <base href="/">
 
-    <!-- build:css dist/css/style.min.css -->
-    <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="bower/angular-loading-bar/build/loading-bar.css" rel="stylesheet">
-    <link href="bower/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="bower/amitava82-angular-multiselect/dist/multiselect.css" rel="stylesheet">
-    <link href="css/app.css" rel="stylesheet">
-    <!-- /build -->
+    <link rel="stylesheet" href="dist/css/style.min.css"/>
 
-    <!-- build:js dist/js/vendor.min.js -->
-    <script src="bower/jquery/dist/jquery.js"></script>
-    <script src="bower/bootstrap/dist/js/bootstrap.js"></script>
-    <!-- /build -->
+    <script src="dist/js/vendor.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

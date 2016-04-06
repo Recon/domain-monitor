@@ -34,6 +34,12 @@
     <ng-view autoscroll="true"></ng-view>
 </div>
 
+<!-- build:include:demo ../../demo/chunks/footer.html -->
+<!-- /build -->
+
+<!-- build:include:demo ../../demo/chunks/tracking.html -->
+<!-- /build -->
+
 <!-- build:js dist/js/vendor.min.js -->
 <script src="bower/jquery/dist/jquery.js"></script>
 <script src="bower/bootstrap/dist/js/bootstrap.js"></script>

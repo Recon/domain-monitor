@@ -2,6 +2,9 @@
 
 <project name="Domain Monitor" default="build">
 
+    <!-- Set the "demo" parameter to true to build the demo version -->
+    <property name="demo" value="false"/>
+
     <!-- ============================================  -->
     <!-- Target: prepare                               -->
     <!-- ============================================  -->
@@ -35,6 +38,7 @@
         <copy todir="${build_dir}/">
             <fileset dir="./">
                 <include name="docs/**"></include>
+                <include name="demo/**"></include>
                 <include name="generated-migrations/**"></include>
                 <include name="public_html/**"></include>
                 <exclude name="public_html/.htaccess"></exclude>
@@ -101,11 +105,24 @@
               passthru="true"
         />
 
-        <echo msg="Running grunt..."/>
-        <exec command="grunt 1> /dev/null"
-              dir="${build_dir}"
-              passthru="true"
-        />
+
+        <if>
+            <istrue value="${demo}"></istrue>
+            <then>
+                <echo msg="Running grunt (demo)..."/>
+                <exec command="grunt demo 1> /dev/null"
+                      dir="${build_dir}"
+                      passthru="true"
+                />
+            </then>
+            <else>
+                <echo msg="Running grunt (demo)..."/>
+                <exec command="grunt 1> /dev/null"
+                      dir="${build_dir}"
+                      passthru="true"
+                />
+            </else>
+        </if>
 
         <if>
             <not>
@@ -120,6 +137,7 @@
         <delete file="${build_dir}/Gruntfile.js"/>
         <delete file="${build_dir}/package.json"/>
         <delete dir="${build_dir}/node_modules"/>
+        <delete dir="${build_dir}/demo"/>
         <delete dir="${build_dir}/public_html/angular"/>
         <delete dir="${build_dir}/public_html/bower"/>
         <delete dir="${build_dir}/public_html/css"/>

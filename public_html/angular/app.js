@@ -3,7 +3,6 @@
 
     var pathWhitelist = [
         // Whitelist paths which can be accessed without logging in
-        '/',
         '/login',
         '/reset-password/:token'
     ]

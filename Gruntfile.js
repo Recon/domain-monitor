@@ -94,10 +94,28 @@ module.exports = function (grunt) {
         processhtml: {
             options: {},
             dist: {
+                options: {
+                    strip: false
+                },
                 files: {
                     'src/Views/index.php': ['src/Views/index.php'],
                     'src/Views/common/header_light.php': ['src/Views/common/header_light.php'],
                     'src/Views/common/footer_light.php': ['src/Views/common/footer_light.php']
+                }
+            },
+            demo: {
+                files: {
+                    'public_html/templates/login.html': ['public_html/templates/login.html'],
+                    'src/Views/index.php': ['src/Views/index.php'],
+                }
+            },
+            cleanup: {
+                options: {
+                    strip: true
+                },
+                files: {
+                    'public_html/templates/login.html': ['public_html/templates/login.html'],
+                    'src/Views/index.php': ['src/Views/index.php'],
                 }
             }
         },
@@ -109,5 +127,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-banner');
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml']);
+    grunt.loadNpmTasks('grunt-htmlclean');
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:cleanup']);
+    grunt.registerTask('demo', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:demo']);
 };
