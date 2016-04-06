@@ -44,6 +44,16 @@ module.exports = function (grunt) {
                     },
                 ],
             },
+            glyphicons: {
+                files: [
+                    {
+                        cwd: 'public_html/bower/bootstrap/fonts/',
+                        src: '**',
+                        dest: 'public_html/dist/fonts/',
+                        expand: true
+                    },
+                ],
+            },
         },
         uglify: {
             options: {
