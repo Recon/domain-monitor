@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Website Monitor</title>
+    <title>Domain Monitor</title>
     <base href="/">
 
     <link href="bower/bootstrap/dist/css/bootstrap.css" rel="stylesheet">

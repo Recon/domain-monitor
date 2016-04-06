@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Website Monitor</title>
+    <title>Domain Monitor</title>
     <base href="/">
 
     <!-- build:css dist/css/style.min.css -->

@@ -56,7 +56,7 @@ class AuthenticationController extends AbstractController
         $mailer->renderMessageBody('email/reset', [
             'recovery_link' => $this->request->getUriForPath(sprintf('/#/reset-password/%s', $user->getRecoveryToken())),
         ]);
-        $mailer->getMessage()->setSubject("[Website Monitor] Password request");
+        $mailer->getMessage()->setSubject("[Domain Monitor] Password request");
         $mailer->getMessage()->setTo($user->getEmail());
         $mailer->getMessage()->setFrom('websitemonitor@localhost');
         $mailer->send();
