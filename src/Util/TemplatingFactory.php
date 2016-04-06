@@ -12,7 +12,7 @@ class TemplatingFactory
     /**
      * @return PhpEngine
      */
-    public function create()
+    public static function create()
     {
         $loader = new FilesystemLoader(__DIR__ . '/../Views/%name%.php');
 

@@ -15,8 +15,8 @@ currentMenu: installation
 1. Upload the files to your `/full/path/to/install-directory`.  
 
 2. Configure the document root of your virtual host to point to the `public_html` directory (`/full/path/to/install-directory/public_html`)
-    - **Apache** users, [see here](#)
-    - **NginX** users, [see here](#)
+    - **Apache** users, [see here](#apache2)
+    - **NginX** users, [see here](#nginx)
 
 3. If you're using an **Apache** server, copy the `public_html/.htaccess.example` to `public_html/.htaccess`. A .htaccess file 
 is not provided directly so any custom rules you might need to add won't be accidentally overwritten when performing an upgrade.
@@ -36,11 +36,45 @@ for the MySQL credentials, default user and mail settings
 
 -----
 
+<a name="apache2"></a>
 ##### Apache Virtual Hosts
 
-Locate the virtual host config file (usually in `/etc/apache2/sites-available`) and make sure that the `DocumentRoot` entry points to the 
+Locate the virtual host config file (usually in `/etc/apache2/sites-available/`) and make sure that the `DocumentRoot` entry points to the 
 `public_html` directory: `/full/path/to/install-directory/public_html`
 
 > Make sure you have copied `public_html/.htaccess.example` to `public_html/.htaccess`
 
-##### NginX Virtual Hosts
+<a name="nginx"></a>
+##### NginX Virtual Servers
+
+Locate the virtual server config file (usually in `/etc/nginx/sites-available/`) and add/update the following values:
+
+```
+server{
+    
+    
+    ...
+    
+    
+    autoindex off;
+    
+    root "/full/path/to/install-directory/public_html";
+    
+    location ~ /\. {
+        deny all;
+    }
+ 
+    location ~ \.php$ {
+        try_files $uri =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+    
+    
+    ...
+    
+    
+}
+```

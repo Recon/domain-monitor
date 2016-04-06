@@ -105,8 +105,8 @@
 <li>
 <p>Configure the document root of your virtual host to point to the <code>public_html</code> directory (<code>/full/path/to/install-directory/public_html</code>)</p>
 <ul>
-<li><strong>Apache</strong> users, <a href="#">see here</a></li>
-<li><strong>NginX</strong> users, <a href="#">see here</a></li>
+<li><strong>Apache</strong> users, <a href="#apache2">see here</a></li>
+<li><strong>NginX</strong> users, <a href="#nginx">see here</a></li>
 </ul>
 </li>
 <li>
@@ -128,13 +128,39 @@ for the MySQL credentials, default user and mail settings</p>
 <p>After installation, you can login at <code>monitor.example.com/#/login</code></p>
 </blockquote>
 <hr />
+<p><a name="apache2"></a></p>
 <h5 id="apache-virtual-hosts">Apache Virtual Hosts</h5>
-<p>Locate the virtual host config file (usually in <code>/etc/apache2/sites-available</code>) and make sure that the <code>DocumentRoot</code> entry points to the
+<p>Locate the virtual host config file (usually in <code>/etc/apache2/sites-available/</code>) and make sure that the <code>DocumentRoot</code> entry points to the
 <code>public_html</code> directory: <code>/full/path/to/install-directory/public_html</code></p>
 <blockquote>
 <p>Make sure you have copied <code>public_html/.htaccess.example</code> to <code>public_html/.htaccess</code></p>
 </blockquote>
-<h5 id="nginx-virtual-hosts">NginX Virtual Hosts</h5>
+<p><a name="nginx"></a></p>
+<h5 id="nginx-virtual-servers">NginX Virtual Servers</h5>
+<p>Locate the virtual server config file (usually in <code>/etc/nginx/sites-available/</code>) and add/update the following values:</p>
+<pre><code>server{
+
+    ...
+
+    autoindex off;
+
+    root "/full/path/to/install-directory/public_html";
+
+    location ~ /\. {
+        deny all;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    ...
+
+}</code></pre>
                     </div>
 
                     <hr/>
