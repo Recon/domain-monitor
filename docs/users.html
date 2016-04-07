@@ -1,152 +1,132 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domain Monitor Documentation</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" href="./css/theme.css" type="text/css"/>
-    <link rel="stylesheet" href="./css/theme-fixes.css" type="text/css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
-    <link href="./css/tipuesearch.css" rel="stylesheet">
-</head>
-<body class="wy-body-for-nav">
-
-    <div class="wy-grid-for-nav">
-
-        <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-            <div class="wy-side-nav-search">
-                <a href="./"><i class="fa fa-home"></i> Domain Monitor Documentation</a>
-            </div>
-            <div class="wy-side-nav-search version">
-                Version: 0.1
-            </div>
-            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                                                            <p class="menu-section">
-                            <i class='fa fa-book'></i> User's Manual
-                        </p>
-
-                        <ul class="nav nav-pills nav-stacked">
-                                                            <li class="navitems">
-                                    <a href="./index.html">
-                                        Introduction
-                                    </a>
-                                </li>
-                                                            <li class="navitems">
-                                    <a href="./requirements.html">
-                                        Requirements
-                                    </a>
-                                </li>
-                                                            <li class="navitems">
-                                    <a href="./installation.html">
-                                        Installation
-                                    </a>
-                                </li>
-                                                            <li class="navitems">
-                                    <a href="./upgrading.html">
-                                        Upgrading
-                                    </a>
-                                </li>
-                                                    </ul>
-                                            <p class="menu-section">
-                            <i class='fa fa-info-circle'></i> Usage
-                        </p>
-
-                        <ul class="nav nav-pills nav-stacked">
-                                                            <li class="navitems active">
-                                    <a href="./users.html">
-                                        Users and roles
-                                    </a>
-                                </li>
-                                                    </ul>
-                                            <p class="menu-section">
-                            <i class='fa fa-gears'></i> Third Party
-                        </p>
-
-                        <ul class="nav nav-pills nav-stacked">
-                                                            <li class="navitems">
-                                    <a href="./external-packages.html">
-                                        Packages and Libraries
-                                    </a>
-                                </li>
-                                                    </ul>
-                                                </div>
-            &nbsp;
-        </nav>
-
-        <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-                        <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-                <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-                <a href="./">Domain Monitor Documentation</a>
-            </nav>
-
-
-                        
-            <div class="wy-nav-content">
-                <div class="rst-content">
-                    <div role="main" class="document">
-                        <h1 id="users-and-roles">Users and roles</h1>
-<blockquote>
-<p><strong>Note:</strong> During the installation, you will be asked to create an account, which will have administrative roles</p>
-</blockquote>
-<p>There are two types of user:</p>
-<h5 id="administrator">Administrator</h5>
-<ul>
-<li>Can create and update other users (normal or administrators)</li>
-<li>Can remove other users (except his own account)</li>
-<li>Can add new domains and tests</li>
-<li>Will be automatically assigned to all the domains created</li>
-</ul>
-<h5 id="normal-user">Normal user</h5>
-<ul>
-<li>Can't see, edit or remove other users </li>
-<li>Can update his own profile </li>
-<li>Cannot add new domains or test</li>
-<li>Will only see the domains assigned by an administrator</li>
-</ul>
-<hr />
-<h4 id="registration">Registration</h4>
-<p>Since this application is designed to provide a self-hosted monitoring solution for internal use, the registration of
-new users can only be performed by an administrator.</p>
-                    </div>
-
-                    <hr/>
-
-                    <footer>
-                        <small>
-                            This documentation was built using <a href="http://couscous.io/">Couscous</a> using a <a href="https://github.com/CouscousPHP/Template-ReadTheDocs">theme</a> inspired by <a href="https://readthedocs.org/">Read the Docs</a>.
-                        </small>
-                    </footer>
-
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Domain Monitor Documentation</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+        <link rel="stylesheet" href="./css/theme-fixes.css" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+        <link href="./css/tipuesearch.css" rel="stylesheet">
+    </head>
+    <body class="wy-body-for-nav">
+        <div class="wy-grid-for-nav">
+            <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+                <div class="wy-side-nav-search">
+                    <a href="./">
+                        <i class="fa fa-home"></i> Domain Monitor Documentation</a>
                 </div>
-            </div>
-
-        </section>
-
-    </div>
-
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-    <script src="./js/theme.js"></script>
-    <script type="text/javascript" src="./js/generated-toc.js">
-
-    <script>
-        $(function() {
-            // Syntax highlighting
-            hljs.initHighlightingOnLoad();
-        });
-    </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-    
-
-
-
-</body>
+                <div class="wy-side-nav-search version">
+                    Version: 0.1
+                </div>
+                <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                    <p class="menu-section">
+                        <i class='fa fa-book'></i> User's Manual
+                    </p>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="navitems">
+                            <a href="./index.html">
+                                Introduction
+                            </a>
+                        </li>
+                        <li class="navitems">
+                            <a href="./requirements.html">
+                                Requirements
+                            </a>
+                        </li>
+                        <li class="navitems">
+                            <a href="./installation.html">
+                                Installation
+                            </a>
+                        </li>
+                        <li class="navitems">
+                            <a href="./upgrading.html">
+                                Upgrading
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="menu-section">
+                        <i class='fa fa-info-circle'></i> Usage
+                    </p>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="navitems active">
+                            <a href="./users.html">
+                                Users and roles
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="menu-section">
+                        <i class='fa fa-gears'></i> Third Party
+                    </p>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="navitems">
+                            <a href="./external-packages.html">
+                                Packages and Libraries
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                &nbsp;
+            </nav>
+            <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+                <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+                    <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+                    <a href="./">Domain Monitor Documentation</a>
+                </nav>
+                <div class="wy-nav-content">
+                    <div class="rst-content">
+                        <div role="main" class="document">
+                            <h1 id="users-and-roles">Users and roles</h1>
+                            <blockquote>
+                                <p>
+                                    <strong>Note:</strong> During the installation, you will be asked to create an account, which will have administrative roles</p>
+                            </blockquote>
+                            <p>There are two types of user:</p>
+                            <h5 id="administrator">Administrator</h5>
+                            <ul>
+                                <li>Can create and update other users (normal or administrators)</li>
+                                <li>Can remove other users (except his own account)</li>
+                                <li>Can add new domains and tests</li>
+                                <li>Will be automatically assigned to all the domains created</li>
+                            </ul>
+                            <h5 id="normal-user">Normal user</h5>
+                            <ul>
+                                <li>Can't see, edit or remove other users </li>
+                                <li>Can update his own profile </li>
+                                <li>Cannot add new domains or test</li>
+                                <li>Will only see the domains assigned by an administrator</li>
+                            </ul>
+                            <hr />
+                            <h4 id="registration">Registration</h4>
+                            <p>Since this application is designed to provide a self-hosted monitoring solution for internal use, the registration of new users can only be performed by an administrator.</p>
+                        </div>
+                        <hr/>
+                        <footer>
+                            <small>
+                                This documentation was built using
+                                <a href="http://couscous.io/">Couscous</a> using a
+                                <a href="https://github.com/CouscousPHP/Template-ReadTheDocs">theme</a> inspired by
+                                <a href="https://readthedocs.org/">Read the Docs</a>.
+                            </small>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+        <script src="./js/theme.js"></script>
+        <script type="text/javascript" src="./js/generated-toc.js">
+            < script >
+                $(function() {
+                    // Syntax highlighting
+                    hljs.initHighlightingOnLoad();
+                });
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    </body>
 </html>

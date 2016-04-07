@@ -129,6 +129,28 @@ module.exports = function (grunt) {
                 }
             }
         },
+        prettify: {
+            options: {
+                "indent": 4,
+                "indent_char": " ",
+                "indent_scripts": "normal",
+                "wrap_line_length": 0,
+                "brace_style": "collapse",
+                "preserve_newlines": true,
+                "max_preserve_newlines": 1,
+                "unformatted": [
+                    "code",
+                    "pre"
+                ]
+            },
+            docs: {
+                expand: true,
+                cwd: 'docs/',
+                ext: '.html',
+                src: ['*.html'],
+                dest: 'docs/'
+            }
+        }
     });
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -137,7 +159,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-banner');
-    grunt.loadNpmTasks('grunt-htmlclean');
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:cleanup']);
-    grunt.registerTask('demo', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:demo']);
+    grunt.loadNpmTasks('grunt-prettify');
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:cleanup', 'prettify']);
+    grunt.registerTask('demo', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:demo', 'prettify`']);
 };

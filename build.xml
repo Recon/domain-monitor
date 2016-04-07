@@ -116,7 +116,7 @@
                 />
             </then>
             <else>
-                <echo msg="Running grunt (demo)..."/>
+                <echo msg="Running grunt..."/>
                 <exec command="grunt 1> /dev/null"
                       dir="${build_dir}"
                       passthru="true"
