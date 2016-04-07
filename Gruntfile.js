@@ -161,5 +161,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-banner');
     grunt.loadNpmTasks('grunt-prettify');
     grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:cleanup', 'prettify']);
-    grunt.registerTask('demo', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:demo', 'prettify`']);
+    grunt.registerTask('demo', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'usebanner', 'processhtml:dist', 'processhtml:demo', 'prettify']);
 };
