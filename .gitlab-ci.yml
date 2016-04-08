@@ -1,0 +1,15 @@
+before_script:
+  - composer self-update
+  - composer install --prefer-dist > /dev/null
+
+php:5.5:
+  image: bobey/docker-gitlab-ci-runner-php5.5
+  script:
+    - echo "Running PHPUnit Tests"
+    - php vendor/bin/phpunit --colors --debug  --coverage-text
+
+php:5.6:
+  image: bobey/docker-gitlab-ci-runner-php5.6
+  script:
+    - echo "Running PHPUnit Tests"
+    - php vendor/bin/phpunit --colors --debug  --coverage-text
