@@ -1,5 +1,16 @@
 # Domain Monitor
 
+
+## Online documentation: 
+
+[docs.domain-monitor.corneliupr.com/0.1/](http://docs.domain-monitor.corneliupr.com/0.1/)
+
+## Online demo:
+
+[demo.domain-monitor.corneliupr.com/](http://demo.domain-monitor.corneliupr.com/)
+
+----
+
 ### Installing for production use
 
 Refer to [docs/installation.html entry](docs/installation.html)
