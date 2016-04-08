@@ -75,12 +75,18 @@ class UserController extends AbstractController
         if (filter_var($this->request->get('is_administrator'), FILTER_VALIDATE_BOOLEAN)) {
             $user->addRole(User::ROLE_ADMIN);
         }
+
         $user->setSalt($salt);
-        $user->setPassword($encoderFactory->getEncoder($user)->encodePassword($this->request->get('password'), $salt));
+        $password = $this->request->get('password');
+        $user->setPassword($password ? $encoderFactory->getEncoder($user)->encodePassword($password, $salt) : '');
 
         $this->setUserDomains($user, $this->request->get('domains', []));
 
         $messages = $this->getErrorMessages($user);
+
+        if ($this->request->get('password') != $this->request->get('password2')) {
+            $messages[] = "The two passwords do not match";
+        }
 
         if (count($messages)) {
             $connection->rollBack();

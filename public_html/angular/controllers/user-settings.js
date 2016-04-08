@@ -41,6 +41,7 @@
             this.save = function (route, messageKey) {
                 $http.post(route, $scope.user).then(function (response) {
                     if (response.data.success === true) {
+                        $scope.messages.errors = '';
                         $scope.messages[messageKey] = true;
 
                         $timeout(function () {
