@@ -1,5 +1,6 @@
 # Domain Monitor
 
+[![build status](https://gitlab.com/corneliupr/domain-monitor/badges/master/build.svg)](https://gitlab.com/corneliupr/domain-monitor/commits/master)
 
 ## Online documentation: 
 
@@ -13,7 +14,7 @@
 
 ### Installing for production use
 
-Refer to [docs/installation.html entry](docs/installation.html)
+Refer to [docs/installation.html entry](https://docs.domain-monitor.corneliupr.com/0.1/installation.html/docs/installation.html)
 
 ### Installing a development copy
 
@@ -27,6 +28,10 @@ Refer to [docs/installation.html entry](docs/installation.html)
     - `propel.database.connection.default.password`
 - Run `vendor/bin/propel config:convert`
 - Run `vendor/bin/propel migrate`
+
+### Issues
+
+This project is hosted on [gitlab.com/corneliupr/website-monitor](https://gitlab.com/corneliupr/website-monitor)
 
 ---
 
