@@ -14,7 +14,7 @@
 
 ### Installing for production use
 
-Refer to [docs/installation.html entry](https://docs.domain-monitor.corneliupr.com/0.1/installation.html/docs/installation.html)
+Refer to [docs/installation.html entry](http://docs.domain-monitor.corneliupr.com/0.1/installation.html)
 
 ### Installing a development copy
 
