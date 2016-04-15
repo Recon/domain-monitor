@@ -33,6 +33,14 @@ Refer to [docs/installation.html entry](https://docs.domain-monitor.corneliupr.c
 
 This project is hosted on [gitlab.com/corneliupr/website-monitor](https://gitlab.com/corneliupr/website-monitor)
 
+### License
+
+MIT
+
+### Third-party libraries and packages used 
+
+Refer to [docs/external-packages.html entry](http://docs.domain-monitor.corneliupr.com/0.1/external-packages.html)
+
 ---
 
 [corneliupr.com](https://corneliupr.com)
